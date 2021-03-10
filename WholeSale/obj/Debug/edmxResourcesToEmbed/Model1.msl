@@ -1,0 +1,543 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ynddevModelStoreContainer" CdmEntityContainer="ynddevEntities">
+    <EntitySetMapping Name="AccountReceives">
+      <EntityTypeMapping TypeName="ynddevModel.AccountReceive">
+        <MappingFragment StoreEntitySet="AccountReceive">
+          <ScalarProperty Name="arId" ColumnName="arId" />
+          <ScalarProperty Name="docId" ColumnName="docId" />
+          <ScalarProperty Name="refDocId" ColumnName="refDocId" />
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+          <ScalarProperty Name="creditAmont" ColumnName="creditAmont" />
+          <ScalarProperty Name="debitAmount" ColumnName="debitAmount" />
+          <ScalarProperty Name="paymentType" ColumnName="paymentType" />
+          <ScalarProperty Name="pay" ColumnName="pay" />
+          <ScalarProperty Name="change" ColumnName="change" />
+          <ScalarProperty Name="balance" ColumnName="balance" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Balances">
+      <EntityTypeMapping TypeName="ynddevModel.Balance">
+        <MappingFragment StoreEntitySet="Balance">
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="avgPrice" ColumnName="avgPrice" />
+          <ScalarProperty Name="maxPrice" ColumnName="maxPrice" />
+          <ScalarProperty Name="maxPriceQty" ColumnName="maxPriceQty" />
+          <ScalarProperty Name="minPrice" ColumnName="minPrice" />
+          <ScalarProperty Name="minPriceQty" ColumnName="minPriceQty" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Branches">
+      <EntityTypeMapping TypeName="ynddevModel.Branch">
+        <MappingFragment StoreEntitySet="Branch">
+          <ScalarProperty Name="branchID" ColumnName="branchID" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+          <ScalarProperty Name="branchName" ColumnName="branchName" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateBy" ColumnName="updateBy" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Brands">
+      <EntityTypeMapping TypeName="ynddevModel.Brand">
+        <MappingFragment StoreEntitySet="Brand">
+          <ScalarProperty Name="brandId" ColumnName="brandId" />
+          <ScalarProperty Name="brandName" ColumnName="brandName" />
+          <ScalarProperty Name="brandType" ColumnName="brandType" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="ynddevModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="categoryName" ColumnName="categoryName" />
+          <ScalarProperty Name="subCategoryId" ColumnName="subCategoryId" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="ynddevModel.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="compId" ColumnName="compId" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="compName" ColumnName="compName" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="updateBy" ColumnName="updateBy" />
+          <ScalarProperty Name="updateDate" ColumnName="updateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="ynddevModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="customerName" ColumnName="customerName" />
+          <ScalarProperty Name="customerLevel" ColumnName="customerLevel" />
+          <ScalarProperty Name="customerCurPnt" ColumnName="customerCurPnt" />
+          <ScalarProperty Name="customerTolPnt" ColumnName="customerTolPnt" />
+          <ScalarProperty Name="contactName" ColumnName="contactName" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="postal" ColumnName="postal" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Devices">
+      <EntityTypeMapping TypeName="ynddevModel.Device">
+        <MappingFragment StoreEntitySet="Device">
+          <ScalarProperty Name="deviceId" ColumnName="deviceId" />
+          <ScalarProperty Name="deviceName" ColumnName="deviceName" />
+          <ScalarProperty Name="deviceType" ColumnName="deviceType" />
+          <ScalarProperty Name="deviceSerialNo" ColumnName="deviceSerialNo" />
+          <ScalarProperty Name="curValue" ColumnName="curValue" />
+          <ScalarProperty Name="tolValue" ColumnName="tolValue" />
+          <ScalarProperty Name="isOpen" ColumnName="isOpen" />
+          <ScalarProperty Name="expireDate" ColumnName="expireDate" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createDate" ColumnName="createDate" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editDate" ColumnName="editDate" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Documents">
+      <EntityTypeMapping TypeName="ynddevModel.Document">
+        <MappingFragment StoreEntitySet="Document">
+          <ScalarProperty Name="documentId" ColumnName="documentId" />
+          <ScalarProperty Name="documentNo" ColumnName="documentNo" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+          <ScalarProperty Name="totalVat" ColumnName="totalVat" />
+          <ScalarProperty Name="totalDc" ColumnName="totalDc" />
+          <ScalarProperty Name="totalQty" ColumnName="totalQty" />
+          <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+          <ScalarProperty Name="isOrder" ColumnName="isOrder" />
+          <ScalarProperty Name="isTax" ColumnName="isTax" />
+          <ScalarProperty Name="paidType" ColumnName="paidType" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DocumentLines">
+      <EntityTypeMapping TypeName="ynddevModel.DocumentLine">
+        <MappingFragment StoreEntitySet="DocumentLine">
+          <ScalarProperty Name="DocumentLineId" ColumnName="DocumentLineId" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="DocumentNo" ColumnName="DocumentNo" />
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+          <ScalarProperty Name="invoiceNo" ColumnName="invoiceNo" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="vatType" ColumnName="vatType" />
+          <ScalarProperty Name="dcPrice" ColumnName="dcPrice" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+          <ScalarProperty Name="vat" ColumnName="vat" />
+          <ScalarProperty Name="amountIncludeVat" ColumnName="amountIncludeVat" />
+          <ScalarProperty Name="discountUnit" ColumnName="discountUnit" />
+          <ScalarProperty Name="discountTotal" ColumnName="discountTotal" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="ynddevModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="empId" ColumnName="empId" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="passcode" ColumnName="passcode" />
+          <ScalarProperty Name="token" ColumnName="token" />
+          <ScalarProperty Name="fName" ColumnName="fName" />
+          <ScalarProperty Name="lName" ColumnName="lName" />
+          <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="postal" ColumnName="postal" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Groups">
+      <EntityTypeMapping TypeName="ynddevModel.Group">
+        <MappingFragment StoreEntitySet="Group">
+          <ScalarProperty Name="groupId" ColumnName="groupId" />
+          <ScalarProperty Name="groupName" ColumnName="groupName" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoices">
+      <EntityTypeMapping TypeName="ynddevModel.Invoice">
+        <MappingFragment StoreEntitySet="Invoice">
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+          <ScalarProperty Name="invoiceNo" ColumnName="invoiceNo" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+          <ScalarProperty Name="totalVat" ColumnName="totalVat" />
+          <ScalarProperty Name="totalDc" ColumnName="totalDc" />
+          <ScalarProperty Name="totalQty" ColumnName="totalQty" />
+          <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InvoiceLines">
+      <EntityTypeMapping TypeName="ynddevModel.InvoiceLine">
+        <MappingFragment StoreEntitySet="InvoiceLine">
+          <ScalarProperty Name="invoiceLineId" ColumnName="invoiceLineId" />
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+          <ScalarProperty Name="invoiceNo" ColumnName="invoiceNo" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+          <ScalarProperty Name="vatType" ColumnName="vatType" />
+          <ScalarProperty Name="vatPrice" ColumnName="vatPrice" />
+          <ScalarProperty Name="dcPrice" ColumnName="dcPrice" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MovementTypes">
+      <EntityTypeMapping TypeName="ynddevModel.MovementType">
+        <MappingFragment StoreEntitySet="MovementType">
+          <ScalarProperty Name="movementTypeId" ColumnName="movementTypeId" />
+          <ScalarProperty Name="movementName" ColumnName="movementName" />
+          <ScalarProperty Name="signInteger" ColumnName="signInteger" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="ynddevModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="orderTypeId" ColumnName="orderTypeId" />
+          <ScalarProperty Name="customerId" ColumnName="customerId" />
+          <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+          <ScalarProperty Name="routeId" ColumnName="routeId" />
+          <ScalarProperty Name="totalVat" ColumnName="totalVat" />
+          <ScalarProperty Name="totalDc" ColumnName="totalDc" />
+          <ScalarProperty Name="totalQty" ColumnName="totalQty" />
+          <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="remark" ColumnName="remark" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderLines">
+      <EntityTypeMapping TypeName="ynddevModel.OrderLine">
+        <MappingFragment StoreEntitySet="OrderLine">
+          <ScalarProperty Name="orderLineId" ColumnName="orderLineId" />
+          <ScalarProperty Name="orderId" ColumnName="orderId" />
+          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+          <ScalarProperty Name="vatType" ColumnName="vatType" />
+          <ScalarProperty Name="vatPrice" ColumnName="vatPrice" />
+          <ScalarProperty Name="dcPrice" ColumnName="dcPrice" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderTypes">
+      <EntityTypeMapping TypeName="ynddevModel.OrderType">
+        <MappingFragment StoreEntitySet="OrderType">
+          <ScalarProperty Name="orderTypeId" ColumnName="orderTypeId" />
+          <ScalarProperty Name="orderTypeName" ColumnName="orderTypeName" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="ynddevModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productTypeId" ColumnName="productTypeId" />
+          <ScalarProperty Name="productRefId" ColumnName="productRefId" />
+          <ScalarProperty Name="categoryId" ColumnName="categoryId" />
+          <ScalarProperty Name="typeId" ColumnName="typeId" />
+          <ScalarProperty Name="groupId" ColumnName="groupId" />
+          <ScalarProperty Name="unitId" ColumnName="unitId" />
+          <ScalarProperty Name="minPrice" ColumnName="minPrice" />
+          <ScalarProperty Name="maxPrice" ColumnName="maxPrice" />
+          <ScalarProperty Name="previousPrice" ColumnName="previousPrice" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="reqSn" ColumnName="reqSn" />
+          <ScalarProperty Name="ctlExpDate" ColumnName="ctlExpDate" />
+          <ScalarProperty Name="image1Id" ColumnName="image1Id" />
+          <ScalarProperty Name="image2Id" ColumnName="image2Id" />
+          <ScalarProperty Name="image3Id" ColumnName="image3Id" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductTypes">
+      <EntityTypeMapping TypeName="ynddevModel.ProductType">
+        <MappingFragment StoreEntitySet="ProductType">
+          <ScalarProperty Name="productTypeId" ColumnName="productTypeId" />
+          <ScalarProperty Name="productTypeName" ColumnName="productTypeName" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Routes">
+      <EntityTypeMapping TypeName="ynddevModel.Route">
+        <MappingFragment StoreEntitySet="Route">
+          <ScalarProperty Name="routeId" ColumnName="routeId" />
+          <ScalarProperty Name="routeName" ColumnName="routeName" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="ynddevModel.Transaction">
+        <MappingFragment StoreEntitySet="Transaction">
+          <ScalarProperty Name="transactionId" ColumnName="transactionId" />
+          <ScalarProperty Name="documentLineId" ColumnName="documentLineId" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="invoiceLineId" ColumnName="invoiceLineId" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="movementTypeId" ColumnName="movementTypeId" />
+          <ScalarProperty Name="qty" ColumnName="qty" />
+          <ScalarProperty Name="unit" ColumnName="unit" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Types">
+      <EntityTypeMapping TypeName="ynddevModel.Type">
+        <MappingFragment StoreEntitySet="Type">
+          <ScalarProperty Name="typeId" ColumnName="typeId" />
+          <ScalarProperty Name="typeName" ColumnName="typeName" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Units">
+      <EntityTypeMapping TypeName="ynddevModel.Unit">
+        <MappingFragment StoreEntitySet="Unit">
+          <ScalarProperty Name="unitId" ColumnName="unitId" />
+          <ScalarProperty Name="unitName" ColumnName="unitName" />
+          <ScalarProperty Name="detail" ColumnName="detail" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendors">
+      <EntityTypeMapping TypeName="ynddevModel.Vendor">
+        <MappingFragment StoreEntitySet="Vendor">
+          <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+          <ScalarProperty Name="vendorName" ColumnName="vendorName" />
+          <ScalarProperty Name="contactName" ColumnName="contactName" />
+          <ScalarProperty Name="address1" ColumnName="address1" />
+          <ScalarProperty Name="address2" ColumnName="address2" />
+          <ScalarProperty Name="city" ColumnName="city" />
+          <ScalarProperty Name="postal" ColumnName="postal" />
+          <ScalarProperty Name="tel" ColumnName="tel" />
+          <ScalarProperty Name="mobile" ColumnName="mobile" />
+          <ScalarProperty Name="fax" ColumnName="fax" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="tolPoint" ColumnName="tolPoint" />
+          <ScalarProperty Name="orderBy" ColumnName="orderBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
