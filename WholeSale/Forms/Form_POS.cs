@@ -182,9 +182,13 @@ namespace WholeSale.Forms
             else
             {
 
-                string message = "ไม่พบรายการสินค้าที่ท่านสแกน";
-                string title = "กรุณาตรวจสอบ";
-                MessageBox.Show(message, title);
+          
+                using (Modal_MsgBox msg = new Modal_MsgBox("ไม่พบรายการสินค้าที่ท่านสแกน"))
+                {
+                    msg.StartPosition = FormStartPosition.CenterParent;
+                    msg.ShowDialog();
+
+                }
             }
         }
 
