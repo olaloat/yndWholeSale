@@ -191,6 +191,12 @@
     <Compile Include="Forms\Form_Search_Product.Designer.cs">
       <DependentUpon>Form_Search_Product.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Form_Test_Connection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Form_Test_Connection.Designer.cs">
+      <DependentUpon>Form_Test_Connection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FrmTestPrint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -340,6 +346,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_Search_Product.resx">
       <DependentUpon>Form_Search_Product.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Form_Test_Connection.resx">
+      <DependentUpon>Form_Test_Connection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmTestPrint.resx">
       <DependentUpon>FrmTestPrint.cs</DependentUpon>
