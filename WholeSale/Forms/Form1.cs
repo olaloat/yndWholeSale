@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +12,9 @@ namespace WholeSale
 {
     public partial class Form1 : Form
     {
+        private string userName = "";
+        private string passcode = "";
+        
         public Form1()
         {
             InitializeComponent();
@@ -39,21 +42,13 @@ namespace WholeSale
 
         }
 
-        private void button11_Click(object sender, EventArgs e)
-        {
-            using (Form_Dashboard fb = new Form_Dashboard())
-            {
-                fb.ShowDialog();
-            }
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             ynddevEntities ynd = new ynddevEntities();
             //var userList = (from a in ynd.Employees where a.fName == "satit" select new Employee() { fName = a.fName, lName = a.lName }).ToList();
             //var userList2 = ynd.Employees.Where(w => w.fName == "satit").Select(s => new Employee() { fName = s.fName, lName = s.lName }).ToList();
             //List<Employee> employee = new List<Employee>();
-            var employee = ynd.Employees.Select(s => new { fName = s.fName, lName = s.lName}).ToList();
+            var employee = ynd.Employees.Where(w => w.isActive == true).Select(s => new { username = s.username, passcode = s.passcode,  fName = s.fName, lName = s.lName}).ToList();
              
             //var test = ynd.Employees.Find(1);
 
@@ -87,9 +82,62 @@ namespace WholeSale
                 btn.UseVisualStyleBackColor = true;
                 //btn.TabIndex = ;
                 btn.Size = new System.Drawing.Size(126, 66);
-                btn.Name = a.fName;
+                btn.Name = a.username;
+                btn.Tag = a.passcode;
+                btn.Click += new EventHandler(LogOnInfo);
                 flowLayoutPanel1.Controls.Add(btn);
             }
+
+            
+        }
+
+        private void LogOnInfo(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            userName = btn.Name;
+            passcode = btn.Tag.ToString();
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            if (userName == "" && passcode == "")
+            {
+                MessageBox.Show("Please click your name");
+                reset();
+            }
+            else
+            {
+                if (txtPassword.TextLength > 0)
+                {
+                    if (txtPassword.Text.Trim() == passcode)
+                    {        
+                        using (Form_Dashboard fb = new Form_Dashboard())
+                        {
+                            reset();
+                            fb.StartPosition = FormStartPosition.CenterParent;
+                            fb.ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Wrong passcode");
+                        reset();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Please fill your passcode");
+                }
+            }
+
+            
+        }
+
+        private void reset()
+        {
+            userName = "";
+            passcode = "";
+            txtPassword.Clear();
         }
     }
 }
