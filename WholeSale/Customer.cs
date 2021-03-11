@@ -29,7 +29,6 @@ namespace WholeSale
         public string address1 { get; set; }
         public string address2 { get; set; }
         public string city { get; set; }
-     
         public string postal { get; set; }
         public string tel { get; set; }
         public string mobile { get; set; }
