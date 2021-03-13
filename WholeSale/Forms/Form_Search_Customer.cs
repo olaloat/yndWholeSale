@@ -38,69 +38,14 @@ namespace WholeSale.Forms
 
         private void loadCustomer()
         {
-
-        //    this.pnGrid.Controls.Add(grdProd);
-         //   grdProd.Dock = System.Windows.Forms.DockStyle.Fill;
-        
             var customerSearchList = (from a in yndInven.Customers select a  ).ToList();
             bsCustomer = new BindingSource();
-            //this.dtg_prd = new DataGridView();
-
-          //  bsCustomer.DataSource = customerSearchList;
-
-          //  dtgCustomer.DataSource = bsCustomer;
-
-         
-
-
-
             dtCustomer = Global.ToDataTable(customerSearchList);
             dvCustomer = new DataView(dtCustomer);
             bsCustomer.DataSource = dvCustomer;
             dtgCustomer.DataSource = bsCustomer;
             this.dtgCustomer.ReadOnly = true;
             this.dtgCustomer.AllowUserToAddRows = false;
-
-
-
-
-
-
-            //dtPrd = Global.ToDataTable(productSearchList);
-            //dvProd = new DataView(dtPrd);
-            //grdProd.AutoRedraw = false;
-            //grdProd.DataSource = dvProd;
-            //grdProd = util.autoFit(grdProd);
-
-
-
-
-
-
-            //grdProd = util.chnageGridColumnName(grdProd, dtPrd, "productCode", "รหัสสินค้า");
-            //grdProd = util.chnageGridColumnName(grdProd, dtPrd, "productName", "ชื่อสินค้า");
-            //grdProd = util.chnageGridColumnName(grdProd, dtPrd, "unit", "หน่วย");
-            //grdProd = util.chnageGridColumnName(grdProd, dtPrd, "price", "ราคา/หน่วย");
-            //grdProd = util.chnageGridColumnName(grdProd, dtPrd, "type", "ประเภท");
-            //grdProd = util.chnageGridColumnName(grdProd, dtPrd, "category", "หมวดหมู่");
-            //grdProd.DisplayRowNumber = true;
-
-
-            //grdProd.AutoRedraw = true;
-            //grdProd.Locked = true;
-
-
-
-
-
-
-
-            //grdProd.Refresh();
-
-
-
-            //grdProd.DoubleClick += new FlexCell.Grid.DoubleClickEventHandler(GrdList_DoubleClick);
-
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -118,9 +63,6 @@ namespace WholeSale.Forms
                 {
                     loadCustomer();
                     isAddCustomerComplete = false;
-                    //load product again
-
-
                 }
             }
         }
@@ -165,40 +107,6 @@ namespace WholeSale.Forms
                 filter = filter.Substring(0, filter.Length - 3);
                 dvCustomer.RowFilter = filter; } // " productCode like '%" + tbProdCode.Text + "%' or productName like '%" + tbProdName.Text +"%'" +" or category like '%" + cbCatagory.Text + "%'" +" or type like '%" + cbType.Text + "%'";
         }
-
-        //private void dtgCustomer_DoubleClick(object sender, DataGridViewCellMouseEventHandler e)
-
-        //{
-           
-
-        //    if (e.RowIndex >= 0) {
-
-        //        customerInfo.clear();
-
-
-        //        int colsCustomerName = dtCustomer.Columns["customerName"].Ordinal ;
-        //        int colsAddress1 = dtCustomer.Columns["address1"].Ordinal ;
-        //        int colsAddress2 = dtCustomer.Columns["address2"].Ordinal;
-        //        int colsCity = dtCustomer.Columns["city"].Ordinal;
-        //        int colsPostal = dtCustomer.Columns["postal"].Ordinal;
-
-        //        string address = dtgCustomer.Rows[e.RowIndex].Cells[colsAddress1].Value.ToString() + " " + dtgCustomer.Rows[e.RowIndex].Cells[colsAddress2].Value.ToString() + " " +
-        //            dtgCustomer.Rows[e.RowIndex].Cells[colsCity].Value.ToString() + " " + dtgCustomer.Rows[e.RowIndex].Cells[colsCustomerName].Value.ToString();
-
-
-        //        customerInfo.customerAddress = address;
-        //        customerInfo.customerName = dtgCustomer.Rows[e.RowIndex].Cells[colsCustomerName].Value.ToString();
-        //        customerInfo.isSelected = true;
-        //        this.Dispose();
-
-        //    }
-
-           
-
-
-
-
-        //}
 
    
         private void dtgCustomer_CellDoubleClick(object sender, DataGridViewCellEventHandler e)

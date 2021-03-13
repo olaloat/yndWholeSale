@@ -31,22 +31,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Pending));
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.dtgHoldingList = new System.Windows.Forms.DataGridView();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button10 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Price = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Discount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgHoldingList)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,40 +66,29 @@
             this.label3.TabIndex = 40;
             this.label3.Text = "Copyrights 2021. All rights reserved By BA";
             // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id,
-            this.Name,
-            this.Unit,
-            this.Price,
-            this.Qty,
-            this.Discount,
-            this.Total});
-            this.dataGridView1.Location = new System.Drawing.Point(7, 32);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(1699, 594);
-            this.dataGridView1.TabIndex = 28;
-            this.dataGridView1.TabStop = false;
-            // 
             // panel2
             // 
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel2.Controls.Add(this.dataGridView1);
+            this.panel2.Controls.Add(this.dtgHoldingList);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Location = new System.Drawing.Point(12, 51);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1712, 634);
             this.panel2.TabIndex = 41;
+            // 
+            // dtgHoldingList
+            // 
+            this.dtgHoldingList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgHoldingList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dtgHoldingList.Location = new System.Drawing.Point(0, 0);
+            this.dtgHoldingList.Name = "dtgHoldingList";
+            this.dtgHoldingList.Size = new System.Drawing.Size(1712, 634);
+            this.dtgHoldingList.TabIndex = 29;
+            this.dtgHoldingList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgHoldingList_CellContentClick);
+            this.dtgHoldingList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgHoldingList_CellDoubleClick);
             // 
             // panel3
             // 
@@ -164,55 +146,6 @@
             this.label1.TabIndex = 39;
             this.label1.Text = "POS";
             // 
-            // Id
-            // 
-            this.Id.HeaderText = "SO Number";
-            this.Id.Name = "Id";
-            this.Id.ReadOnly = true;
-            this.Id.Width = 150;
-            // 
-            // Name
-            // 
-            this.Name.HeaderText = "SO Date";
-            this.Name.Name = "Name";
-            this.Name.ReadOnly = true;
-            this.Name.Width = 150;
-            // 
-            // Unit
-            // 
-            this.Unit.HeaderText = "Customer";
-            this.Unit.Name = "Unit";
-            this.Unit.ReadOnly = true;
-            this.Unit.Width = 500;
-            // 
-            // Price
-            // 
-            this.Price.HeaderText = "Delivery";
-            this.Price.Name = "Price";
-            this.Price.ReadOnly = true;
-            this.Price.Width = 150;
-            // 
-            // Qty
-            // 
-            this.Qty.HeaderText = "Total Qty";
-            this.Qty.Name = "Qty";
-            this.Qty.ReadOnly = true;
-            this.Qty.Width = 120;
-            // 
-            // Discount
-            // 
-            this.Discount.HeaderText = "Total Price";
-            this.Discount.Name = "Discount";
-            this.Discount.ReadOnly = true;
-            this.Discount.Width = 150;
-            // 
-            // Total
-            // 
-            this.Total.HeaderText = "Status";
-            this.Total.Name = "Total";
-            this.Total.ReadOnly = true;
-            this.Total.Width = 120;
-            // 
             // Form_Pending
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -226,13 +159,14 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
-         
+            this.Margin = new System.Windows.Forms.Padding(5);
+            this.Name = "Form_Pending";
             this.Text = "Form_Pending";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.Form_Pending_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgHoldingList)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -243,19 +177,12 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Unit;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Price;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Qty;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Discount;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.Windows.Forms.DataGridView dtgHoldingList;
     }
 }

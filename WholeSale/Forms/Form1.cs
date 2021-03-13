@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WholeSale.Forms;
+using System.Data.Entity;
 namespace WholeSale
 {
     public partial class Form1 : Form
@@ -43,6 +44,11 @@ namespace WholeSale
         {
             using (Form_Dashboard fb = new Form_Dashboard())
             {
+
+
+                ynddevEntities ynd = new ynddevEntities();
+             
+
                 fb.ShowDialog();
             }
         }

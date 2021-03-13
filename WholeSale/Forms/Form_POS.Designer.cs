@@ -778,6 +778,7 @@
             this.tbPuase.TabStop = false;
             this.tbPuase.Text = "พักรายการ";
             this.tbPuase.UseVisualStyleBackColor = true;
+            this.tbPuase.Click += new System.EventHandler(this.tbPuase_Click);
             // 
             // btFinalDc
             // 

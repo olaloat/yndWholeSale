@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace WholeSale
 {
-   static  class Global
+    static class Global
     {
 
-
+        public  enum statusList { PAY, HOLD, DELETE , CLOSE }
         public static string compCode = "yndk";
-            public static string branchCode = "0001";
+        public static string branchCode = "0001";
         public static string username = "nattawut";
-        
-     
+        public static statusList status;
+
         public static bool checkDisableKey(string columnName)
         {
 
@@ -59,7 +59,7 @@ namespace WholeSale
             return table;
         }
 
-    
+
 
     }
 
@@ -79,12 +79,12 @@ namespace WholeSale
         public static decimal totalAmount = 0;
         public static decimal income = 0;
         public static decimal change = 0;
-        
-        public static decimal overdue=0;
-        public static Boolean isPrint =true;
+
+        public static decimal overdue = 0;
+        public static Boolean isPrint = true;
         public static Boolean isComplete = false;
 
-        public static bool inp1000 =false;
+        public static bool inp1000 = false;
         public static bool inp100 = false;
         public static bool inp500 = false;
         public static void clearbt() {
@@ -94,13 +94,13 @@ namespace WholeSale
 
         }
         public static void clear() {
-      totalAmount = 0;
-        income = 0;
-       change = 0;
+            totalAmount = 0;
+            income = 0;
+            change = 0;
 
-     overdue = 0;
-       isPrint = true;
-       isComplete = false;
+            overdue = 0;
+            isPrint = true;
+            isComplete = false;
             inp1000 = false;
             inp100 = false;
             inp500 = false;
@@ -112,7 +112,7 @@ namespace WholeSale
 
     }
 
-    public static class customerInfo  {
+    public static class customerInfo {
 
         public static string customerName = "";
         public static string customerAddress = "";
@@ -121,7 +121,7 @@ namespace WholeSale
 
         public static void clear() {
             customerName = "";
-customerAddress = "";
+            customerAddress = "";
             isSelected = false;
         }
 
@@ -151,7 +151,7 @@ customerAddress = "";
         }
 
 
-        public static FlexCell.Grid  chnageGridColumnName(FlexCell.Grid grd , DataTable dt ,string oldName , string newName) {
+        public static FlexCell.Grid chnageGridColumnName(FlexCell.Grid grd, DataTable dt, string oldName, string newName) {
 
             grd.Cell(0, (dt.Columns[oldName].Ordinal + 1)).Text = newName;
             return grd;
@@ -161,5 +161,16 @@ customerAddress = "";
 
     }
 
-    
+
+    public class customMSG{
+    string option1 = "";
+    string option2 = "";
+    string option3 = "";
+
+
 }
+
+}
+
+
+
