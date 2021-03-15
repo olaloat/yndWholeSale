@@ -139,5 +139,83 @@ namespace WholeSale
             passcode = "";
             txtPassword.Clear();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text += "1";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text += "2";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text += "3";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text += "4";
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text += "5";
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text += "6";
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text += "7";
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text += "8";
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text += "9";
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            txtPassword.Text += "0";
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            txtPassword.Clear();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                //Write what you want to do
+               
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Error:\n\n" + ex.Message, "System", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+
+            label4.Text = DateTime.Now.ToString("HH:mm:ss");
+            backgroundWorker1.RunWorkerAsync();
+
+            timer1.Enabled = true;
+        }
     }
 }
