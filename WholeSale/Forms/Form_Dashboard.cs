@@ -37,5 +37,13 @@ namespace WholeSale.Forms
                 fb.ShowDialog();
             }
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            using (Form_Daily_Report fb = new Form_Daily_Report())
+            {
+                fb.ShowDialog();
+            }
+        }
     }
 }
