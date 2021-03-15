@@ -178,6 +178,7 @@ namespace WholeSale.Forms
 
                 dataGridView3.Refresh();
                 setSummary();
+                Bill.isHasList = Bill.list.Count > 0 ? true : false;
             }
             else
             {
@@ -195,7 +196,7 @@ namespace WholeSale.Forms
 
         private void deleteData()
         {
-
+            Bill.isHasList = Bill.list.Count > 0 ? true : false;
         }
 
 
@@ -245,15 +246,17 @@ namespace WholeSale.Forms
 
 
 
-            if (myBill.list.Count > 0)
+            if (Bill.list.Count > 0)
             {
 
-                using (Modal_Payment fb = new Modal_Payment(myBill.list.Sum(s => s.amount)))
+                using (Modal_Payment fb = new Modal_Payment(Bill.list.Sum(s => s.amount)))
                 {
                    
                     fb.StartPosition = FormStartPosition.CenterParent;
                     fb.ShowDialog();
 
+
+               
 
 
 
@@ -405,6 +408,51 @@ namespace WholeSale.Forms
 
         private void tbScan_TextChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void tbPuase_Click(object sender, EventArgs e)
+        {
+            using (Modal_MsgBox msg = new Modal_MsgBox("ท่านต้องการจะดำเนินการ เรื่องใด ?",optionType.holding))
+            {
+                msg.StartPosition = FormStartPosition.CenterParent;
+                msg.ShowDialog();
+
+
+                if (Bill.isFromHolding)
+                {
+                    msg.Dispose();
+                    loadDocument(Bill.docHeaderID);
+                    Bill.isFromHolding = true;
+                }
+
+
+                if (Bill.list.Count == 0) {
+                    clearData();
+                }
+
+              
+
+            }
+        }
+
+
+        private void loadDocument(int docH) {
+            var doclist = (from a in yndInven.DocumentLines where a.DocumentId == docH select a).ToList();
+            myBill = new Bill();
+            Bill.docHeaderID = docH;
+            Bill.documentNumber = doclist.Select(s => s.DocumentNo).FirstOrDefault().ToString();
+            label7.Text = Bill.documentNumber;
+            foreach (DocumentLine docline in doclist) {
+              
+               tbxQty.Text = decimal.ToInt64(docline.qty).ToString();
+               tbScan.Text = mstProduct.Where(w => w.productId == docline.productId).Select(s => s.productCode).FirstOrDefault().ToString();
+                addData();
+                tbScan.Text = "";
+                tbxQty.Text = "1";
+            }
+
+
 
         }
     }

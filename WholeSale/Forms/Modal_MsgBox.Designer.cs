@@ -38,8 +38,15 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tbMessage = new System.Windows.Forms.TextBox();
+            this.pnButton = new System.Windows.Forms.Panel();
+            this.btOption1 = new System.Windows.Forms.Button();
+            this.btOption2 = new System.Windows.Forms.Button();
+            this.btOption3 = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.pnButton.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -126,6 +133,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.pnButton);
             this.panel2.Controls.Add(this.tbMessage);
             this.panel2.Location = new System.Drawing.Point(12, 89);
             this.panel2.Name = "panel2";
@@ -135,16 +143,73 @@
             // tbMessage
             // 
             this.tbMessage.BackColor = System.Drawing.Color.White;
-            this.tbMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbMessage.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbMessage.Location = new System.Drawing.Point(0, 0);
             this.tbMessage.Multiline = true;
             this.tbMessage.Name = "tbMessage";
             this.tbMessage.ReadOnly = true;
-            this.tbMessage.Size = new System.Drawing.Size(584, 278);
+            this.tbMessage.Size = new System.Drawing.Size(584, 155);
             this.tbMessage.TabIndex = 0;
             this.tbMessage.TabStop = false;
             this.tbMessage.Text = "ข้อความอะไรก็ว่าไป";
+            // 
+            // pnButton
+            // 
+            this.pnButton.Controls.Add(this.tableLayoutPanel1);
+            this.pnButton.Location = new System.Drawing.Point(4, 216);
+            this.pnButton.Name = "pnButton";
+            this.pnButton.Size = new System.Drawing.Size(577, 62);
+            this.pnButton.TabIndex = 1;
+            // 
+            // btOption1
+            // 
+            this.btOption1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btOption1.Location = new System.Drawing.Point(3, 3);
+            this.btOption1.Name = "btOption1";
+            this.btOption1.Size = new System.Drawing.Size(186, 56);
+            this.btOption1.TabIndex = 6;
+            this.btOption1.Text = "button1";
+            this.btOption1.UseVisualStyleBackColor = true;
+            this.btOption1.Click += new System.EventHandler(this.btOption1_Click);
+            // 
+            // btOption2
+            // 
+            this.btOption2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btOption2.Location = new System.Drawing.Point(195, 3);
+            this.btOption2.Name = "btOption2";
+            this.btOption2.Size = new System.Drawing.Size(186, 56);
+            this.btOption2.TabIndex = 7;
+            this.btOption2.Text = "button2";
+            this.btOption2.UseVisualStyleBackColor = true;
+            this.btOption2.Click += new System.EventHandler(this.btOption2_Click);
+            // 
+            // btOption3
+            // 
+            this.btOption3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btOption3.Location = new System.Drawing.Point(387, 3);
+            this.btOption3.Name = "btOption3";
+            this.btOption3.Size = new System.Drawing.Size(187, 56);
+            this.btOption3.TabIndex = 8;
+            this.btOption3.Text = "button3";
+            this.btOption3.UseVisualStyleBackColor = true;
+            this.btOption3.Click += new System.EventHandler(this.btOption3_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Controls.Add(this.btOption1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btOption3, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btOption2, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(577, 62);
+            this.tableLayoutPanel1.TabIndex = 0;
             // 
             // Modal_MsgBox
             // 
@@ -161,13 +226,15 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Modal_MsgBox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Modal_MsgBox";
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.pnButton.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -184,5 +251,10 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox tbMessage;
+        private System.Windows.Forms.Panel pnButton;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Button btOption1;
+        private System.Windows.Forms.Button btOption3;
+        private System.Windows.Forms.Button btOption2;
     }
 }

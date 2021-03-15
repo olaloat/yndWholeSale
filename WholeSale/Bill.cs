@@ -18,21 +18,33 @@ namespace WholeSale
 {
     class Bill
     {
-        //public Bill()
-        //{
-        //    totalQty = 0;
-        //    totalAmountBeforeVat = 0;
-        //    totalAmountIncludeVat = 0;
-        //    totalVat = 0;
-        //    //  Mylist = new List<DocumentLine>();
-        //    //  MySummary = new List<Document>();
-        //    editBy = "";
-        //    MyBill = new Bill();
+        public Bill()
+        {
+           
+            totalQty = 0;
+            totalAmountBeforeVat = 0;
+            totalAmountIncludeVat = 0;
+            totalVat = 0;
+            //  Mylist = new List<DocumentLine>();
+            //  MySummary = new List<Document>();
+            editBy = Global.username;
+            isHasList = false;
+            docHeaderID = 0;
+            isFromHolding = false;
+            documentNumber = "";
+            clearList();
+        }
 
-        //}
+       public static void clearList()
+        {
+            list = new List<DocumentLine>();
+
+        }
         private static List<Stream> m_streams;
         private static int m_currentPageIndex = 0;
-
+        public static int docHeaderID =0;
+        public static string  documentNumber = "";
+        public static bool isFromHolding =false;
 
         public int totalQty = 0;
         public decimal totalAmountBeforeVat = 0;
@@ -43,7 +55,8 @@ namespace WholeSale
         // private List<Document> MySummary = new List<Document>();
         //   public Bill MyBill ;
         public string editBy = "";
-        public List<DocumentLine> list = new List<DocumentLine>();
+        public static bool isHasList = false;
+        public static   List<DocumentLine> list = new List<DocumentLine>();
 
         public List<DocumentLine> setList(Product MyProd, int qty)
         {
@@ -90,7 +103,7 @@ namespace WholeSale
             CalculateSummary();
             return list;
         }
-
+      
 
         private void CalculateSummary() {
             totalAmountBeforeVat = list.Sum(s => s.amount);
@@ -279,27 +292,137 @@ namespace WholeSale
 
   
 
+        public static mainResult holdingBill()
+        {
+            mainResult rs = new mainResult();
+          
+            string docNum = "";
+            int docHID = 0;
+
+            using (var context = new ynddevEntities())
+            {
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+
+
+                    #region "docHeader "
+                    rs = insertDocHeader(context, docNum , Global.statusList.HOLD);
+                    docHID = rs.isComplete ? Int32.Parse(rs.message) : 0;
+                    if (!rs.isComplete) { return rs; }
+                    #endregion
+
+                    #region "documentLine"
+                    foreach (DocumentLine dc in list)
+                    {
+                        insertDocline(context, dc, docHID, docNum);
+
+                     
+                    }
+                    #endregion
+                    //context.SaveChanges();
+                    dbContextTransaction.Commit();
+                    //   newBill();
+                }
+            }
+
+            clearList();
+            rs.isComplete = true;
+            rs.message = "พักรายการเรียบร้อยแล้ว";
+            return rs;
+
+        }
+
+
+        private mainResult closeHodlingBill() {
+            mainResult rs  = new mainResult();
+
+
+            ynddevEntities context = new ynddevEntities();
+            Document myDoc = new Document();
+            try
+            {
+                foreach (var a in list)
+                {
+                    //=============== update balcnce ====================================
+                    myDoc = context.Documents.Where(p => p.documentId ==docHeaderID).FirstOrDefault();
+                    myDoc.status = (int)Global.statusList.CLOSE;
+                    context.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                rs.isComplete = false;
+                rs.message = ex.Message.ToString();
+                return rs;
+
+            }
+
+
+            rs.isComplete = true;
+            rs.message = "ok";
+
+            return rs;
+
+
+            return rs;
+
+
+        }
 
         public mainResult payBill() {
             mainResult rs = new mainResult();
             var ynd = new ynddevEntities();
+            string docNum = "";
+            int docHID = 0;
 
+            using (var context = new ynddevEntities())
+            {
+                using (var dbContextTransaction = context.Database.BeginTransaction())
+                {
+                    if (isFromHolding) {
 
-        //    printBill(list);
+                        closeHodlingBill();
+                    }
 
+                    #region "docHeader "
+                    rs = insertDocHeader(context, docNum,Global.statusList.PAY);
+                    docHID = rs.isComplete ? Int32.Parse(rs.message) : 0;
+                    if (!rs.isComplete) { return rs; }
+                    #endregion
 
-            #region "docHeader "
-            var lastDoc = (ynd.Documents.Max(m => m.documentNo));
+                    #region "documentLine"
+                    foreach (DocumentLine dc in list)
+                    {
+                        insertDocline( context,  dc,  docHID,  docNum);
 
+                        #region "Transaction"
+                        insertTransaction(context ,dc);
+                         #endregion
 
+                        #region "Balance"
+                        updateBalance(context);
+                        #endregion
+                    }
+                    #endregion
+                    //context.SaveChanges();
+                    dbContextTransaction.Commit();
+                    //   newBill();
+                }
+            }
+            printBill(docNum);
+            return rs;
+        }
+
+        public static mainResult insertDocHeader(ynddevEntities context , string docNum , Global.statusList _status)
+        {
+            mainResult rs = new mainResult();
+            var lastDoc = (context.Documents.Max(m => m.documentNo));
             if (lastDoc == null) { lastDoc = ""; } else { }
 
-
-            string docNum = "";
             int docHID = 0;
             if (lastDoc == "")
             {
-
                 docNum = DateTime.Now.ToString("yyyyMMddHHmmss") + "0001";
             }
             else
@@ -317,94 +440,85 @@ namespace WholeSale
                 editBy = Global.username,
                 customerId = 1,
                 documentNo = docNum,
-                totalVat = list.Sum(x=> x.vat),
+                totalVat = list.Sum(x => x.vat),
                 totalDc = list.Sum(x => x.dcPrice),
                 totalPrice = list.Sum(x => x.amount),
-                totalQty = list.Sum(x => x.qty),
-
+                totalQty = list.Sum(x => x.qty),status =(int)_status,
             };
-
-            ynd.Documents.Add(myDocH);
-            ynd.SaveChanges();
+            context.Documents.Add(myDocH);
+            context.SaveChanges();
             docHID = myDocH.documentId;
+            rs.isComplete = true;
+            rs.message = docHID.ToString();
+            return rs;
+        }
 
-            #endregion
+        public static mainResult insertDocline(ynddevEntities context, DocumentLine dc , int docHID , string docNum) {
+            mainResult rs = new mainResult();
+            dc.DocumentId = docHID;
+            dc.DocumentNo = docNum;
+            context.DocumentLines.Add(dc);
+            context.SaveChanges();
+            return rs;
+        }
 
 
-            using (var context = new ynddevEntities())
+        private mainResult insertTransaction(ynddevEntities context ,DocumentLine dc) {
+            mainResult rs = new mainResult();
+
+            for (int i = 1; i <= dc.qty; i++)
             {
-                using (var dbContextTransaction = context.Database.BeginTransaction())
+                Transaction tr = new Transaction()
                 {
+                    branchCode = Global.branchCode,
+                    compCode = Global.compCode,
+                    createBy = Global.username,
+                    createTime = DateTime.Now,
+                    editTime = DateTime.Now,
+                    editBy = Global.username,
+                    movementTypeId = 1,
+                    price = dc.unitPrice,
+                    qty = dc.qty,
+                    unit = dc.unit,
+                    productId = dc.productId,
+                    invoiceLineId = 0,
+                    documentLineId = dc.DocumentLineId,
 
 
 
-                    #region "documentLine"
-
-                    foreach (DocumentLine dc in list)
-                    {
-                        dc.DocumentId = docHID;
-                        dc.DocumentNo = docNum;
-                        context.DocumentLines.Add(dc);
-                        context.SaveChanges();
-
-                        #region "Transaction"
-                        for (int i = 1; i <= dc.qty; i++)
-                        {
-                            Transaction tr = new Transaction()
-                            {
-                                branchCode = Global.branchCode,
-                                compCode = Global.compCode,
-                                createBy = Global.username,
-                                createTime = DateTime.Now,
-                                editTime = DateTime.Now,
-                                editBy = Global.username,
-                                movementTypeId = 1,
-                                price = dc.unitPrice,
-                                qty = dc.qty,
-                                unit = dc.unit,
-                                productId = dc.productId,
-                                invoiceLineId =0,
-                                documentLineId = dc.DocumentLineId,
-
-
-
-                            };
-                            context.Transactions.Add(tr);
-                            context.SaveChanges();
-                        }
-                      
-
-                        #endregion
-
-
-                        #region "Balance"
-                        Balance myBalance = new Balance();
-
-                        foreach (var a in list)
-                        {
-                            //=============== update balcnce ====================================
-                            myBalance = context.Balances.Where(p => p.productId == a.productId).FirstOrDefault();
-                            myBalance.qty = myBalance.qty - a.qty;
-                            context.SaveChanges();
-                        }
-
-
-
-                        #endregion
-
-                    }
-
-
-                    #endregion
-
-                    //context.SaveChanges();
-                    dbContextTransaction.Commit();
-                    //   newBill();
-                }
+                };
+                context.Transactions.Add(tr);
+                context.SaveChanges();
             }
 
 
-            printBill(docNum);
+
+            return rs;
+        }
+
+        private mainResult updateBalance(ynddevEntities context) {
+            mainResult rs = new mainResult();
+            Balance myBalance = new Balance();
+            try {
+                foreach (var a in list)
+                {
+                    //=============== update balcnce ====================================
+                    myBalance = context.Balances.Where(p => p.productId == a.productId).FirstOrDefault();
+                    myBalance.qty = myBalance.qty - a.qty;
+                    context.SaveChanges();
+                }
+
+            }
+            catch (Exception ex) {
+                rs.isComplete = false;
+                rs.message = ex.Message.ToString();
+                return rs;
+
+            }
+
+
+            rs.isComplete = true;
+            rs.message = "ok";
 
             return rs;
         }
