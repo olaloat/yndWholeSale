@@ -164,5 +164,26 @@ namespace WholeSale
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetDocumentBill_Result>("spGetDocumentBill", docNumParameter);
         }
+    
+        public virtual ObjectResult<spGetDocument_Result> spGetDocument(Nullable<System.DateTime> dateStr, Nullable<System.DateTime> dateEnd, string compCode, string branchCode)
+        {
+            var dateStrParameter = dateStr.HasValue ?
+                new ObjectParameter("dateStr", dateStr) :
+                new ObjectParameter("dateStr", typeof(System.DateTime));
+    
+            var dateEndParameter = dateEnd.HasValue ?
+                new ObjectParameter("dateEnd", dateEnd) :
+                new ObjectParameter("dateEnd", typeof(System.DateTime));
+    
+            var compCodeParameter = compCode != null ?
+                new ObjectParameter("compCode", compCode) :
+                new ObjectParameter("compCode", typeof(string));
+    
+            var branchCodeParameter = branchCode != null ?
+                new ObjectParameter("branchCode", branchCode) :
+                new ObjectParameter("branchCode", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetDocument_Result>("spGetDocument", dateStrParameter, dateEndParameter, compCodeParameter, branchCodeParameter);
+        }
     }
 }

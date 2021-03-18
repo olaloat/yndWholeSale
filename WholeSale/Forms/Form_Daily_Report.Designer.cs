@@ -32,11 +32,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button10 = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.lbVat = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.lbDiscount = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.lbAmountAfterDiscount = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.lbAmount = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label8 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -50,9 +58,17 @@
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button10 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -81,6 +97,8 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.panel4);
+            this.panel2.Controls.Add(this.dataGridView1);
             this.panel2.Controls.Add(this.tableLayoutPanel1);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Controls.Add(this.label4);
@@ -88,6 +106,300 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1712, 634);
             this.panel2.TabIndex = 41;
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Controls.Add(this.tableLayoutPanel3);
+            this.panel4.Location = new System.Drawing.Point(4, 562);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1705, 69);
+            this.panel4.TabIndex = 32;
+            // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.ColumnCount = 7;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 193F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 812F));
+            this.tableLayoutPanel3.Controls.Add(this.lbVat, 3, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label30, 2, 1);
+            this.tableLayoutPanel3.Controls.Add(this.lbDiscount, 1, 1);
+            this.tableLayoutPanel3.Controls.Add(this.label28, 0, 1);
+            this.tableLayoutPanel3.Controls.Add(this.lbAmountAfterDiscount, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label25, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.lbAmount, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label23, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label32, 5, 0);
+            this.tableLayoutPanel3.Controls.Add(this.label33, 6, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 3);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 3;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 1F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1705, 66);
+            this.tableLayoutPanel3.TabIndex = 2;
+            // 
+            // lbVat
+            // 
+            this.lbVat.AutoSize = true;
+            this.lbVat.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbVat.Location = new System.Drawing.Point(638, 30);
+            this.lbVat.Name = "lbVat";
+            this.lbVat.Size = new System.Drawing.Size(59, 30);
+            this.lbVat.TabIndex = 8;
+            this.lbVat.Text = "654.21";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label30.Location = new System.Drawing.Point(417, 30);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(130, 30);
+            this.label30.TabIndex = 7;
+            this.label30.Text = "ภาษีมูลค่าเพิ่ม (7%)";
+            // 
+            // lbDiscount
+            // 
+            this.lbDiscount.AutoSize = true;
+            this.lbDiscount.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbDiscount.Location = new System.Drawing.Point(288, 30);
+            this.lbDiscount.Name = "lbDiscount";
+            this.lbDiscount.Size = new System.Drawing.Size(59, 30);
+            this.lbDiscount.TabIndex = 6;
+            this.lbDiscount.Text = "300.00";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label28.Location = new System.Drawing.Point(143, 30);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(54, 30);
+            this.label28.TabIndex = 5;
+            this.label28.Text = "ส่วนลด";
+            // 
+            // lbAmountAfterDiscount
+            // 
+            this.lbAmountAfterDiscount.AutoSize = true;
+            this.lbAmountAfterDiscount.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbAmountAfterDiscount.Location = new System.Drawing.Point(616, 0);
+            this.lbAmountAfterDiscount.Name = "lbAmountAfterDiscount";
+            this.lbAmountAfterDiscount.Size = new System.Drawing.Size(81, 30);
+            this.lbAmountAfterDiscount.TabIndex = 3;
+            this.lbAmountAfterDiscount.Text = "10,000.00";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label25.Location = new System.Drawing.Point(386, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(161, 30);
+            this.label25.TabIndex = 2;
+            this.label25.Text = "จำนวนเงินหลักหักส่วนลด";
+            // 
+            // lbAmount
+            // 
+            this.lbAmount.AutoSize = true;
+            this.lbAmount.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lbAmount.Location = new System.Drawing.Point(266, 0);
+            this.lbAmount.Name = "lbAmount";
+            this.lbAmount.Size = new System.Drawing.Size(81, 30);
+            this.lbAmount.TabIndex = 1;
+            this.lbAmount.Text = "10,300.00";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label23.Location = new System.Drawing.Point(121, 0);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(76, 30);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "รวมเป็นเงิน";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(703, 0);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(162, 21);
+            this.label32.TabIndex = 9;
+            this.label32.Text = "ราคาไม่รวมภาษีมูลค่าเพิ่ม";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(896, 0);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(72, 21);
+            this.label33.TabIndex = 10;
+            this.label33.Text = "9,345.79";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(10, 111);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(1699, 445);
+            this.dataGridView1.TabIndex = 31;
+            this.dataGridView1.TabStop = false;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 7;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 124F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 238F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 157F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155F));
+            this.tableLayoutPanel1.Controls.Add(this.label8, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cboDevice, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cboStatus, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label9, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cboEmp, 2, 1);
+            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker1, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker2, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnSearch, 5, 1);
+            this.tableLayoutPanel1.Controls.Add(this.btnClear, 6, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 42);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1274, 63);
+            this.tableLayoutPanel1.TabIndex = 30;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(527, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 20);
+            this.label8.TabIndex = 9;
+            this.label8.Text = "พนักงาน";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(3, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 20);
+            this.label5.TabIndex = 3;
+            this.label5.Text = "วันที่เริ่ม";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(203, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(73, 20);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "วันที่สิ้นสุด";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(403, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(44, 20);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "เครื่อง";
+            // 
+            // cboDevice
+            // 
+            this.cboDevice.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboDevice.FormattingEnabled = true;
+            this.cboDevice.Location = new System.Drawing.Point(403, 23);
+            this.cboDevice.Name = "cboDevice";
+            this.cboDevice.Size = new System.Drawing.Size(113, 29);
+            this.cboDevice.TabIndex = 18;
+            this.cboDevice.TabStop = false;
+            // 
+            // cboStatus
+            // 
+            this.cboStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboStatus.FormattingEnabled = true;
+            this.cboStatus.Items.AddRange(new object[] {
+            "สำเร็จ",
+            "พักบิล"});
+            this.cboStatus.Location = new System.Drawing.Point(727, 23);
+            this.cboStatus.Name = "cboStatus";
+            this.cboStatus.Size = new System.Drawing.Size(194, 29);
+            this.cboStatus.TabIndex = 20;
+            this.cboStatus.TabStop = false;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(727, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(94, 20);
+            this.label9.TabIndex = 11;
+            this.label9.Text = "สถานะเอกสาร";
+            // 
+            // cboEmp
+            // 
+            this.cboEmp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboEmp.FormattingEnabled = true;
+            this.cboEmp.Location = new System.Drawing.Point(527, 23);
+            this.cboEmp.Name = "cboEmp";
+            this.cboEmp.Size = new System.Drawing.Size(194, 29);
+            this.cboEmp.TabIndex = 12;
+            this.cboEmp.TabStop = false;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(3, 23);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(194, 27);
+            this.dateTimePicker1.TabIndex = 21;
+            this.dateTimePicker1.TabStop = false;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(203, 23);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(194, 27);
+            this.dateTimePicker2.TabIndex = 22;
+            this.dateTimePicker2.TabStop = false;
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.Location = new System.Drawing.Point(965, 23);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(135, 37);
+            this.btnSearch.TabIndex = 1;
+            this.btnSearch.Text = "ค้นหา";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // btnClear
+            // 
+            this.btnClear.Location = new System.Drawing.Point(1122, 23);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(135, 37);
+            this.btnClear.TabIndex = 2;
+            this.btnClear.Text = "เริ่มใหม่";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // label4
             // 
@@ -147,142 +459,6 @@
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 7;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 124F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 238F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 157F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
-            this.tableLayoutPanel1.Controls.Add(this.label8, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label6, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cboDevice, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.cboStatus, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label9, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cboEmp, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker1, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.dateTimePicker2, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnSearch, 5, 1);
-            this.tableLayoutPanel1.Controls.Add(this.btnClear, 6, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 42);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 33F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1274, 63);
-            this.tableLayoutPanel1.TabIndex = 30;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(527, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(63, 20);
-            this.label8.TabIndex = 9;
-            this.label8.Text = "พนักงาน";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(56, 20);
-            this.label5.TabIndex = 3;
-            this.label5.Text = "วันที่เริ่ม";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(203, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(73, 20);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "วันที่สิ้นสุด";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(403, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(44, 20);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "เครื่อง";
-            // 
-            // cboDevice
-            // 
-            this.cboDevice.FormattingEnabled = true;
-            this.cboDevice.Location = new System.Drawing.Point(403, 23);
-            this.cboDevice.Name = "cboDevice";
-            this.cboDevice.Size = new System.Drawing.Size(113, 29);
-            this.cboDevice.TabIndex = 18;
-            // 
-            // cboStatus
-            // 
-            this.cboStatus.FormattingEnabled = true;
-            this.cboStatus.Items.AddRange(new object[] {
-            "ขายสำเร็จ",
-            "ขายสำเร็จ (ไม่รวมมียอดค้างจ่าย)",
-            "มียอดค้างจ่าย",
-            "พักบิล"});
-            this.cboStatus.Location = new System.Drawing.Point(727, 23);
-            this.cboStatus.Name = "cboStatus";
-            this.cboStatus.Size = new System.Drawing.Size(194, 29);
-            this.cboStatus.TabIndex = 20;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(727, 0);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(94, 20);
-            this.label9.TabIndex = 11;
-            this.label9.Text = "สถานะเอกสาร";
-            // 
-            // cboEmp
-            // 
-            this.cboEmp.FormattingEnabled = true;
-            this.cboEmp.Location = new System.Drawing.Point(527, 23);
-            this.cboEmp.Name = "cboEmp";
-            this.cboEmp.Size = new System.Drawing.Size(194, 29);
-            this.cboEmp.TabIndex = 12;
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(3, 23);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(194, 27);
-            this.dateTimePicker1.TabIndex = 21;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(203, 23);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(194, 27);
-            this.dateTimePicker2.TabIndex = 22;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.Location = new System.Drawing.Point(965, 23);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(135, 37);
-            this.btnSearch.TabIndex = 24;
-            this.btnSearch.Text = "ค้นหา";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // btnClear
-            // 
-            this.btnClear.Location = new System.Drawing.Point(1122, 23);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(135, 37);
-            this.btnClear.TabIndex = 25;
-            this.btnClear.Text = "เริ่มใหม่";
-            this.btnClear.UseVisualStyleBackColor = true;
-            // 
             // Form_Daily_Report
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -296,16 +472,20 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 12F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Form_Daily_Report";
             this.Text = "Form_Daily_Report";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form_Daily_Report_Load);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -334,5 +514,18 @@
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnClear;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.Label lbVat;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label lbDiscount;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label lbAmountAfterDiscount;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label lbAmount;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
     }
 }
