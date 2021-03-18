@@ -686,6 +686,12 @@
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="spGetDocument" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="dateStr" Type="datetime" Mode="In" />
+    <Parameter Name="dateEnd" Type="datetime" Mode="In" />
+    <Parameter Name="compCode" Type="varchar" Mode="In" />
+    <Parameter Name="branchCode" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="spGetDocumentBill" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="docNum" Type="nvarchar" Mode="In" />
   </Function>

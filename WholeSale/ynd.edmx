@@ -691,6 +691,12 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetDocument" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dateStr" Type="datetime" Mode="In" />
+          <Parameter Name="dateEnd" Type="datetime" Mode="In" />
+          <Parameter Name="compCode" Type="varchar" Mode="In" />
+          <Parameter Name="branchCode" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="spGetDocumentBill" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="docNum" Type="nvarchar" Mode="In" />
         </Function>
@@ -1569,6 +1575,12 @@
           <FunctionImport Name="spGetDocumentBill" ReturnType="Collection(ynddevModel.spGetDocumentBill_Result)">
           <Parameter Name="docNum" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="spGetDocument" ReturnType="Collection(ynddevModel.spGetDocument_Result)" >
+            <Parameter Name="dateStr" Mode="In" Type="DateTime" />
+            <Parameter Name="dateEnd" Mode="In" Type="DateTime" />
+            <Parameter Name="compCode" Mode="In" Type="String" />
+            <Parameter Name="branchCode" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1598,6 +1610,27 @@
           <Property Type="Decimal" Name="vat" Nullable="false" Precision="18" Scale="4" />
           <Property Type="Int32" Name="vatType" Nullable="false" />
           <Property Type="Decimal" Name="amountIncludeVat" Nullable="false" Precision="18" Scale="4" />
+        </ComplexType>
+        <ComplexType Name="spGetDocument_Result">
+          <Property Type="Int32" Name="documentId" Nullable="false" />
+          <Property Type="String" Name="documentNo" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="orderNo" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="customerName" Nullable="true" MaxLength="250" />
+          <Property Type="Decimal" Name="totalVat" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="totalQty" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="totalPrice" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="totalDc" Nullable="false" Precision="18" Scale="0" />
+          <Property Type="Boolean" Name="isOrder" Nullable="false" />
+          <Property Type="Boolean" Name="isTax" Nullable="false" />
+          <Property Type="Int32" Name="paidType" Nullable="false" />
+          <Property Type="Int32" Name="status" Nullable="false" />
+          <Property Type="Boolean" Name="isActive" Nullable="false" />
+          <Property Type="String" Name="createBy" Nullable="false" MaxLength="250" />
+          <Property Type="DateTime" Name="createTime" Nullable="false" Precision="23" />
+          <Property Type="String" Name="editBy" Nullable="false" MaxLength="250" />
+          <Property Type="DateTime" Name="editTime" Nullable="false" Precision="23" />
+          <Property Type="String" Name="compCode" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="branchCode" Nullable="false" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -2172,6 +2205,31 @@
                 <ScalarProperty Name="vat" ColumnName="vat" />
                 <ScalarProperty Name="vatType" ColumnName="vatType" />
                 <ScalarProperty Name="amountIncludeVat" ColumnName="amountIncludeVat" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetDocument" FunctionName="ynddevModel.Store.spGetDocument">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ynddevModel.spGetDocument_Result">
+                <ScalarProperty Name="documentId" ColumnName="documentId" />
+                <ScalarProperty Name="documentNo" ColumnName="documentNo" />
+                <ScalarProperty Name="orderNo" ColumnName="orderNo" />
+                <ScalarProperty Name="customerName" ColumnName="customerName" />
+                <ScalarProperty Name="totalVat" ColumnName="totalVat" />
+                <ScalarProperty Name="totalQty" ColumnName="totalQty" />
+                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+                <ScalarProperty Name="totalDc" ColumnName="totalDc" />
+                <ScalarProperty Name="isOrder" ColumnName="isOrder" />
+                <ScalarProperty Name="isTax" ColumnName="isTax" />
+                <ScalarProperty Name="paidType" ColumnName="paidType" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="editBy" ColumnName="editBy" />
+                <ScalarProperty Name="editTime" ColumnName="editTime" />
+                <ScalarProperty Name="compCode" ColumnName="compCode" />
+                <ScalarProperty Name="branchCode" ColumnName="branchCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

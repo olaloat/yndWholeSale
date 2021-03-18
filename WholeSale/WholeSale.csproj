@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -283,6 +283,9 @@
     <Compile Include="spGetDocumentBill_Result.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>
+    <Compile Include="spGetDocument_Result.cs">
+      <DependentUpon>ynd.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>
@@ -383,6 +386,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="report\Report_Daily.rdlc" />
     <EmbeddedResource Include="report\rpBill.rdlc">
       <SubType>Designer</SubType>
     </EmbeddedResource>
