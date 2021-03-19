@@ -32,13 +32,15 @@ namespace WholeSale.Forms
         BindingSource bdsProduct = new BindingSource();
         public static string productCodeSelect = "";
 
+        int cursor = 0;
 
-        public static string  selectedProductCode
+
+        public static string selectedProductCode
         {
             get
             {
                 return productCodeSelect;
-    }
+            }
             set
             {
                 productCodeSelect = value;
@@ -138,18 +140,19 @@ namespace WholeSale.Forms
         {
             lbAmount.Text = myBill.totalAmountBeforeVat.ToString();
             lbVat.Text = myBill.totalVat.ToString();
-          //  lbAmpintIncludeVat.Text = myBill.totalAmountIncludeVat.ToString();
+            //  lbAmpintIncludeVat.Text = myBill.totalAmountIncludeVat.ToString();
             lbDiscount.Text = myBill.discount.ToString();
-          //  lbTotal.Text = (myBill.totalAmountBeforeVat - myBill.discount).ToString(); // lbAmpintIncludeVat.Text;
+            //  lbTotal.Text = (myBill.totalAmountBeforeVat - myBill.discount).ToString(); // lbAmpintIncludeVat.Text;
             lbAmountAfterDiscount.Text = (myBill.totalAmountBeforeVat - myBill.discount).ToString();
             lbAmountIncludeVat.Text = lbAmountAfterDiscount.Text;
             var totalAmount = System.Convert.ToDecimal(lbAmountIncludeVat.Text);
-            label33.Text = (totalAmount -(totalAmount*7/107)).ToString("#.##");
+            label33.Text = (totalAmount - (totalAmount * 7 / 107)).ToString("#.##");
 
-           
+
         }
 
-        private void clearData() {
+        private void clearData()
+        {
             myBill = new Bill();
             //var bs = new BindingSource();
             //bs.DataSource = new DocumentLine();
@@ -163,7 +166,7 @@ namespace WholeSale.Forms
         private void addData()
         {
             var mySelectedProduct = myBill.filterProd(mstProduct, (tbScan.Text));
-            if (mySelectedProduct.Count >= 1)
+            if (mySelectedProduct.Count > 0)
             {
 
                 MydocLine = myBill.setList(mySelectedProduct.FirstOrDefault(), int.Parse(tbxQty.Text));
@@ -183,7 +186,7 @@ namespace WholeSale.Forms
             else
             {
 
-          
+
                 using (Modal_MsgBox msg = new Modal_MsgBox("ไม่พบรายการสินค้าที่ท่านสแกน"))
                 {
                     msg.StartPosition = FormStartPosition.CenterParent;
@@ -251,21 +254,21 @@ namespace WholeSale.Forms
 
                 using (Modal_Payment fb = new Modal_Payment(Bill.list.Sum(s => s.amount)))
                 {
-                   
+
                     fb.StartPosition = FormStartPosition.CenterParent;
                     fb.ShowDialog();
 
 
-               
+
 
 
 
                     string msgText = "จ่ายเงินสำเร็จ " + Environment.NewLine;
 
                     msgText += "ราคารวม  = " + payment.totalAmount.ToString() + " บาท" + Environment.NewLine;
-                    msgText += "จ่ายเงิน  =" + payment.income.ToString() +" บาท" + Environment.NewLine;
+                    msgText += "จ่ายเงิน  =" + payment.income.ToString() + " บาท" + Environment.NewLine;
                     msgText += "เงินทอน  =" + payment.change.ToString() + " บาท" + Environment.NewLine;
-                 
+
 
 
 
@@ -275,9 +278,10 @@ namespace WholeSale.Forms
 
                         msg.StartPosition = FormStartPosition.CenterParent;
                         msg.ShowDialog();
-                      
+
                     }
-                    if (payment.isComplete) {
+                    if (payment.isComplete)
+                    {
                         myBill.payBill();
 
                     }
@@ -294,14 +298,15 @@ namespace WholeSale.Forms
 
 
             }
-            else {
+            else
+            {
 
                 using (Modal_MsgBox fb = new Modal_MsgBox("ไม่มีรายการสินค้า"))
                 {
 
                     fb.StartPosition = FormStartPosition.CenterParent;
                     fb.ShowDialog();
-                 
+
                 }
 
 
@@ -340,8 +345,8 @@ namespace WholeSale.Forms
             }
             else
             {
-              //  printDoc.PrintPage += new PrintPageEventHandler(PrintPage);
-             //   m_currentPageIndex = 0;
+                //  printDoc.PrintPage += new PrintPageEventHandler(PrintPage);
+                //   m_currentPageIndex = 0;
                 printDoc.Print();
             }
         }
@@ -355,12 +360,24 @@ namespace WholeSale.Forms
 
         private void tbScan_KeyPress_1(object sender, KeyPressEventArgs e)
         {
+            cursor = 1;
             if (e.KeyChar == (char)13)
             {
                 addData();
                 tbScan.Text = "";
                 tbxQty.Text = "1";
+                tbScan.Focus();
             }
+        }
+
+        private void tbScan_MouseClick(object sender, MouseEventArgs e)
+        {
+            cursor = 1;
+        }
+
+        private void tbScan_MouseEnter(object sender, EventArgs e)
+        {
+            cursor = 1;
         }
 
         private void btSearchProduct_Click(object sender, EventArgs e)
@@ -373,7 +390,8 @@ namespace WholeSale.Forms
                 fb.ShowDialog();
 
                 if (productMaintain.haveNewProduct) { loadMaster(); }
-                if   (productCodeSelect != "") {
+                if (productCodeSelect != "")
+                {
 
                     tbScan.Text = productCodeSelect;
                     productCodeSelect = "";
@@ -391,29 +409,25 @@ namespace WholeSale.Forms
             {
 
                 customerInfo.clear();
-              
+
                 fb.StartPosition = FormStartPosition.CenterParent;
                 fb.ShowDialog();
-              
-                if (customerInfo.isSelected ) {
+
+                if (customerInfo.isSelected)
+                {
 
                     lbCustomer.Text = customerInfo.customerName;
                     lbAddress.Text = customerInfo.customerAddress;
 
                     customerInfo.clear();
                 }
-               
+
             }
-        }
-
-        private void tbScan_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void tbPuase_Click(object sender, EventArgs e)
         {
-            using (Modal_MsgBox msg = new Modal_MsgBox("ท่านต้องการจะดำเนินการ เรื่องใด ?",optionType.holding))
+            using (Modal_MsgBox msg = new Modal_MsgBox("ท่านต้องการจะดำเนินการ เรื่องใด ?", optionType.holding))
             {
                 msg.StartPosition = FormStartPosition.CenterParent;
                 msg.ShowDialog();
@@ -427,26 +441,29 @@ namespace WholeSale.Forms
                 }
 
 
-                if (Bill.list.Count == 0) {
+                if (Bill.list.Count == 0)
+                {
                     clearData();
                 }
 
-              
+
 
             }
         }
 
 
-        private void loadDocument(int docH) {
+        private void loadDocument(int docH)
+        {
             var doclist = (from a in yndInven.DocumentLines where a.DocumentId == docH select a).ToList();
             myBill = new Bill();
             Bill.docHeaderID = docH;
             Bill.documentNumber = doclist.Select(s => s.DocumentNo).FirstOrDefault().ToString();
             label7.Text = Bill.documentNumber;
-            foreach (DocumentLine docline in doclist) {
-              
-               tbxQty.Text = decimal.ToInt64(docline.qty).ToString();
-               tbScan.Text = mstProduct.Where(w => w.productId == docline.productId).Select(s => s.productCode).FirstOrDefault().ToString();
+            foreach (DocumentLine docline in doclist)
+            {
+
+                tbxQty.Text = decimal.ToInt64(docline.qty).ToString();
+                tbScan.Text = mstProduct.Where(w => w.productId == docline.productId).Select(s => s.productCode).FirstOrDefault().ToString();
                 addData();
                 tbScan.Text = "";
                 tbxQty.Text = "1";
@@ -455,9 +472,139 @@ namespace WholeSale.Forms
 
 
         }
+
+        private void tbxQty_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                tbScan.Select();
+            }
+        }
+
+        private void tbxQty_Enter(object sender, EventArgs e)
+        {
+            tbxQty.SelectAll();
+            cursor = 2;
+        }
+
+        private void tbxQty_MouseEnter(object sender, EventArgs e)
+        {
+            tbxQty.SelectAll();
+            cursor = 2;
+        }
+
+        private void tbxQty_MouseClick(object sender, MouseEventArgs e)
+        {
+            tbxQty.SelectAll();
+            cursor = 2;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            KeyData("1");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            KeyData("2");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            KeyData("3");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            KeyData("4");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            KeyData("5");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            KeyData("6");
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            KeyData("7");
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            KeyData("8");
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            KeyData("9");
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            KeyData("0");
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            KeyData(".");
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            KeyData("{}");
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            KeyData("{ENTER}");
+        }
+
+        private void KeyData(string  i)
+        {
+            switch (cursor)
+            {
+                case 1:
+                    if (i == "{}")
+                    {
+                        tbScan.Text = "";
+                    }
+                    else if (i == "{ENTER}")
+                    {
+                        tbScan.Focus();
+                        SendKeys.SendWait("{ENTER}");
+                    }
+                    else
+                    {
+                        tbScan.Text += i;
+                    }     
+                    break;
+                case 2:
+                    if (i == "{}")
+                    {
+                        tbxQty.Text = "";
+                    }
+                    else if (i == "{ENTER}")
+                    {
+                        tbxQty.Focus();
+                        SendKeys.SendWait("{ENTER}");
+                    }
+                    else
+                    {
+                        tbxQty.Text += i;
+                    }
+                    break;
+
+                default:
+
+                    break;
+            }
+        }        
     }
-
-
 
 
 }

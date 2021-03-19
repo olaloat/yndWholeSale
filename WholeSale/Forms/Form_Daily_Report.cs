@@ -54,10 +54,10 @@ namespace WholeSale.Forms
             switch (cboStatus.Text)
             {
                 case "สำเร็จ":
-                    document2 = document.Where(i => i.status == "สำเร็จ").ToList();
+                    document2 = document.Where(i => i.status == 0).ToList();
                     break;
                 case "พักบิล":
-                    document2 = document.Where(i => i.status == "พักบิล").ToList();
+                    document2 = document.Where(i => i.status == 1).ToList();
                     break;
                 default:
 
@@ -67,6 +67,27 @@ namespace WholeSale.Forms
         
             //document2 = document2.Where(i => i.status == 1).ToList();
             dataGridView1.DataSource = document2;
+
+
+            decimal total = 0;
+            decimal dc = 0;
+            decimal qty = 0;
+            decimal vat = 0;
+
+            foreach (var i in document2)
+            {
+                total += i.totalPrice;
+                dc += i.totalDc;
+                qty += i.totalQty;
+                vat += i.totalVat;
+
+            }
+            lbAmount.Text = total.ToString("#.##");
+            lbDiscount.Text = dc.ToString("#.##");
+            lbVat.Text = vat.ToString("#.##");
+            lbAmountAfterDiscount.Text = (total - dc).ToString("#.##");
+
+
         }
 
         private void btnClear_Click(object sender, EventArgs e)

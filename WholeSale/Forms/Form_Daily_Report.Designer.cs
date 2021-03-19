@@ -339,7 +339,8 @@
             this.cboStatus.FormattingEnabled = true;
             this.cboStatus.Items.AddRange(new object[] {
             "สำเร็จ",
-            "พักบิล"});
+            "พักบิล",
+            "ทั้งหมด"});
             this.cboStatus.Location = new System.Drawing.Point(727, 23);
             this.cboStatus.Name = "cboStatus";
             this.cboStatus.Size = new System.Drawing.Size(194, 29);
