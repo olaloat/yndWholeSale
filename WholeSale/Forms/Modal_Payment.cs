@@ -310,14 +310,35 @@ namespace WholeSale.Forms
 
             calCulatePayment();
 
+            setSummary();
+
+
+
+
+            btnClearNum.Visible = tbxPayIn.Text.Length>0?true:false;
+        
+
+        }
+
+
+       private void setSummary() {
 
             tbPay.Text = totalPay.ToString();
-            tbReturn.Text =   payment.change.ToString();
+            tbReturn.Text = payment.change.ToString();
             tbOverdue.Text = payment.overdue.ToString();
+        }
 
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            payment.isComplete = false;
+            this.Dispose();
+        }
 
-
-
+        private void btnClearNum_Click(object sender, EventArgs e)
+        {
+            tbxPayIn.Text = "";
+            calCulatePayment();
+            setSummary();
         }
     }
 }

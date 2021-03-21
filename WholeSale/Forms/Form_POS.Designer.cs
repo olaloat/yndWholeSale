@@ -557,6 +557,7 @@
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.Size = new System.Drawing.Size(1305, 340);
             this.dataGridView3.TabIndex = 4;
+            this.dataGridView3.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView3_CellClick_1);
             // 
             // tableLayoutPanel3
             // 
@@ -792,6 +793,7 @@
             this.btFinalDc.TabStop = false;
             this.btFinalDc.Text = "ส่วนลดท้ายบิล";
             this.btFinalDc.UseVisualStyleBackColor = true;
+            this.btFinalDc.Click += new System.EventHandler(this.btFinalDc_Click);
             // 
             // btCancel
             // 
@@ -804,6 +806,7 @@
             this.btCancel.TabStop = false;
             this.btCancel.Text = "ยกเลิกรายการ";
             this.btCancel.UseVisualStyleBackColor = true;
+            this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
             // 
             // Form_POS
             // 
@@ -822,7 +825,7 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-          //  this.Name = "Form_POS";
+         //   this.Name = "Form_POS";
             this.Text = "Form_Dashboard";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form_POS_Load);

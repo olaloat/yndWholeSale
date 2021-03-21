@@ -13,20 +13,21 @@ namespace WholeSale.Forms
     public partial class Modal_MsgBox : Form
     {
 
+        public resultOption selectResult;
+        public enum resultOption { ok, cancel, yes, no }
 
-
-        private string type = "";
-        public Modal_MsgBox(string data, optionType Type = optionType.ok, string button1 = "", string button2 = "", string button3 = "")
+        private optionType type ;
+        public Modal_MsgBox(string data, optionType msgBoxType = optionType.ok, string button1 = "", string button2 = "", string button3 = "")
         {
             InitializeComponent();
-
-            switch ((int)Type) {
-                case 0:
-                    type = "ok";
+            type = msgBoxType;
+            switch (msgBoxType) {
+                case optionType.ok:
+                    //type = "ok";
                     pnButton.Visible = false;
                     break;
-                case 1:  // ok cancel
-                    type = "okCancel";
+                case optionType.okCancel:  // ok cancel
+                    //type = "okCancel";
                     pnButton.Visible = true;
 
                     btOption1.Visible = false;
@@ -36,20 +37,20 @@ namespace WholeSale.Forms
                     button2Text = "Cancel";
                     button3Text = "OK";
                     break;
-                case 2: // yes no 
-                    type = "yesNo";
+                case optionType.yseNoOk: // yes no 
+                    //type = "yesNo";
                     pnButton.Visible = true;
 
                     btOption1.Visible = false;
                     btOption2.Visible = true;
                     btOption3.Visible = true;
 
-                    button2Text = "YES";
-                    button3Text = "NO";
+                    btOption2.Text = "YES";
+                    btOption3.Text = "NO";
 
                     break;
-                case 3: // custom
-                    type = "holding";
+                case optionType.holding: // custom
+                    //type = "holding";
 
                     pnButton.Visible = true;
 
@@ -89,7 +90,7 @@ namespace WholeSale.Forms
         {
             switch (type) {
 
-                case "holding":
+                case optionType.holding:
                     openPageHoldBill();
                     if (Bill.docHeaderID != 0) { this.Dispose(); }
 
@@ -101,7 +102,7 @@ namespace WholeSale.Forms
             switch (type)
             {
 
-                case "holding":
+                case optionType.holding:
                    mainResult rs = Bill.holdingBill();
                     tbMessage.Text = rs.message;
                     diableAllbutton();
@@ -114,6 +115,10 @@ namespace WholeSale.Forms
 
                         tbMessage.ForeColor = Color.Red;
                     }
+                    break;
+                case optionType.yseNoOk:
+                    selectResult = resultOption.yes;
+                    this.Dispose();
                     break;
             }
 
@@ -128,7 +133,17 @@ namespace WholeSale.Forms
 
         private void btOption3_Click(object sender, EventArgs e)
         {
+            switch (type)
+            {
 
+                case optionType.holding:
+                  
+                    break;
+                case optionType.yseNoOk:
+                    selectResult = resultOption.no;
+                    this.Dispose();
+                    break;
+            }
         }
 
 
@@ -143,17 +158,16 @@ namespace WholeSale.Forms
 
         }
 
-
-  
+     
     }
 
     public enum optionType { ok, okCancel, yseNoOk,holding   }
 
+   
 
 
-    
-   
-   
+
+
 }
 
 

@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btnClearNum = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btAll = new System.Windows.Forms.Button();
             this.btDel = new System.Windows.Forms.Button();
@@ -68,6 +69,7 @@
             this.tbOverdue = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chkboxPrintBill = new System.Windows.Forms.CheckBox();
+            this.btnClose = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -94,6 +96,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btnClearNum);
             this.tabPage1.Controls.Add(this.tableLayoutPanel1);
             this.tabPage1.Controls.Add(this.tbxPayIn);
             this.tabPage1.Font = new System.Drawing.Font("Century Gothic", 24F);
@@ -104,6 +107,21 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "เงินสด";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btnClearNum
+            // 
+            this.btnClearNum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnClearNum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClearNum.Font = new System.Drawing.Font("Century Gothic", 7F, System.Drawing.FontStyle.Bold);
+            this.btnClearNum.Location = new System.Drawing.Point(505, 6);
+            this.btnClearNum.Margin = new System.Windows.Forms.Padding(0);
+            this.btnClearNum.Name = "btnClearNum";
+            this.btnClearNum.Size = new System.Drawing.Size(21, 22);
+            this.btnClearNum.TabIndex = 6;
+            this.btnClearNum.Text = "X";
+            this.btnClearNum.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnClearNum.UseVisualStyleBackColor = false;
+            this.btnClearNum.Click += new System.EventHandler(this.btnClearNum_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -557,11 +575,26 @@
             this.chkboxPrintBill.UseVisualStyleBackColor = true;
             this.chkboxPrintBill.CheckedChanged += new System.EventHandler(this.chkboxPrintBill_CheckedChanged);
             // 
+            // btnClose
+            // 
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.btnClose.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.Location = new System.Drawing.Point(342, 594);
+            this.btnClose.Margin = new System.Windows.Forms.Padding(0);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(215, 34);
+            this.btnClose.TabIndex = 5;
+            this.btnClose.Text = "ปิด";
+            this.btnClose.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
             // Modal_Payment
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(566, 640);
+            this.Controls.Add(this.btnClose);
             this.Controls.Add(this.chkboxPrintBill);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.btOK);
@@ -632,5 +665,7 @@
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.CheckBox chkboxPrintBill;
+        private System.Windows.Forms.Button btnClose;
+        private System.Windows.Forms.Button btnClearNum;
     }
 }

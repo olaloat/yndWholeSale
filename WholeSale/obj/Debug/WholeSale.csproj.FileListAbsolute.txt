@@ -111,7 +111,6 @@ D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\bin\Debug\EntityFramework.xml
 D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\bin\Debug\EntityFramework.SqlServer.xml
 D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\bin\Debug\itextsharp.xml
 D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\bin\Debug\log4net.xml
-D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.csprojResolveAssemblyReference.cache
 D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.Form2.resources
 D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.Form1.resources
 D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.Forms.Form2.resources
@@ -131,3 +130,8 @@ D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.Forms.Modal_
 D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.Forms.Modal_Payment.resources
 D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.Properties.Resources.resources
 D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.csproj.GenerateResource.Cache
+D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\RdlCompile.cache
+D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\RdlCompile.compiled
+D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.csproj.CoreCompileInputs.cache
+D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.csproj.CopyComplete
+D:\_freelance\gitHubRepo\yndWholeSale\WholeSale\obj\Debug\WholeSale.csprojAssemblyReference.cache
