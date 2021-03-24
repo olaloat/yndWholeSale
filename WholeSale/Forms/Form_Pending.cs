@@ -47,35 +47,7 @@ namespace WholeSale.Forms
         }
 
 
-        //private void dtgHoldingList_CellDoubleClick(object sender, DataGridViewCellEventHandler e)
-        //{
-        //    if (dtgHoldingList.CurrentCell.RowIndex >= 0)
-        //    {
 
-        //        customerInfo.clear();
-        //        int row = dtgHoldingList.CurrentCell.RowIndex;
-
-
-        //        int colHeaderID = dtHodling.Columns["documentId"].Ordinal;
-        //        int colDocNum = dtHodling.Columns["documentNo"].Ordinal;
-        //        //int colsAddress1 = dtHodling.Columns["address1"].Ordinal;
-        //        //int colsAddress2 = dtHodling.Columns["address2"].Ordinal;
-        //        //int colsCity = dtHodling.Columns["city"].Ordinal;
-        //        //int colsPostal = dtHodling.Columns["postal"].Ordinal;
-
-        //        //string address = dtgHoldingList.Rows[row].Cells[colsAddress1].Value.ToString() + " " + dtgHoldingList.Rows[row].Cells[colsAddress2].Value.ToString() + " " +
-        //        //    dtgHoldingList.Rows[row].Cells[colsCity].Value.ToString() + " " + dtgHoldingList.Rows[row].Cells[colsCustomerName].Value.ToString();
-
-        //        Bill.docHeaderID =int.Parse( dtgHoldingList.Rows[row].Cells[colHeaderID].Value.ToString());
-
-        //        Bill.documentNumber = dtgHoldingList.Rows[row].Cells[colDocNum].Value.ToString();
-        //        //customerInfo.customerAddress = address;
-        //        //customerInfo.customerName = dtgHoldingList.Rows[row].Cells[colsCustomerName].Value.ToString();
-        //        //customerInfo.isSelected = true;
-        //        this.Dispose();
-
-        //    }
-        //}
 
         private void dtgHoldingList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -107,10 +79,7 @@ namespace WholeSale.Forms
             }
         }
 
-        private void dtgHoldingList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
+     
 
 
 

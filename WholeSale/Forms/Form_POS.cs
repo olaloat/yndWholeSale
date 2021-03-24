@@ -115,13 +115,111 @@ namespace WholeSale.Forms
             this.dataGridView3.Columns["discountUnit"].HeaderText = "ส่วนลด/หน่วย";
             this.dataGridView3.Columns["discountTotal"].HeaderText = "ส่วนลดรวม";
 
+            DataGridViewButtonColumn btnDel = new DataGridViewButtonColumn();
+            DataGridViewButtonColumn btnEdit = new DataGridViewButtonColumn();
+            dataGridView3.Columns.Add(btnEdit);
+            btnEdit.HeaderText = "Edit";
+            btnEdit.Text = "Edit";
+            btnEdit.Name = "btn";
+            btnEdit.UseColumnTextForButtonValue = true;
+
+            dataGridView3.Columns.Add(btnDel);
+            btnDel.HeaderText = "Delete";
+            btnDel.Text = "Delete";
+            btnDel.Name = "btn";
+            btnDel.UseColumnTextForButtonValue = true;
+
             this.dataGridView3.ReadOnly = true;
             this.dataGridView3.AllowUserToAddRows = false;
 
 
         }
+        private void dataGridView3_CellClick_1(object sender, DataGridViewCellEventArgs e)
+
+              
+        {
+
+            string  prodCodeSelect = "";
+
+            if (e.RowIndex >= 0) {
+                prodCodeSelect = this.dataGridView3.Rows[e.RowIndex].Cells["productId"].Value.ToString();
+
+                if (this.dataGridView3.Columns[e.ColumnIndex].HeaderText == "Edit") {
+                    DocumentLine prdslct = new DocumentLine();
+
+                     prdslct = MydocLine.Where(w => w.productId.ToString() == prodCodeSelect.ToString()).FirstOrDefault();
 
 
+                    editLine(prdslct);
+
+
+                   
+            }
+
+            if (this.dataGridView3.Columns[e.ColumnIndex].HeaderText == "Delete")
+            {
+
+                deleteLine(prodCodeSelect);
+            }
+
+
+        }
+
+
+    }
+
+
+        private void editLine(DocumentLine prdSlect) {
+
+            using (Modal_Edit fb = new Modal_Edit(prdSlect))
+            {
+                //productMaintain.clear();
+                //productCodeSelect = "";
+                fb.StartPosition = FormStartPosition.CenterParent;
+                fb.ShowDialog();
+
+
+
+                var bs = new BindingSource();
+
+                bs.DataSource = MydocLine;
+                dataGridView3.DataSource = bs;
+
+                dataGridView3.Refresh();
+                setSummary();
+                Bill.isHasList = Bill.list.Count > 0 ? true : false;
+
+
+
+
+
+                //if (productMaintain.haveNewProduct) { loadMaster(); }
+                //if (productCodeSelect != "")
+                //{
+
+                //    tbScan.Text = productCodeSelect;
+                //    productCodeSelect = "";
+                //    tbScan.Focus();
+                //    SendKeys.SendWait("{ENTER}");
+
+
+                //}
+            }
+        }
+
+
+
+        private void deleteLine(string productCode)
+        {
+
+
+            //bs.DataSource = MydocLine;
+            //dataGridView3.DataSource = bs;
+
+            //dataGridView3.Refresh();
+            //setSummary();
+            //Bill.isHasList = Bill.list.Count > 0 ? true : false;
+        }
 
         private void button15_Click(object sender, EventArgs e)
         {
@@ -242,30 +340,9 @@ namespace WholeSale.Forms
 
         private void btPayment_Click(object sender, EventArgs e)
         {
-            //LocalReport report = new LocalReport();
-            //string path = Path.GetDirectoryName(Application.ExecutablePath);
-            //string fullPath = Path.GetDirectoryName(Application.ExecutablePath).Remove(path.Length - 10) + @"\Report\rpBill.rdlc";
-            //report.ReportPath = fullPath;
-            //DataTable dt = new DataTable();
-            //dt.Columns.Add("productCode");
-            //dt.Columns.Add("productName");
-            //dt.Columns.Add("qty");
-            //dt.Rows.Add( "1111","ddddd","5");
-            //dt.Rows.Add("1111", "ddddd", "5");
-            //dt.Rows.Add("1111", "ddddd", "5");
-            //dt.Rows.Add("1111", "ddddd", "5");
-            //dt.Rows.Add("1111", "ddddd", "5");
-            //report.DataSources.Add(new ReportDataSource("productLIst", dt));
-            //Print(report);
-
-
-            //myBill.payBill();
-
-
-
+      
             if (Bill.list.Count > 0)
             {
-
                 using (Modal_Payment fb = new Modal_Payment(Bill.list.Sum(s => s.amount)))
                 {
 
@@ -273,16 +350,16 @@ namespace WholeSale.Forms
                     fb.ShowDialog();
 
 
-
+               
 
 
 
                     string msgText = "จ่ายเงินสำเร็จ " + Environment.NewLine;
 
                     msgText += "ราคารวม  = " + payment.totalAmount.ToString() + " บาท" + Environment.NewLine;
-                    msgText += "จ่ายเงิน  =" + payment.income.ToString() + " บาท" + Environment.NewLine;
+                    msgText += "จ่ายเงิน  =" + payment.income.ToString() +" บาท" + Environment.NewLine;
                     msgText += "เงินทอน  =" + payment.change.ToString() + " บาท" + Environment.NewLine;
-
+                 
 
 
 
@@ -292,10 +369,9 @@ namespace WholeSale.Forms
 
                         msg.StartPosition = FormStartPosition.CenterParent;
                         msg.ShowDialog();
-
+                      
                     }
-                    if (payment.isComplete)
-                    {
+                    if (payment.isComplete) {
                         myBill.payBill();
 
                     }
@@ -309,11 +385,8 @@ namespace WholeSale.Forms
 
 
                 }
-
-
             }
-            else
-            {
+            else {
 
                 using (Modal_MsgBox fb = new Modal_MsgBox("ไม่มีรายการสินค้า"))
                 {
@@ -322,12 +395,7 @@ namespace WholeSale.Forms
                     fb.ShowDialog();
 
                 }
-
-
             }
-
-            tbScan.Clear();
-            tbScan.Focus();
 
 
 
@@ -492,72 +560,36 @@ namespace WholeSale.Forms
 
         }
 
-        private void tbxQty_KeyPress_1(object sender, KeyPressEventArgs e)
+        private void btCancel_Click(object sender, EventArgs e)
         {
-            if (e.KeyChar == (char)13)
+           
+
+            using (Modal_MsgBox msg = new Modal_MsgBox("ยืนยันการ Clear ข้อมูล ?", optionType.yseNoOk))
             {
-                tbScan.Clear();
-                tbScan.Focus();
+                msg.StartPosition = FormStartPosition.CenterParent;
+                msg.ShowDialog();
+
+
+                if (msg.selectResult== Modal_MsgBox.resultOption.yes) {
+                    clearData();
+
+                }
+
+                if (msg.selectResult == Modal_MsgBox.resultOption.no)
+                {
+                   
+
+                }
+
+
+
             }
         }
 
-        private void tbxQty_Enter(object sender, EventArgs e)
-        {
-            //tbxQty.SelectAll();
-            cursor = 2;
-        }
 
-        private void tbxQty_MouseEnter(object sender, EventArgs e)
-        {
-            //tbxQty.SelectAll();
-            cursor = 2;
-        }
 
-        private void tbxQty_MouseClick(object sender, MouseEventArgs e)
-        {
-            //tbxQty.SelectAll();
-            cursor = 2;
         }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            KeyData("1");
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            KeyData("2");
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            KeyData("3");
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            KeyData("4");
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            KeyData("5");
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            KeyData("6");
-        }
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            KeyData("7");
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            KeyData("8");
-        }
+    }
 
         private void button9_Click(object sender, EventArgs e)
         {

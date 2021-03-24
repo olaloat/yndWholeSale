@@ -87,7 +87,7 @@
             this.dtgHoldingList.Name = "dtgHoldingList";
             this.dtgHoldingList.Size = new System.Drawing.Size(1712, 634);
             this.dtgHoldingList.TabIndex = 29;
-            this.dtgHoldingList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgHoldingList_CellContentClick);
+         
             this.dtgHoldingList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgHoldingList_CellDoubleClick);
             // 
             // panel3

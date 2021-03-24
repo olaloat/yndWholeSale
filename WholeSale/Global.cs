@@ -87,6 +87,14 @@ namespace WholeSale
         public static bool inp1000 = false;
         public static bool inp100 = false;
         public static bool inp500 = false;
+
+
+      
+        public static decimal totalDiscountInline = 0;
+        public static decimal dicountBill = 0;
+        public static decimal totalNetPay = 0;
+        public static decimal totalDiscount = 0;
+
         public static void clearbt() {
             inp1000 = false;
             inp100 = false;
