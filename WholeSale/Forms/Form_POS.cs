@@ -483,19 +483,19 @@ namespace WholeSale.Forms
 
         private void tbxQty_Enter(object sender, EventArgs e)
         {
-            tbxQty.SelectAll();
+            //tbxQty.SelectAll();
             cursor = 2;
         }
 
         private void tbxQty_MouseEnter(object sender, EventArgs e)
         {
-            tbxQty.SelectAll();
+            //tbxQty.SelectAll();
             cursor = 2;
         }
 
         private void tbxQty_MouseClick(object sender, MouseEventArgs e)
         {
-            tbxQty.SelectAll();
+            //tbxQty.SelectAll();
             cursor = 2;
         }
 
@@ -556,12 +556,12 @@ namespace WholeSale.Forms
 
         private void button14_Click(object sender, EventArgs e)
         {
-            KeyData("{}");
+            KeyData("BACKSPACE");
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
-            KeyData("{ENTER}");
+            KeyData("ENTER");
         }
 
         private void KeyData(string  i)
@@ -569,41 +569,22 @@ namespace WholeSale.Forms
             switch (cursor)
             {
                 case 1:
-                    if (i == "{}")
-                    {
-                        tbScan.Text = "";
-                    }
-                    else if (i == "{ENTER}")
-                    {
                         tbScan.Focus();
-                        SendKeys.SendWait("{ENTER}");
-                    }
-                    else
-                    {
-                        tbScan.Text += i;
-                    }     
+                        SendKeys.SendWait("{" + i + "}");
+                        //e.Handled = true;
                     break;
                 case 2:
-                    if (i == "{}")
-                    {
-                        tbxQty.Text = "";
-                    }
-                    else if (i == "{ENTER}")
-                    {
+
                         tbxQty.Focus();
-                        SendKeys.SendWait("{ENTER}");
-                    }
-                    else
-                    {
-                        tbxQty.Text += i;
-                    }
+                        SendKeys.SendWait("{" + i + "}");
+                        //e.Handled = true;
                     break;
 
                 default:
 
                     break;
             }
-        }        
+        }  
     }
 
 
