@@ -69,7 +69,8 @@ namespace WholeSale.Forms
         private void Form_POS_Load(object sender, EventArgs e)
 
         {
-
+            cursor = 1;
+            clearTxtShowScreen();
             loadMaster();
             setSummary();
             MydocLine = new List<DocumentLine>();
@@ -161,6 +162,19 @@ namespace WholeSale.Forms
             dataGridView3.Rows.Clear();
             dataGridView3.Refresh();
             setSummary();
+            clearTxtShowScreen();
+        }
+
+        private void clearTxtShowScreen()
+        {
+            lblDoc.Text = "-";
+            lblIssueDate.Text = "-";
+            lblRefDoc.Text = "-";
+            lblStatus.Text = "-";
+            lblEmpName.Text = Global.username;
+            lbCustomer.Text = "-";
+            lbAddress.Text = "-";
+            lblDelivery.Text = "-";
         }
 
         private void addData()
@@ -312,6 +326,9 @@ namespace WholeSale.Forms
 
             }
 
+            tbScan.Clear();
+            tbScan.Focus();
+
 
 
         }
@@ -364,7 +381,7 @@ namespace WholeSale.Forms
             if (e.KeyChar == (char)13)
             {
                 addData();
-                tbScan.Text = "";
+                tbScan.Clear();
                 tbxQty.Text = "1";
                 tbScan.Focus();
             }
@@ -397,7 +414,7 @@ namespace WholeSale.Forms
                     productCodeSelect = "";
                     tbScan.Focus();
                     SendKeys.SendWait("{ENTER}");
-
+                    tbScan.Clear();
 
                 }
             }
@@ -418,7 +435,8 @@ namespace WholeSale.Forms
 
                     lbCustomer.Text = customerInfo.customerName;
                     lbAddress.Text = customerInfo.customerAddress;
-
+                    tbScan.Clear();
+                    tbScan.Focus();
                     customerInfo.clear();
                 }
 
@@ -446,7 +464,8 @@ namespace WholeSale.Forms
                     clearData();
                 }
 
-
+                tbScan.Clear();
+                tbScan.Focus();
 
             }
         }
@@ -458,7 +477,7 @@ namespace WholeSale.Forms
             myBill = new Bill();
             Bill.docHeaderID = docH;
             Bill.documentNumber = doclist.Select(s => s.DocumentNo).FirstOrDefault().ToString();
-            label7.Text = Bill.documentNumber;
+            lblDoc.Text = Bill.documentNumber;
             foreach (DocumentLine docline in doclist)
             {
 
@@ -477,7 +496,8 @@ namespace WholeSale.Forms
         {
             if (e.KeyChar == (char)13)
             {
-                tbScan.Select();
+                tbScan.Clear();
+                tbScan.Focus();
             }
         }
 
@@ -577,6 +597,10 @@ namespace WholeSale.Forms
 
                         tbxQty.Focus();
                         SendKeys.SendWait("{" + i + "}");
+                    if (i == "ENTER")
+                    {
+                        cursor = 1;
+                    }
                         //e.Handled = true;
                     break;
 
@@ -584,7 +608,13 @@ namespace WholeSale.Forms
 
                     break;
             }
-        }  
+        }
+
+        private void btDelivery_Click(object sender, EventArgs e)
+        {
+            tbScan.Clear();
+            tbScan.Focus();
+        }
     }
 
 

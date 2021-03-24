@@ -35,6 +35,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.btPayment = new System.Windows.Forms.Button();
             this.btDelivery = new System.Windows.Forms.Button();
             this.btCustomer = new System.Windows.Forms.Button();
@@ -45,21 +59,21 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label19 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
+            this.lblIssueDate = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.lblRefDoc = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblDoc = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.lblEmpName = new System.Windows.Forms.Label();
             this.lbCustomer = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.lbAddress = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
+            this.lblDelivery = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tbxQty = new System.Windows.Forms.TextBox();
@@ -91,22 +105,9 @@
             this.tbPuase = new System.Windows.Forms.Button();
             this.btFinalDc = new System.Windows.Forms.Button();
             this.btCancel = new System.Windows.Forms.Button();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -117,7 +118,6 @@
             this.tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel8.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -193,6 +193,209 @@
             this.panel3.Size = new System.Drawing.Size(402, 720);
             this.panel3.TabIndex = 10;
             // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(38)))), ((int)(((byte)(37)))));
+            this.panel2.Controls.Add(this.button14);
+            this.panel2.Controls.Add(this.button13);
+            this.panel2.Controls.Add(this.button12);
+            this.panel2.Controls.Add(this.button11);
+            this.panel2.Controls.Add(this.button9);
+            this.panel2.Controls.Add(this.button8);
+            this.panel2.Controls.Add(this.button7);
+            this.panel2.Controls.Add(this.button6);
+            this.panel2.Controls.Add(this.button5);
+            this.panel2.Controls.Add(this.button2);
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.button4);
+            this.panel2.Controls.Add(this.button3);
+            this.panel2.Location = new System.Drawing.Point(19, 246);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(361, 265);
+            this.panel2.TabIndex = 17;
+            // 
+            // button14
+            // 
+            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button14.Font = new System.Drawing.Font("Century Gothic", 18F);
+            this.button14.ForeColor = System.Drawing.Color.White;
+            this.button14.Location = new System.Drawing.Point(273, 3);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(84, 60);
+            this.button14.TabIndex = 23;
+            this.button14.TabStop = false;
+            this.button14.Text = "⤆";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button13
+            // 
+            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button13.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button13.ForeColor = System.Drawing.Color.White;
+            this.button13.Location = new System.Drawing.Point(273, 69);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(84, 192);
+            this.button13.TabIndex = 22;
+            this.button13.TabStop = false;
+            this.button13.Text = "Enter";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // button12
+            // 
+            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button12.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button12.ForeColor = System.Drawing.Color.White;
+            this.button12.Location = new System.Drawing.Point(93, 201);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(84, 60);
+            this.button12.TabIndex = 21;
+            this.button12.TabStop = false;
+            this.button12.Text = "0";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // button11
+            // 
+            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button11.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button11.ForeColor = System.Drawing.Color.White;
+            this.button11.Location = new System.Drawing.Point(3, 201);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(84, 60);
+            this.button11.TabIndex = 20;
+            this.button11.TabStop = false;
+            this.button11.Text = ".";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // button9
+            // 
+            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button9.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button9.ForeColor = System.Drawing.Color.White;
+            this.button9.Location = new System.Drawing.Point(183, 3);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(84, 60);
+            this.button9.TabIndex = 19;
+            this.button9.TabStop = false;
+            this.button9.Text = "9";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button8
+            // 
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button8.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.ForeColor = System.Drawing.Color.White;
+            this.button8.Location = new System.Drawing.Point(93, 3);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(84, 60);
+            this.button8.TabIndex = 18;
+            this.button8.TabStop = false;
+            this.button8.Text = "8";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button7
+            // 
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.ForeColor = System.Drawing.Color.White;
+            this.button7.Location = new System.Drawing.Point(3, 3);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(84, 60);
+            this.button7.TabIndex = 17;
+            this.button7.TabStop = false;
+            this.button7.Text = "7";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button6
+            // 
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.ForeColor = System.Drawing.Color.White;
+            this.button6.Location = new System.Drawing.Point(183, 69);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(84, 60);
+            this.button6.TabIndex = 16;
+            this.button6.TabStop = false;
+            this.button6.Text = "6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button5
+            // 
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button5.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.ForeColor = System.Drawing.Color.White;
+            this.button5.Location = new System.Drawing.Point(93, 69);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(84, 60);
+            this.button5.TabIndex = 15;
+            this.button5.TabStop = false;
+            this.button5.Text = "5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button2
+            // 
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(93, 135);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(84, 60);
+            this.button2.TabIndex = 12;
+            this.button2.TabStop = false;
+            this.button2.Text = "2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(3, 135);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(84, 60);
+            this.button1.TabIndex = 11;
+            this.button1.TabStop = false;
+            this.button1.Text = "1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button4
+            // 
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.ForeColor = System.Drawing.Color.White;
+            this.button4.Location = new System.Drawing.Point(3, 69);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(84, 60);
+            this.button4.TabIndex = 14;
+            this.button4.TabStop = false;
+            this.button4.Text = "4";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(183, 135);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(84, 60);
+            this.button3.TabIndex = 13;
+            this.button3.TabStop = false;
+            this.button3.Text = "3";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // btPayment
             // 
             this.btPayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -217,6 +420,7 @@
             this.btDelivery.TabStop = false;
             this.btDelivery.Text = "การจัดส่ง";
             this.btDelivery.UseVisualStyleBackColor = true;
+            this.btDelivery.Click += new System.EventHandler(this.btDelivery_Click);
             // 
             // btCustomer
             // 
@@ -296,21 +500,21 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 167F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.Controls.Add(this.label19, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label9, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.lblIssueDate, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.label10, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label11, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblRefDoc, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label6, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblDoc, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label8, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label12, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label13, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.label14, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label15, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblEmpName, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbCustomer, 3, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label20, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblStatus, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label21, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.lbAddress, 3, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label22, 3, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblDelivery, 3, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -332,15 +536,15 @@
             this.label19.TabIndex = 12;
             this.label19.Text = "สถานะ / Status :";
             // 
-            // label9
+            // lblIssueDate
             // 
-            this.label9.AutoSize = true;
-            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label9.Location = new System.Drawing.Point(163, 30);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(120, 30);
-            this.label9.TabIndex = 3;
-            this.label9.Text = "11.02.2021";
+            this.lblIssueDate.AutoSize = true;
+            this.lblIssueDate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblIssueDate.Location = new System.Drawing.Point(163, 30);
+            this.lblIssueDate.Name = "lblIssueDate";
+            this.lblIssueDate.Size = new System.Drawing.Size(120, 30);
+            this.lblIssueDate.TabIndex = 3;
+            this.lblIssueDate.Text = "11.02.2021";
             // 
             // label10
             // 
@@ -352,15 +556,15 @@
             this.label10.TabIndex = 4;
             this.label10.Text = "อ้างอิง / Ref. :";
             // 
-            // label11
+            // lblRefDoc
             // 
-            this.label11.AutoSize = true;
-            this.label11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label11.Location = new System.Drawing.Point(163, 60);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(120, 30);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "-";
+            this.lblRefDoc.AutoSize = true;
+            this.lblRefDoc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRefDoc.Location = new System.Drawing.Point(163, 60);
+            this.lblRefDoc.Name = "lblRefDoc";
+            this.lblRefDoc.Size = new System.Drawing.Size(120, 30);
+            this.lblRefDoc.TabIndex = 5;
+            this.lblRefDoc.Text = "-";
             // 
             // label6
             // 
@@ -372,15 +576,15 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "วันที่ / Issue Date :";
             // 
-            // label7
+            // lblDoc
             // 
-            this.label7.AutoSize = true;
-            this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(163, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(120, 30);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "SO201121010";
+            this.lblDoc.AutoSize = true;
+            this.lblDoc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblDoc.Location = new System.Drawing.Point(163, 0);
+            this.lblDoc.Name = "lblDoc";
+            this.lblDoc.Size = new System.Drawing.Size(120, 30);
+            this.lblDoc.TabIndex = 1;
+            this.lblDoc.Text = "SO201121010";
             // 
             // label8
             // 
@@ -422,15 +626,15 @@
             this.label14.TabIndex = 8;
             this.label14.Text = "ที่อยู่ / Address :";
             // 
-            // label15
+            // lblEmpName
             // 
-            this.label15.AutoSize = true;
-            this.label15.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label15.Location = new System.Drawing.Point(456, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(89, 30);
-            this.label15.TabIndex = 9;
-            this.label15.Text = "Nattawut";
+            this.lblEmpName.AutoSize = true;
+            this.lblEmpName.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblEmpName.Location = new System.Drawing.Point(456, 0);
+            this.lblEmpName.Name = "lblEmpName";
+            this.lblEmpName.Size = new System.Drawing.Size(89, 30);
+            this.lblEmpName.TabIndex = 9;
+            this.lblEmpName.Text = "Nattawut";
             // 
             // lbCustomer
             // 
@@ -442,16 +646,16 @@
             this.lbCustomer.TabIndex = 10;
             this.lbCustomer.Text = "Aisin Asia Pacific Co.,Ltd.";
             // 
-            // label20
+            // lblStatus
             // 
-            this.label20.AutoSize = true;
-            this.label20.BackColor = System.Drawing.Color.MistyRose;
-            this.label20.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label20.Location = new System.Drawing.Point(163, 90);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(120, 21);
-            this.label20.TabIndex = 13;
-            this.label20.Text = "Issue";
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.BackColor = System.Drawing.Color.MistyRose;
+            this.lblStatus.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblStatus.Location = new System.Drawing.Point(163, 90);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(120, 21);
+            this.lblStatus.TabIndex = 13;
+            this.lblStatus.Text = "Issue";
             // 
             // label21
             // 
@@ -474,15 +678,15 @@
             this.lbAddress.Text = "1 MD Tower, 2nd Floor, Room A Soi Bangna-Trad 25, Debaratna Rd, Bangna-Nua, Bang " +
     "Na, Bangkok 10260";
             // 
-            // label22
+            // lblDelivery
             // 
-            this.label22.AutoSize = true;
-            this.label22.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label22.Location = new System.Drawing.Point(456, 90);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(831, 45);
-            this.label22.TabIndex = 15;
-            this.label22.Text = "1 MD Tower, 2nd Floor, Room A Soi Bangna-Trad 25, Debaratna Rd, Bangna-Nua, Bang " +
+            this.lblDelivery.AutoSize = true;
+            this.lblDelivery.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblDelivery.Location = new System.Drawing.Point(456, 90);
+            this.lblDelivery.Name = "lblDelivery";
+            this.lblDelivery.Size = new System.Drawing.Size(831, 45);
+            this.lblDelivery.TabIndex = 15;
+            this.lblDelivery.Text = "1 MD Tower, 2nd Floor, Room A Soi Bangna-Trad 25, Debaratna Rd, Bangna-Nua, Bang " +
     "Na, Bangkok 10260";
             // 
             // panel6
@@ -825,209 +1029,6 @@
             this.btCancel.Text = "ยกเลิกรายการ";
             this.btCancel.UseVisualStyleBackColor = true;
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(38)))), ((int)(((byte)(37)))));
-            this.panel2.Controls.Add(this.button14);
-            this.panel2.Controls.Add(this.button13);
-            this.panel2.Controls.Add(this.button12);
-            this.panel2.Controls.Add(this.button11);
-            this.panel2.Controls.Add(this.button9);
-            this.panel2.Controls.Add(this.button8);
-            this.panel2.Controls.Add(this.button7);
-            this.panel2.Controls.Add(this.button6);
-            this.panel2.Controls.Add(this.button5);
-            this.panel2.Controls.Add(this.button2);
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.button4);
-            this.panel2.Controls.Add(this.button3);
-            this.panel2.Location = new System.Drawing.Point(19, 246);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(361, 265);
-            this.panel2.TabIndex = 17;
-            // 
-            // button1
-            // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(3, 135);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 60);
-            this.button1.TabIndex = 11;
-            this.button1.TabStop = false;
-            this.button1.Text = "1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button2
-            // 
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(93, 135);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(84, 60);
-            this.button2.TabIndex = 12;
-            this.button2.TabStop = false;
-            this.button2.Text = "2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(183, 135);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(84, 60);
-            this.button3.TabIndex = 13;
-            this.button3.TabStop = false;
-            this.button3.Text = "3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button4.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.Location = new System.Drawing.Point(3, 69);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(84, 60);
-            this.button4.TabIndex = 14;
-            this.button4.TabStop = false;
-            this.button4.Text = "4";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button5
-            // 
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.Location = new System.Drawing.Point(93, 69);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(84, 60);
-            this.button5.TabIndex = 15;
-            this.button5.TabStop = false;
-            this.button5.Text = "5";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button6
-            // 
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(183, 69);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(84, 60);
-            this.button6.TabIndex = 16;
-            this.button6.TabStop = false;
-            this.button6.Text = "6";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button7
-            // 
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.Location = new System.Drawing.Point(3, 3);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(84, 60);
-            this.button7.TabIndex = 17;
-            this.button7.TabStop = false;
-            this.button7.Text = "7";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
-            // button8
-            // 
-            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button8.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.Location = new System.Drawing.Point(93, 3);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(84, 60);
-            this.button8.TabIndex = 18;
-            this.button8.TabStop = false;
-            this.button8.Text = "8";
-            this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // button9
-            // 
-            this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button9.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.ForeColor = System.Drawing.Color.White;
-            this.button9.Location = new System.Drawing.Point(183, 3);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(84, 60);
-            this.button9.TabIndex = 19;
-            this.button9.TabStop = false;
-            this.button9.Text = "9";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
-            // 
-            // button11
-            // 
-            this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button11.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button11.ForeColor = System.Drawing.Color.White;
-            this.button11.Location = new System.Drawing.Point(3, 201);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(84, 60);
-            this.button11.TabIndex = 20;
-            this.button11.TabStop = false;
-            this.button11.Text = ".";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
-            // 
-            // button12
-            // 
-            this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button12.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button12.ForeColor = System.Drawing.Color.White;
-            this.button12.Location = new System.Drawing.Point(93, 201);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(84, 60);
-            this.button12.TabIndex = 21;
-            this.button12.TabStop = false;
-            this.button12.Text = "0";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // button13
-            // 
-            this.button13.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button13.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button13.ForeColor = System.Drawing.Color.White;
-            this.button13.Location = new System.Drawing.Point(273, 69);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(84, 192);
-            this.button13.TabIndex = 22;
-            this.button13.TabStop = false;
-            this.button13.Text = "Enter";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // button14
-            // 
-            this.button14.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button14.Font = new System.Drawing.Font("Century Gothic", 18F);
-            this.button14.ForeColor = System.Drawing.Color.White;
-            this.button14.Location = new System.Drawing.Point(273, 3);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(84, 60);
-            this.button14.TabIndex = 23;
-            this.button14.TabStop = false;
-            this.button14.Text = "⤆";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
-            // 
             // Form_POS
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1045,12 +1046,13 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
- 
+            this.Name = "Form_POS";
             this.Text = "Form_Dashboard";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form_POS_Load);
             this.panel1.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -1064,7 +1066,6 @@
             this.tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel8.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1087,16 +1088,16 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lbAmountIncludeVat;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label lblIssueDate;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label lblRefDoc;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblDoc;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lblEmpName;
         private System.Windows.Forms.Label lbCustomer;
         private System.Windows.Forms.Label lbAddress;
         private System.Windows.Forms.Panel panel6;
@@ -1109,9 +1110,9 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox tbScan;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label lblDelivery;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Button tbPuase;
         private System.Windows.Forms.Label lbVat;
