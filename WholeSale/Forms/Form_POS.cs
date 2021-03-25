@@ -448,7 +448,7 @@ namespace WholeSale.Forms
             cursor = 1;
             if (e.KeyChar == (char)13)
             {
-                addData();
+                addData(); 
                 tbScan.Clear();
                 tbxQty.Text = "1";
                 tbScan.Focus();
@@ -586,10 +586,72 @@ namespace WholeSale.Forms
             }
         }
 
-
-
+        private void tbxQty_KeyPress_1(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                tbScan.Clear();
+                tbScan.Focus();
+            }
         }
-    }
+
+        private void tbxQty_Enter(object sender, EventArgs e)
+        {
+            //tbxQty.SelectAll();
+            cursor = 2;
+        }
+
+        private void tbxQty_MouseEnter(object sender, EventArgs e)
+        {
+            //tbxQty.SelectAll();
+            cursor = 2;
+        }
+
+        private void tbxQty_MouseClick(object sender, MouseEventArgs e)
+        {
+            //tbxQty.SelectAll();
+            cursor = 2;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            KeyData("1");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            KeyData("2");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            KeyData("3");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            KeyData("4");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            KeyData("5");
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            KeyData("6");
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            KeyData("7");
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            KeyData("8");
+        }
 
         private void button9_Click(object sender, EventArgs e)
         {
@@ -616,24 +678,24 @@ namespace WholeSale.Forms
             KeyData("ENTER");
         }
 
-        private void KeyData(string  i)
+        private void KeyData(string i)
         {
             switch (cursor)
             {
                 case 1:
-                        tbScan.Focus();
-                        SendKeys.SendWait("{" + i + "}");
-                        //e.Handled = true;
+                    tbScan.Focus();
+                    SendKeys.SendWait("{" + i + "}");
+                    //e.Handled = true;
                     break;
                 case 2:
 
-                        tbxQty.Focus();
-                        SendKeys.SendWait("{" + i + "}");
+                    tbxQty.Focus();
+                    SendKeys.SendWait("{" + i + "}");
                     if (i == "ENTER")
                     {
                         cursor = 1;
                     }
-                        //e.Handled = true;
+                    //e.Handled = true;
                     break;
 
                 default:
@@ -647,11 +709,67 @@ namespace WholeSale.Forms
             tbScan.Clear();
             tbScan.Focus();
         }
+
+        private void btFinalDc_Click(object sender, EventArgs e)
+        {
+            //using (Modal_FinalDc msg = new Modal_FinalDc())
+            //{
+
+            //    payment.totalAmount = Bill.list.Sum(s => s.amount);
+            //    msg.StartPosition = FormStartPosition.CenterParent;
+            //    msg.ShowDialog();
+
+
+
+
+
+
+            //}
+
+
+
+            //////////////////////////
+            if (Bill.list.Count > 0)
+            {
+                using (Modal_FinalDc fb = new Modal_FinalDc())
+                {
+                    payment.totalAmount = Bill.list.Sum(s => s.amount);
+                    fb.StartPosition = FormStartPosition.CenterParent;
+                    fb.ShowDialog();
+
+                    if (payment.isComplete)
+                    {
+                        myBill.payBill();
+                        string msgText = "จ่ายเงินสำเร็จ " + Environment.NewLine;
+                        msgText += "ราคารวม  = " + payment.totalAmount.ToString() + " บาท" + Environment.NewLine;
+                        msgText += "จ่ายเงิน  =" + payment.income.ToString() + " บาท" + Environment.NewLine;
+                        msgText += "เงินทอน  =" + payment.change.ToString() + " บาท" + Environment.NewLine;
+                        using (Modal_MsgBox msg = new Modal_MsgBox(msgText))
+                        {
+                            msg.StartPosition = FormStartPosition.CenterParent;
+                            msg.ShowDialog();
+                        }
+                        clearData();
+                    }
+                }
+            }
+            else
+            {
+                using (Modal_MsgBox fb = new Modal_MsgBox("ไม่มีรายการสินค้า"))
+                {
+
+                    fb.StartPosition = FormStartPosition.CenterParent;
+                    fb.ShowDialog();
+
+                }
+            }
+            /////////////////////////
+        }
+
+    }
     }
 
-
-}
-
+       
 
 
 

@@ -111,6 +111,8 @@ namespace WholeSale
                 {
                     if (txtPassword.Text.Trim() == passcode)
                     {
+                        Global.username = userName;
+                        userName = "";
                         using (Form_Dashboard fb = new Form_Dashboard())
                         {
                             reset();
