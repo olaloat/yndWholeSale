@@ -16,6 +16,9 @@ namespace WholeSale.Forms
 
         decimal totalPay = 0;
 
+      public  decimal pay =0;
+        public decimal change = 0;
+        public decimal pending = 0;
 
 
         Boolean isPrintBill = true;
@@ -33,7 +36,9 @@ namespace WholeSale.Forms
             {
                 calCulatePayment();
                 payment.isComplete = true;
-
+                pay = decimal.Parse(tbPay.Text.ToString());
+                change = decimal.Parse(tbReturn.Text.ToString());
+                pending = decimal.Parse(tbOverdue.Text.ToString());
                 this.Dispose();
             }
             else {
@@ -339,6 +344,11 @@ namespace WholeSale.Forms
             tbxPayIn.Text = "";
             calCulatePayment();
             setSummary();
+        }
+
+        private void Modal_Payment_Load(object sender, EventArgs e)
+        {
+            tbPay.Text = payment.totalNetPay.ToString();
         }
     }
 }

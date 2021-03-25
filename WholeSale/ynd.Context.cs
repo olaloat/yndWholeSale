@@ -52,6 +52,7 @@ namespace WholeSale
         public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
+        public virtual DbSet<AccountReceive> AccountReceives { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

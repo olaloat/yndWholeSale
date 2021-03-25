@@ -153,6 +153,9 @@
     <Property Name="compCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="branchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="DocumentLines" Relationship="Self.FK_DocumentLine_Document" FromRole="Document" ToRole="DocumentLine" />
+    <Property Name="TotalPriceBeforeDc" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="itemDc" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="endDc" Type="Decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="DocumentLine">
     <Key>
@@ -792,6 +795,7 @@
     <FunctionImport Name="spGetDocumentBill" ReturnType="Collection(ynddevModel.spGetDocumentBill_Result)">
       <Parameter Name="docNum" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="AccountReceives" EntityType="ynddevModel.AccountReceive" />
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -822,4 +826,28 @@
     <Property Type="Int32" Name="vatType" Nullable="false" />
     <Property Type="Decimal" Name="amountIncludeVat" Nullable="false" Precision="18" Scale="4" />
   </ComplexType>
+  <EntityType Name="AccountReceive">
+    <Key>
+      <PropertyRef Name="arId" />
+    </Key>
+    <Property Name="arId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="docId" Type="Int32" Nullable="false" />
+    <Property Name="refDocId" Type="Int32" />
+    <Property Name="invoiceId" Type="Int32" />
+    <Property Name="creditAmont" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="debitAmount" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="paymentType" Type="Int32" />
+    <Property Name="Amount" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="pay" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="change" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="balance" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="isActive" Type="Boolean" />
+    <Property Name="createBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="editBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="compCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="branchCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

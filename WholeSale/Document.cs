@@ -41,6 +41,9 @@ namespace WholeSale
         public System.DateTime editTime { get; set; }
         public string compCode { get; set; }
         public string branchCode { get; set; }
+        public Nullable<decimal> TotalPriceBeforeDc { get; set; }
+        public Nullable<decimal> itemDc { get; set; }
+        public Nullable<decimal> endDc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DocumentLine> DocumentLines { get; set; }
