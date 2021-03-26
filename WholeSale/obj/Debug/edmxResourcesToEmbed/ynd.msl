@@ -135,6 +135,9 @@
     <EntitySetMapping Name="Documents">
       <EntityTypeMapping TypeName="ynddevModel.Document">
         <MappingFragment StoreEntitySet="Document">
+          <ScalarProperty Name="endDc" ColumnName="endDc" />
+          <ScalarProperty Name="itemDc" ColumnName="itemDc" />
+          <ScalarProperty Name="TotalPriceBeforeDc" ColumnName="TotalPriceBeforeDc" />
           <ScalarProperty Name="documentId" ColumnName="documentId" />
           <ScalarProperty Name="documentNo" ColumnName="documentNo" />
           <ScalarProperty Name="orderId" ColumnName="orderId" />
@@ -571,30 +574,30 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="spGetDocument" FunctionName="ynddevModel.Store.spGetDocument">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="ynddevModel.spGetDocument_Result">
-          <ScalarProperty Name="documentId" ColumnName="documentId" />
-          <ScalarProperty Name="documentNo" ColumnName="documentNo" />
-          <ScalarProperty Name="orderNo" ColumnName="orderNo" />
-          <ScalarProperty Name="customerName" ColumnName="customerName" />
-          <ScalarProperty Name="totalVat" ColumnName="totalVat" />
-          <ScalarProperty Name="totalQty" ColumnName="totalQty" />
-          <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
-          <ScalarProperty Name="totalDc" ColumnName="totalDc" />
-          <ScalarProperty Name="isOrder" ColumnName="isOrder" />
-          <ScalarProperty Name="isTax" ColumnName="isTax" />
-          <ScalarProperty Name="paidType" ColumnName="paidType" />
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="isActive" ColumnName="isActive" />
-          <ScalarProperty Name="createBy" ColumnName="createBy" />
-          <ScalarProperty Name="createTime" ColumnName="createTime" />
-          <ScalarProperty Name="editBy" ColumnName="editBy" />
-          <ScalarProperty Name="editTime" ColumnName="editTime" />
-          <ScalarProperty Name="compCode" ColumnName="compCode" />
+    <EntitySetMapping Name="AccountReceives">
+      <EntityTypeMapping TypeName="ynddevModel.AccountReceive">
+        <MappingFragment StoreEntitySet="AccountReceive">
           <ScalarProperty Name="branchCode" ColumnName="branchCode" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="balance" ColumnName="balance" />
+          <ScalarProperty Name="change" ColumnName="change" />
+          <ScalarProperty Name="pay" ColumnName="pay" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="paymentType" ColumnName="paymentType" />
+          <ScalarProperty Name="debitAmount" ColumnName="debitAmount" />
+          <ScalarProperty Name="creditAmont" ColumnName="creditAmont" />
+          <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+          <ScalarProperty Name="refDocId" ColumnName="refDocId" />
+          <ScalarProperty Name="docId" ColumnName="docId" />
+          <ScalarProperty Name="arId" ColumnName="arId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

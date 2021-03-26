@@ -8,13 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace WholeSale.Forms
 {
+
+
+  
     public partial class Modal_FinalDc : Form
     {
+
+        public bool isFinalComplete = false;
+        public decimal finalDiscount = 0;
         public Modal_FinalDc()
         {
             InitializeComponent();
+            isFinalComplete = false;
+            finalDiscount = 0;
+           
         }
 
 
@@ -66,7 +76,9 @@ namespace WholeSale.Forms
             }
             else
             {
-
+                isFinalComplete = true;
+                finalDiscount = decimal.Parse(tbDiscountBill.Text.ToString());
+                this.Dispose();
 
 
             }
@@ -230,8 +242,9 @@ namespace WholeSale.Forms
         private void Modal_FinalDc_Load(object sender, EventArgs e)
         {
 
-            clearAllTextBox();
+            //clearAllTextBox();
             tbSumTotal.Text = payment.totalAmount.ToString();
+            tbDiscountBill.Text = payment.dicountBill.ToString();
             tbTotalDiscountInline.Text = payment.totalDiscountInline.ToString();
             calCulatePayment();
             setSummary();

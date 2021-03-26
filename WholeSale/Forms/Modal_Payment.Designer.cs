@@ -604,6 +604,7 @@
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Modal_Payment";
             this.Text = "Modal_Payment";
+            this.Load += new System.EventHandler(this.Modal_Payment_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

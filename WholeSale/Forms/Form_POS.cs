@@ -162,6 +162,7 @@ namespace WholeSale.Forms
                 deleteLine(prodCodeSelect);
             }
 
+                setSummary();
 
         }
 
@@ -212,13 +213,26 @@ namespace WholeSale.Forms
         private void deleteLine(string productCode)
         {
 
+            var bs = new BindingSource();
+            var myDelete = MydocLine.Where(w => w.productId == int.Parse(productCode)).ToList();
 
-            //bs.DataSource = MydocLine;
-            //dataGridView3.DataSource = bs;
+        
+            if (myDelete.Count() > 0)
+            {
+                foreach ( var item in myDelete) {
+                    MydocLine.Remove(item);
+                }
+              
+            }
 
-            //dataGridView3.Refresh();
-            //setSummary();
-            //Bill.isHasList = Bill.list.Count > 0 ? true : false;
+
+
+            bs.DataSource = MydocLine;
+            dataGridView3.DataSource = bs;
+
+            dataGridView3.Refresh();
+            setSummary();
+            Bill.isHasList = Bill.list.Count > 0 ? true : false;
         }
 
         private void button15_Click(object sender, EventArgs e)
@@ -239,13 +253,13 @@ namespace WholeSale.Forms
         {
             lbAmount.Text = myBill.totalAmountBeforeVat.ToString();
             lbVat.Text = myBill.totalVat.ToString();
-            //  lbAmpintIncludeVat.Text = myBill.totalAmountIncludeVat.ToString();
+          //  lbAmpintIncludeVat.Text = myBill.totalAmountIncludeVat.ToString();
             lbDiscount.Text = myBill.discount.ToString();
-            //  lbTotal.Text = (myBill.totalAmountBeforeVat - myBill.discount).ToString(); // lbAmpintIncludeVat.Text;
+          //  lbTotal.Text = (myBill.totalAmountBeforeVat - myBill.discount).ToString(); // lbAmpintIncludeVat.Text;
             lbAmountAfterDiscount.Text = (myBill.totalAmountBeforeVat - myBill.discount).ToString();
             lbAmountIncludeVat.Text = lbAmountAfterDiscount.Text;
             var totalAmount = System.Convert.ToDecimal(lbAmountIncludeVat.Text);
-            label33.Text = (totalAmount - (totalAmount * 7 / 107)).ToString("#.##");
+            label33.Text = (totalAmount -(totalAmount*7/107)).ToString("#.##");
 
 
         }
@@ -345,45 +359,23 @@ namespace WholeSale.Forms
             {
                 using (Modal_Payment fb = new Modal_Payment(Bill.list.Sum(s => s.amount)))
                 {
-
+                   
                     fb.StartPosition = FormStartPosition.CenterParent;
                     fb.ShowDialog();
-
-
-               
-
-
-
-                    string msgText = "จ่ายเงินสำเร็จ " + Environment.NewLine;
-
-                    msgText += "ราคารวม  = " + payment.totalAmount.ToString() + " บาท" + Environment.NewLine;
-                    msgText += "จ่ายเงิน  =" + payment.income.ToString() +" บาท" + Environment.NewLine;
-                    msgText += "เงินทอน  =" + payment.change.ToString() + " บาท" + Environment.NewLine;
-                 
-
-
-
-
-                    using (Modal_MsgBox msg = new Modal_MsgBox(msgText))
-                    {
-
-                        msg.StartPosition = FormStartPosition.CenterParent;
-                        msg.ShowDialog();
-                      
-                    }
+                   
                     if (payment.isComplete) {
                         myBill.payBill();
-
+                        string msgText = "จ่ายเงินสำเร็จ " + Environment.NewLine;
+                        msgText += "ราคารวม  = " + payment.totalAmount.ToString() + " บาท" + Environment.NewLine;
+                        msgText += "จ่ายเงิน  =" + payment.income.ToString() + " บาท" + Environment.NewLine;
+                        msgText += "เงินทอน  =" + payment.change.ToString() + " บาท" + Environment.NewLine;
+                        using (Modal_MsgBox msg = new Modal_MsgBox(msgText))
+                        {
+                            msg.StartPosition = FormStartPosition.CenterParent;
+                            msg.ShowDialog();
+                        }
+                        clearData();
                     }
-
-
-                    clearData();
-
-
-
-
-
-
                 }
             }
             else {
@@ -733,23 +725,18 @@ namespace WholeSale.Forms
             {
                 using (Modal_FinalDc fb = new Modal_FinalDc())
                 {
-                    payment.totalAmount = Bill.list.Sum(s => s.amount);
+                    payment.totalAmount = myBill.totalAmountBeforeDiscount;
+                    payment.totalDiscountInline = myBill.totalDiscountLine;
+                    payment.dicountBill = myBill.finalDiscount;
                     fb.StartPosition = FormStartPosition.CenterParent;
+                 
                     fb.ShowDialog();
-
-                    if (payment.isComplete)
+                 
+                    if (fb.isFinalComplete)
                     {
-                        myBill.payBill();
-                        string msgText = "จ่ายเงินสำเร็จ " + Environment.NewLine;
-                        msgText += "ราคารวม  = " + payment.totalAmount.ToString() + " บาท" + Environment.NewLine;
-                        msgText += "จ่ายเงิน  =" + payment.income.ToString() + " บาท" + Environment.NewLine;
-                        msgText += "เงินทอน  =" + payment.change.ToString() + " บาท" + Environment.NewLine;
-                        using (Modal_MsgBox msg = new Modal_MsgBox(msgText))
-                        {
-                            msg.StartPosition = FormStartPosition.CenterParent;
-                            msg.ShowDialog();
-                        }
-                        clearData();
+                        myBill.finalDiscount = fb.finalDiscount;
+                        setSummary();
+                        OpenPayment();
                     }
                 }
             }

@@ -93,6 +93,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountReceive.cs">
+      <DependentUpon>ynd.tt</DependentUpon>
+    </Compile>
     <Compile Include="Balance.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>

@@ -20,14 +20,24 @@ namespace WholeSale
     {
         public Bill()
         {
-           
+            totalDiscount = 0;
             totalQty = 0;
             totalAmountBeforeVat = 0;
             totalAmountIncludeVat = 0;
             totalVat = 0;
-            //  Mylist = new List<DocumentLine>();
-            //  MySummary = new List<Document>();
-            editBy = Global.username;
+            totalDiscountLine = 0;
+            finalDiscount = 0; 
+            totalAmountBeforeDiscount = 0;
+
+
+
+           pay = 0;
+          change = 0;
+          pending = 0;
+
+        //  Mylist = new List<DocumentLine>();
+        //  MySummary = new List<Document>();
+        editBy = Global.username;
             isHasList = false;
             docHeaderID = 0;
             isFromHolding = false;
@@ -47,10 +57,19 @@ namespace WholeSale
         public static bool isFromHolding =false;
 
         public int totalQty = 0;
+        public decimal totalAmountBeforeDiscount = 0;
         public decimal totalAmountBeforeVat = 0;
         public decimal totalAmountIncludeVat = 0;
         public decimal totalVat = 0;
-        public decimal discount = 0;
+        public decimal totalDiscount = 0;
+
+        public decimal totalDiscountLine = 0;
+        public decimal finalDiscount = 0;
+
+        public decimal pay = 0;
+        public decimal change = 0;
+        public decimal pending = 0;
+
         // private List<DocumentLine> Mylist = new List<DocumentLine>();
         // private List<Document> MySummary = new List<Document>();
         //   public Bill MyBill ;
@@ -306,7 +325,7 @@ namespace WholeSale
 
 
                     #region "docHeader "
-                    rs = insertDocHeader(context, docNum , Global.statusList.HOLD);
+                    rs = insertDocHeader(context, docNum , Global.statusList.HOLD, 0,0,0 );
                     docHID = rs.isComplete ? Int32.Parse(rs.message) : 0;
                     if (!rs.isComplete) { return rs; }
                     #endregion
@@ -386,9 +405,17 @@ namespace WholeSale
                     }
 
                     #region "docHeader "
-                    rs = insertDocHeader(context, docNum,Global.statusList.PAY);
+                    rs = insertDocHeader(context, docNum,Global.statusList.PAY , totalAmountBeforeDiscount , totalDiscountLine , finalDiscount);
                     docHID = rs.isComplete ? Int32.Parse(rs.message) : 0;
                     if (!rs.isComplete) { return rs; }
+                    #endregion
+
+
+
+                    #region "AR"
+
+                    rs = insertPaymentAr(context , docHID ,totalAmountIncludeVat , pay , change , pending );
+
                     #endregion
 
                     #region "documentLine"
@@ -414,7 +441,7 @@ namespace WholeSale
             return rs;
         }
 
-        public static mainResult insertDocHeader(ynddevEntities context , string docNum , Global.statusList _status)
+        public static mainResult insertDocHeader(ynddevEntities context , string docNum , Global.statusList _status ,decimal totalPriceBeforeDc  , decimal itemDc , decimal endDc)
         {
             mainResult rs = new mainResult();
             var lastDoc = (context.Documents.Max(m => m.documentNo));
@@ -444,12 +471,44 @@ namespace WholeSale
                 totalDc = list.Sum(x => x.dcPrice),
                 totalPrice = list.Sum(x => x.amount),
                 totalQty = list.Sum(x => x.qty),status =(int)_status,
+                TotalPriceBeforeDc =totalPriceBeforeDc ,
+                endDc =endDc,
+                itemDc  = itemDc
             };
             context.Documents.Add(myDocH);
             context.SaveChanges();
             docHID = myDocH.documentId;
             rs.isComplete = true;
             rs.message = docHID.ToString();
+            return rs;
+        }
+
+        public static mainResult insertPaymentAr(ynddevEntities context, int docId,  decimal netPay , decimal pay , decimal change , decimal pending )
+        {
+            mainResult rs = new mainResult();
+
+            AccountReceive acr = new AccountReceive()
+            {
+                branchCode = Global.branchCode,
+                compCode = Global.compCode,
+                createBy = Global.username,
+                createTime = DateTime.Now,
+                editTime = DateTime.Now,
+                editBy = Global.username,
+                Amount = netPay,
+            pay = pay,
+            change = change,
+            balance =pending,
+            refDocId =0,
+            docId = docId,
+            isActive =true,
+                status = 1,
+            };
+            context.AccountReceives.Add(acr);
+            context.SaveChanges();
+           
+            rs.isComplete = true;
+            rs.message = "ok";
             return rs;
         }
 

@@ -5,6 +5,30 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ynddevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccountReceive">
+          <Key>
+            <PropertyRef Name="arId" />
+          </Key>
+          <Property Name="arId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="docId" Type="int" Nullable="false" />
+          <Property Name="refDocId" Type="int" />
+          <Property Name="invoiceId" Type="int" />
+          <Property Name="creditAmont" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="debitAmount" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="paymentType" Type="int" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="pay" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="change" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="balance" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="status" Type="int" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="createBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="createTime" Type="datetime" Nullable="false" />
+          <Property Name="editBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="editTime" Type="datetime" Nullable="false" />
+          <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Balance">
           <Key>
             <PropertyRef Name="productId" />
@@ -141,6 +165,9 @@
           <Property Name="totalVat" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="totalDc" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="totalQty" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="TotalPriceBeforeDc" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="itemDc" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="endDc" Type="decimal" Precision="18" Scale="4" />
           <Property Name="totalPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="isOrder" Type="bit" Nullable="false" />
           <Property Name="isTax" Type="bit" Nullable="false" />
@@ -418,6 +445,18 @@
           <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="SalePrice">
+          <Property Name="salePriceId" Type="int" />
+          <Property Name="productId" Type="nchar" MaxLength="100" />
+          <Property Name="salePrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="createBy" Type="nvarchar" MaxLength="250" />
+          <Property Name="createTime" Type="datetime" />
+          <Property Name="editBy" Type="nvarchar" MaxLength="250" />
+          <Property Name="editTime" Type="datetime" />
+        </EntityType>-->
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -701,6 +740,7 @@
           <Parameter Name="docNum" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="ynddevModelStoreContainer">
+          <EntitySet Name="AccountReceive" EntityType="Self.AccountReceive" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Balance" EntityType="Self.Balance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Branch" EntityType="Self.Branch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
@@ -936,6 +976,9 @@
           <Property Name="compCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="branchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="DocumentLines" Relationship="Self.FK_DocumentLine_Document" FromRole="Document" ToRole="DocumentLine" />
+          <Property Name="TotalPriceBeforeDc" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="itemDc" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="endDc" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="DocumentLine">
           <Key>
@@ -1575,12 +1618,6 @@
           <FunctionImport Name="spGetDocumentBill" ReturnType="Collection(ynddevModel.spGetDocumentBill_Result)">
           <Parameter Name="docNum" Mode="In" Type="String" />
           </FunctionImport>
-          <FunctionImport Name="spGetDocument" ReturnType="Collection(ynddevModel.spGetDocument_Result)" >
-            <Parameter Name="dateStr" Mode="In" Type="DateTime" />
-            <Parameter Name="dateEnd" Mode="In" Type="DateTime" />
-            <Parameter Name="compCode" Mode="In" Type="String" />
-            <Parameter Name="branchCode" Mode="In" Type="String" />
-          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1610,27 +1647,6 @@
           <Property Type="Decimal" Name="vat" Nullable="false" Precision="18" Scale="4" />
           <Property Type="Int32" Name="vatType" Nullable="false" />
           <Property Type="Decimal" Name="amountIncludeVat" Nullable="false" Precision="18" Scale="4" />
-        </ComplexType>
-        <ComplexType Name="spGetDocument_Result">
-          <Property Type="Int32" Name="documentId" Nullable="false" />
-          <Property Type="String" Name="documentNo" Nullable="false" MaxLength="250" />
-          <Property Type="String" Name="orderNo" Nullable="true" MaxLength="250" />
-          <Property Type="String" Name="customerName" Nullable="true" MaxLength="250" />
-          <Property Type="Decimal" Name="totalVat" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="totalQty" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="totalPrice" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="totalDc" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Boolean" Name="isOrder" Nullable="false" />
-          <Property Type="Boolean" Name="isTax" Nullable="false" />
-          <Property Type="Int32" Name="paidType" Nullable="false" />
-          <Property Type="Int32" Name="status" Nullable="false" />
-          <Property Type="Boolean" Name="isActive" Nullable="false" />
-          <Property Type="String" Name="createBy" Nullable="false" MaxLength="250" />
-          <Property Type="DateTime" Name="createTime" Nullable="false" Precision="23" />
-          <Property Type="String" Name="editBy" Nullable="false" MaxLength="250" />
-          <Property Type="DateTime" Name="editTime" Nullable="false" Precision="23" />
-          <Property Type="String" Name="compCode" Nullable="false" MaxLength="20" />
-          <Property Type="String" Name="branchCode" Nullable="false" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1772,6 +1788,9 @@
           <EntitySetMapping Name="Documents">
             <EntityTypeMapping TypeName="ynddevModel.Document">
               <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="endDc" ColumnName="endDc" />
+                <ScalarProperty Name="itemDc" ColumnName="itemDc" />
+                <ScalarProperty Name="TotalPriceBeforeDc" ColumnName="TotalPriceBeforeDc" />
                 <ScalarProperty Name="documentId" ColumnName="documentId" />
                 <ScalarProperty Name="documentNo" ColumnName="documentNo" />
                 <ScalarProperty Name="orderId" ColumnName="orderId" />
@@ -2205,31 +2224,6 @@
                 <ScalarProperty Name="vat" ColumnName="vat" />
                 <ScalarProperty Name="vatType" ColumnName="vatType" />
                 <ScalarProperty Name="amountIncludeVat" ColumnName="amountIncludeVat" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="spGetDocument" FunctionName="ynddevModel.Store.spGetDocument">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ynddevModel.spGetDocument_Result">
-                <ScalarProperty Name="documentId" ColumnName="documentId" />
-                <ScalarProperty Name="documentNo" ColumnName="documentNo" />
-                <ScalarProperty Name="orderNo" ColumnName="orderNo" />
-                <ScalarProperty Name="customerName" ColumnName="customerName" />
-                <ScalarProperty Name="totalVat" ColumnName="totalVat" />
-                <ScalarProperty Name="totalQty" ColumnName="totalQty" />
-                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
-                <ScalarProperty Name="totalDc" ColumnName="totalDc" />
-                <ScalarProperty Name="isOrder" ColumnName="isOrder" />
-                <ScalarProperty Name="isTax" ColumnName="isTax" />
-                <ScalarProperty Name="paidType" ColumnName="paidType" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="createBy" ColumnName="createBy" />
-                <ScalarProperty Name="createTime" ColumnName="createTime" />
-                <ScalarProperty Name="editBy" ColumnName="editBy" />
-                <ScalarProperty Name="editTime" ColumnName="editTime" />
-                <ScalarProperty Name="compCode" ColumnName="compCode" />
-                <ScalarProperty Name="branchCode" ColumnName="branchCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
