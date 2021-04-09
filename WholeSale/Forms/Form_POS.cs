@@ -284,7 +284,7 @@ namespace WholeSale.Forms
             setSummary();
         }
 
-        private void addData()
+        private void addData (DocumentLine dcLine)
         {
             var mySelectedProduct = myBill.filterProd(mstProduct, (tbScan.Text));
             if (mySelectedProduct.Count >= 1)
@@ -292,7 +292,17 @@ namespace WholeSale.Forms
 
                 MydocLine = myBill.setList(mySelectedProduct.FirstOrDefault(), int.Parse(tbxQty.Text));
                 this.dataGridView1 = new DataGridView();
+                if (dcLine != null) {
 
+
+                    foreach (var a in MydocLine) {
+                        a.discountTotal = dcLine.discountTotal;
+                        a.discountUnit = dcLine.discountUnit;
+                    }
+                 
+
+
+                }
 
 
                 var bs = new BindingSource();
@@ -446,7 +456,7 @@ namespace WholeSale.Forms
         {
             if (e.KeyChar == (char)13)
             {
-                addData();
+                addData(null);
                 tbScan.Text = "";
                 tbxQty.Text = "1";
             }
@@ -501,26 +511,38 @@ namespace WholeSale.Forms
         }
 
         private void tbPuase_Click(object sender, EventArgs e)
+
+
         {
-            using (Modal_MsgBox msg = new Modal_MsgBox("ท่านต้องการจะดำเนินการ เรื่องใด ?",optionType.holding))
+            optionType enumType = new optionType();
+
+            if (MydocLine.Count > 0) {
+
+                enumType = optionType.holding;
+
+
+            } else {
+                enumType = optionType.openHolding;
+            }
+            using (Modal_MsgBox msg = new Modal_MsgBox("ท่านต้องการจะดำเนินการ เรื่องใด ?", enumType))
             {
                 msg.StartPosition = FormStartPosition.CenterParent;
                 msg.ShowDialog();
+            if (   msg. selectResult != Modal_MsgBox.resultOption.cancel) { 
 
-
-                if (Bill.isFromHolding)
+                if (enumType==optionType.openHolding)
                 {
                     msg.Dispose();
                     loadDocument(Bill.docHeaderID);
                     Bill.isFromHolding = true;
                 }
 
-
-                if (Bill.list.Count == 0) {
+                if (enumType == optionType.holding)
+                {
                     clearData();
                 }
 
-              
+                }
 
             }
         }
@@ -536,7 +558,7 @@ namespace WholeSale.Forms
               
                tbxQty.Text = decimal.ToInt64(docline.qty).ToString();
                tbScan.Text = mstProduct.Where(w => w.productId == docline.productId).Select(s => s.productCode).FirstOrDefault().ToString();
-                addData();
+                addData(docline);
                 tbScan.Text = "";
                 tbxQty.Text = "1";
             }

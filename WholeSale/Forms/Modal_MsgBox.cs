@@ -15,12 +15,13 @@ namespace WholeSale.Forms
 
         public resultOption selectResult;
         public enum resultOption { ok, cancel, yes, no }
-
+       
         private optionType type ;
         public Modal_MsgBox(string data, optionType msgBoxType = optionType.ok, string button1 = "", string button2 = "", string button3 = "")
         {
             InitializeComponent();
             type = msgBoxType;
+            selectResult = resultOption.cancel;
             switch (msgBoxType) {
                 case optionType.ok:
                     //type = "ok";
@@ -55,15 +56,29 @@ namespace WholeSale.Forms
                     pnButton.Visible = true;
 
                    btOption1.Visible = true;
-                    btOption1.Text = "เปิดรายการที่พักไว้"; 
-                   btOption2.Visible = true;
+                    btOption1.Text = "เปิดรายการที่พักไว้";
+                    btOption1.Enabled = false;
+                    btOption2.Visible = true;
                     btOption2.Text = "พักรายการนี้";
                     btOption3.Visible = false;
                     btOption2.Enabled = Bill.isHasList;
+                    break;
+                // btOption1.Text = "";
 
-                   // btOption1.Text = "";
+                case optionType.openHolding: // custom
+                    //type = "holding";
 
+                    pnButton.Visible = true;
 
+                    btOption1.Visible = true;
+                    btOption1.Text = "เปิดรายการที่พักไว้";
+                    btOption2.Visible = true;
+                    btOption2.Text = "พักรายการนี้";
+                    btOption2.Enabled = false;
+                    btOption3.Visible = false;
+                    btOption2.Enabled = Bill.isHasList;
+
+                    // btOption1.Text = "";
 
                     break;
                 default:
@@ -90,9 +105,17 @@ namespace WholeSale.Forms
         {
             switch (type) {
 
-                case optionType.holding:
+                case optionType.openHolding:
                     openPageHoldBill();
-                    if (Bill.docHeaderID != 0) { this.Dispose(); }
+                    if (Bill.docHeaderID != 0) { 
+                        
+                        this.Dispose();
+                        selectResult = resultOption.ok;
+                    } else {
+
+                        selectResult = resultOption.cancel;
+
+                    }
 
                     break; }
         }
@@ -109,11 +132,12 @@ namespace WholeSale.Forms
                     if (rs.isComplete)
                     {
                         tbMessage.ForeColor = Color.Green;
-                      
+                        selectResult = resultOption.ok;
                     }
                     else {
 
                         tbMessage.ForeColor = Color.Red;
+                        selectResult = resultOption.cancel;
                     }
                     break;
                 case optionType.yseNoOk:
@@ -161,9 +185,9 @@ namespace WholeSale.Forms
      
     }
 
-    public enum optionType { ok, okCancel, yseNoOk,holding   }
+    public enum optionType { ok, okCancel, yseNoOk,holding , openHolding   }
 
-   
+    public enum ButtonSelect { ok, yes, no, cancel, close }
 
 
 

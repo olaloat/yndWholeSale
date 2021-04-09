@@ -36,7 +36,7 @@ namespace WholeSale.Forms
             {
                 calCulatePayment();
                 payment.isComplete = true;
-                pay = decimal.Parse(tbPay.Text.ToString());
+                pay = decimal.Parse(tbxPayIn.Text.ToString());
                 change = decimal.Parse(tbReturn.Text.ToString());
                 pending = decimal.Parse(tbOverdue.Text.ToString());
                 this.Dispose();
