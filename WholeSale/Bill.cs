@@ -28,6 +28,7 @@ namespace WholeSale
             totalDiscountLine = 0;
             finalDiscount = 0; 
             totalAmountBeforeDiscount = 0;
+           // docId = 0;
 
 
 
@@ -62,6 +63,7 @@ namespace WholeSale
         public decimal totalAmountIncludeVat = 0;
         public decimal totalVat = 0;
         public decimal totalDiscount = 0;
+      //  public int docId = 0;
 
         public decimal totalDiscountLine = 0;
         public decimal finalDiscount = 0;
@@ -110,7 +112,8 @@ namespace WholeSale
                     vat = 0,
                     amountIncludeVat = MyProd.price * qty + 0,
                     discountTotal = 0,
-                    discountUnit = 0
+                    discountUnit = 0,
+                    isActive = true
 
 
                     //back to fix
@@ -293,7 +296,28 @@ namespace WholeSale
 
         }
 
-      
+        public static  void disableDocLine(int docHID) {
+            ynddevEntities context = new ynddevEntities();
+            foreach (var dclDisable in context.DocumentLines.Where(p => p.DocumentId == docHID).ToList())
+            {
+
+                dclDisable.isActive = false;
+
+            }
+            context.SaveChanges();
+        }
+
+        public static void disableDocHeader(int docHID)
+        {
+            ynddevEntities context = new ynddevEntities();
+            foreach (var dclDisable in context.Documents.Where(p => p.documentId == docHID).ToList())
+            {
+
+                dclDisable.isActive = false;
+
+            }
+            context.SaveChanges();
+        }
         private void printBill(string docNum) {
             //string sql = "EXEC spGetDocumentBill @docNum = '" + docNum + "';";
             //    // "select top 30 productCode, productName, price from Product";
@@ -315,7 +339,7 @@ namespace WholeSale
         {
             mainResult rs = new mainResult();
           
-            string docNum = "";
+            string docNum = documentNumber;
             int docHID = 0;
 
             using (var context = new ynddevEntities())
@@ -325,7 +349,44 @@ namespace WholeSale
 
 
                     #region "docHeader "
-                    rs = insertDocHeader(context, docNum , Global.statusList.HOLD, 0,0,0 );
+                    // rs = insertDocHeader(context, docNum , Global.statusList.HOLD, 0,0,0 );20210429
+
+
+                    if (docNum.Trim().ToString().Length > 0)
+                    {
+
+                        rs = UpdateDocHeader(context, docNum, Global.statusList.HOLD, 0, 0, 0, 0);
+                        ///disable docline
+                       // DocumentLine dclDisable = new DocumentLine();
+
+
+
+                        docHID = (rs.isComplete ? Int32.Parse(rs.message) : 0);
+
+                        disableDocLine(docHID);
+                   
+                        //  };
+                        //  context.Documents.Add(myDocH);
+                      
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    }
+                    else {
+
+                        rs = insertDocHeader(context, docNum, Global.statusList.HOLD, 0, 0, 0, 0);
+                    }
+                  
                     docHID = rs.isComplete ? Int32.Parse(rs.message) : 0;
                     if (!rs.isComplete) { return rs; }
                     #endregion
@@ -335,7 +396,7 @@ namespace WholeSale
                     {
                         insertDocline(context, dc, docHID, docNum);
 
-                     
+
                     }
                     #endregion
                     //context.SaveChanges();
@@ -389,6 +450,13 @@ namespace WholeSale
 
         }
 
+
+
+        public  void clearFinalDiscount() {
+
+            totalDiscount = 0;
+
+        }
         public mainResult payBill() {
             mainResult rs = new mainResult();
             var ynd = new ynddevEntities();
@@ -405,7 +473,7 @@ namespace WholeSale
                     }
 
                     #region "docHeader "
-                    rs = insertDocHeader(context, docNum,Global.statusList.PAY , totalAmountBeforeDiscount , totalDiscountLine , finalDiscount);
+                    rs = insertDocHeader(context, docNum,Global.statusList.PAY , totalAmountBeforeDiscount , totalDiscountLine , finalDiscount , totalVat);
                     docHID = rs.isComplete ? Int32.Parse(rs.message) : 0;
                     if (!rs.isComplete) { return rs; }
                     #endregion
@@ -441,7 +509,52 @@ namespace WholeSale
             return rs;
         }
 
-        public static mainResult insertDocHeader(ynddevEntities context , string docNum , Global.statusList _status ,decimal totalPriceBeforeDc  , decimal itemDc , decimal endDc)
+
+        public static mainResult UpdateDocHeader(ynddevEntities context, string docNum, Global.statusList _status, decimal totalPriceBeforeDc, decimal itemDc, decimal endDc, decimal totalVat)
+        {
+            mainResult rs = new mainResult();
+            //var lastDoc = (context.Documents.Max(m => m.documentNo));
+            //if (lastDoc == null) { lastDoc = ""; } else { }
+
+            int docHID = 0;
+            //if (lastDoc == "")
+            //{
+            //    docNum = DateTime.Now.ToString("yyyyMMddHHmmss") + "0001";
+            //}
+            //else
+            //{
+            //    int lasteRunning = Convert.ToInt16(lastDoc.Substring(lastDoc.Length - 4, 4));
+            //    docNum = DateTime.Now.ToString("yyyyMMddHHmmss") + (lasteRunning + 1).ToString("000#");
+            //}
+            Document myDocH = new Document();
+            myDocH = context.Documents.Where(p => p.documentNo == docNum).FirstOrDefault();
+          
+            //{
+               myDocH. branchCode = Global.branchCode;
+               myDocH. compCode = Global.compCode;
+               myDocH. createBy = Global.username;
+               myDocH. createTime = DateTime.Now;
+               myDocH. editTime = DateTime.Now;
+               myDocH. editBy = Global.username;
+               myDocH. customerId = 1;
+               myDocH. documentNo = docNum;
+               myDocH. totalVat = totalVat;
+               myDocH. totalDc = itemDc + endDc;
+               myDocH. totalPrice = totalPriceBeforeDc - (itemDc + endDc);
+               myDocH. totalQty = list.Sum(x => x.qty);
+               myDocH. status = (int)_status;
+               myDocH. TotalPriceBeforeDc = totalPriceBeforeDc;
+               myDocH. endDc = endDc;
+            myDocH.itemDc = itemDc;
+          //  };
+          //  context.Documents.Add(myDocH);
+            context.SaveChanges();
+            docHID = myDocH.documentId;
+            rs.isComplete = true;
+            rs.message = docHID.ToString();
+            return rs;
+        }
+        public static mainResult insertDocHeader(ynddevEntities context , string docNum , Global.statusList _status ,decimal totalPriceBeforeDc  , decimal itemDc , decimal endDc , decimal totalVat)
         {
             mainResult rs = new mainResult();
             var lastDoc = (context.Documents.Max(m => m.documentNo));
@@ -467,13 +580,14 @@ namespace WholeSale
                 editBy = Global.username,
                 customerId = 1,
                 documentNo = docNum,
-                totalVat = list.Sum(x => x.vat),
-                totalDc = list.Sum(x => x.dcPrice),
-                totalPrice = list.Sum(x => x.amount),
+                totalVat = totalVat,
+                totalDc = itemDc +endDc ,
+                totalPrice = totalPriceBeforeDc - (itemDc + endDc),
                 totalQty = list.Sum(x => x.qty),status =(int)_status,
                 TotalPriceBeforeDc =totalPriceBeforeDc ,
                 endDc =endDc,
-                itemDc  = itemDc
+                itemDc  = itemDc,
+                isActive = true
             };
             context.Documents.Add(myDocH);
             context.SaveChanges();

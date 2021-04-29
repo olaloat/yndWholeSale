@@ -165,6 +165,7 @@
     <EntitySetMapping Name="DocumentLines">
       <EntityTypeMapping TypeName="ynddevModel.DocumentLine">
         <MappingFragment StoreEntitySet="DocumentLine">
+          <ScalarProperty Name="dcPriceTotal" ColumnName="dcPriceTotal" />
           <ScalarProperty Name="DocumentLineId" ColumnName="DocumentLineId" />
           <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
           <ScalarProperty Name="DocumentNo" ColumnName="DocumentNo" />

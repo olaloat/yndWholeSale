@@ -37,5 +37,18 @@ namespace WholeSale.Forms
                 fb.ShowDialog();
             }
         }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            using (Form_Search_Product fb = new Form_Search_Product(Global.mstProduct))
+            {
+                productMaintain.clear();
+               
+                fb.StartPosition = FormStartPosition.CenterParent;
+                fb.ShowDialog();
+
+                productMaintain.loadMaster();
+            }
+        }
     }
 }

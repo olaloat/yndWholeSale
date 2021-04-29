@@ -187,6 +187,7 @@
     <Property Name="discountTotal" Type="Decimal" Precision="18" Scale="4" />
     <NavigationProperty Name="Document" Relationship="Self.FK_DocumentLine_Document" FromRole="DocumentLine" ToRole="Document" />
     <NavigationProperty Name="Transactions" Relationship="Self.FK_transaction_DocumentLine" FromRole="DocumentLine" ToRole="Transaction" />
+    <Property Name="dcPriceTotal" Type="Decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>

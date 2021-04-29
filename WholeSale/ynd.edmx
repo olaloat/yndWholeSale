@@ -210,6 +210,7 @@
           <Property Name="amountIncludeVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="discountUnit" Type="decimal" Precision="18" Scale="4" />
           <Property Name="discountTotal" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="dcPriceTotal" Type="decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -1004,6 +1005,7 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <Property Name="discountTotal" Type="Decimal" Precision="18" Scale="4" />
           <NavigationProperty Name="Document" Relationship="Self.FK_DocumentLine_Document" FromRole="DocumentLine" ToRole="Document" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_transaction_DocumentLine" FromRole="DocumentLine" ToRole="Transaction" />
+          <Property Name="dcPriceTotal" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -1837,6 +1839,7 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <EntitySetMapping Name="DocumentLines">
             <EntityTypeMapping TypeName="ynddevModel.DocumentLine">
               <MappingFragment StoreEntitySet="DocumentLine">
+                <ScalarProperty Name="dcPriceTotal" ColumnName="dcPriceTotal" />
                 <ScalarProperty Name="DocumentLineId" ColumnName="DocumentLineId" />
                 <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
                 <ScalarProperty Name="DocumentNo" ColumnName="DocumentNo" />

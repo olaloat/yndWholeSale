@@ -16,6 +16,7 @@ namespace WholeSale
         public static string branchCode = "0001";
         public static string username = "nattawut";
         public static statusList status;
+        public static List<Product> mstProduct = new List<Product>();
 
         public static bool checkDisableKey(string columnName)
         {
@@ -144,6 +145,13 @@ namespace WholeSale
         {
             haveNewProduct = false;
         }
+
+        public static  void loadMaster()
+        {
+            ynddevEntities yndInven = new ynddevEntities();
+
+            Global.mstProduct = (from a in yndInven.Products select a).ToList();// yndInven.Products.ToList();
+        }
     }
     public static class util {
         public static FlexCell.Grid autoFit(FlexCell.Grid grd) {
@@ -164,6 +172,9 @@ namespace WholeSale
             grd.Cell(0, (dt.Columns[oldName].Ordinal + 1)).Text = newName;
             return grd;
         }
+
+
+      
 
 
 

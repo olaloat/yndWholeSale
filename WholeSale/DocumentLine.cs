@@ -44,6 +44,7 @@ namespace WholeSale
         public decimal amountIncludeVat { get; set; }
         public Nullable<decimal> discountUnit { get; set; }
         public Nullable<decimal> discountTotal { get; set; }
+        public Nullable<decimal> dcPriceTotal { get; set; }
     
         public virtual Document Document { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

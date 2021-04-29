@@ -25,7 +25,7 @@ namespace WholeSale.Forms
     {
 
         ynddevEntities yndInven = new ynddevEntities();
-        List<Product> mstProduct = new List<Product>();
+       // List<Product> mstProduct = new List<Product>();
         Document MydocHeader = new Document();
         List<DocumentLine> MydocLine = new List<DocumentLine>();
         Bill myBill = new Bill();
@@ -46,10 +46,10 @@ namespace WholeSale.Forms
         }
         private readonly object stbScan;
 
-        private void loadMaster()
-        {
-            mstProduct = (from a in yndInven.Products select a).ToList();// yndInven.Products.ToList();
-        }
+        //private void loadMaster()
+        //{
+        //    Global.mstProduct = (from a in yndInven.Products select a).ToList();// yndInven.Products.ToList();
+        //}
 
 
 
@@ -68,7 +68,7 @@ namespace WholeSale.Forms
 
         {
 
-            loadMaster();
+            productMaintain.loadMaster();
             setSummary();
             MydocLine = new List<DocumentLine>();
             this.dataGridView1 = new DataGridView();
@@ -97,7 +97,10 @@ namespace WholeSale.Forms
 
 
             this.dataGridView3.Columns["vatType"].Visible = false;
-            this.dataGridView3.Columns["dcPrice"].Visible = false;
+            //  this.dataGridView3.Columns["dcPrice"].Visible = false;
+            this.dataGridView3.Columns["discountTotal"].Visible = false;
+            
+            this.dataGridView3.Columns["discountUnit"].Visible = false;
             this.dataGridView3.Columns["isActive"].Visible = false;
             this.dataGridView3.Columns["editTime"].Visible = false;
             this.dataGridView3.Columns["amountIncludeVat"].Visible = false;
@@ -109,8 +112,20 @@ namespace WholeSale.Forms
             this.dataGridView3.Columns["Qty"].HeaderText = "จำนวน";
             this.dataGridView3.Columns["unitPrice"].HeaderText = "ราคา/หน่วย";
             this.dataGridView3.Columns["amount"].HeaderText = "ราคารวม";
-            this.dataGridView3.Columns["discountUnit"].HeaderText = "ส่วนลด/หน่วย";
-            this.dataGridView3.Columns["discountTotal"].HeaderText = "ส่วนลดรวม";
+            //this.dataGridView3.Columns["discountUnit"].HeaderText = "ส่วนลด/หน่วย";
+            this.dataGridView3.Columns["dcPrice"].HeaderText = "ส่วนลด/หน่วย";
+            // this.dataGridView3.Columns["discountTotal"].HeaderText = "ส่วนลดรวม";
+            this.dataGridView3.Columns["dcPriceTotal"].HeaderText = "ส่วนลดรวม";
+
+            this.dataGridView3.Columns["Qty"].DefaultCellStyle.Format = "0.00##";
+            this.dataGridView3.Columns["unitPrice"].DefaultCellStyle.Format = "0.00##";
+            this.dataGridView3.Columns["amount"].DefaultCellStyle.Format = "0.00##";
+            this.dataGridView3.Columns["dcPrice"].DefaultCellStyle.Format = "0.00##";
+            this.dataGridView3.Columns["dcPriceTotal"].DefaultCellStyle.Format = "0.00##";
+
+            //this.dgvDynamics1.Columns.Items[i].DefaultCellStyle.Format = "0.00##";
+            //this.dgvDynamics1.Columns.Items[i].ValueType = GetType(Double)
+
 
             DataGridViewButtonColumn btnDel = new DataGridViewButtonColumn();
             DataGridViewButtonColumn btnEdit = new DataGridViewButtonColumn();
@@ -189,19 +204,6 @@ namespace WholeSale.Forms
 
 
 
-
-
-                //if (productMaintain.haveNewProduct) { loadMaster(); }
-                //if (productCodeSelect != "")
-                //{
-
-                //    tbScan.Text = productCodeSelect;
-                //    productCodeSelect = "";
-                //    tbScan.Focus();
-                //    SendKeys.SendWait("{ENTER}");
-
-
-                //}
             }
         }
 
@@ -249,26 +251,31 @@ namespace WholeSale.Forms
         private void setSummary()
         {
 
-            myBill.totalDiscountLine = MydocLine.Sum(s => s.discountTotal).Value;
+
+
+
+
+
+            myBill.totalDiscountLine = MydocLine.Sum(s => s.dcPriceTotal).Value;
             myBill.totalDiscount = myBill.totalDiscountLine + myBill.finalDiscount;
             myBill.totalAmountBeforeDiscount = MydocLine.Sum(s => s.amount);
 
 
             myBill.totalAmountIncludeVat = myBill.totalAmountBeforeDiscount - myBill.totalDiscount;
-            myBill.totalAmountBeforeVat = (myBill.totalAmountIncludeVat - (myBill.totalAmountIncludeVat * 7 / 107));//.ToString("#.##");
+            myBill.totalAmountBeforeVat =Math.Round( (myBill.totalAmountIncludeVat - (myBill.totalAmountIncludeVat * 7 / 107)) , 2);//.ToString("#.##");
             myBill.totalVat = myBill.totalAmountIncludeVat - myBill.totalAmountBeforeVat;
 
 
 
-            lbAmount.Text = myBill.totalAmountBeforeDiscount.ToString("#,##0.##");
-            lbVat.Text = myBill.totalVat.ToString("#,##0.##");
+            lbAmount.Text = myBill.totalAmountBeforeDiscount.ToString("#,##0.#0");
+            lbVat.Text = myBill.totalVat.ToString("#,##0.#0");
           //  lbAmpintIncludeVat.Text = myBill.totalAmountIncludeVat.ToString();
-            lbDiscount.Text = myBill.totalDiscount.ToString("#,##0.##");
+            lbDiscount.Text = myBill.totalDiscount.ToString("#,##0.#0");
             //  lbTotal.Text = (myBill.totalAmountBeforeVat - myBill.discount).ToString(); // lbAmpintIncludeVat.Text;
-            lbAmountAfterDiscount.Text = (myBill.totalAmountBeforeDiscount - myBill.totalDiscount).ToString("#,##0.##");
+            lbAmountAfterDiscount.Text = (myBill.totalAmountBeforeDiscount - myBill.totalDiscount).ToString("#,##0.#0");
             lbAmountIncludeVat.Text = lbAmountAfterDiscount.Text;
            
-            label33.Text = myBill.totalAmountBeforeVat.ToString("#,##0.##");
+            label33.Text = myBill.totalAmountBeforeVat.ToString("#,##0.#0");
 
            
         }
@@ -284,9 +291,36 @@ namespace WholeSale.Forms
             setSummary();
         }
 
+        private void clearSummary() {
+
+            myBill.totalDiscountLine = 0;
+            myBill.totalDiscount = 0;
+            myBill.totalAmountBeforeDiscount = 0;
+
+
+            myBill.totalAmountIncludeVat = 0;
+            myBill.totalAmountBeforeVat = 0;
+            myBill.totalVat = 0;
+
+
+
+            lbAmount.Text = "0";
+            lbVat.Text = "0";
+            lbDiscount.Text = "0";
+            lbAmountAfterDiscount.Text = "0";
+            lbAmountIncludeVat.Text = "0";
+
+            label33.Text = "0";
+
+
+
+        }
+
+
+
         private void addData (DocumentLine dcLine)
         {
-            var mySelectedProduct = myBill.filterProd(mstProduct, (tbScan.Text));
+            var mySelectedProduct = myBill.filterProd(Global.mstProduct, (tbScan.Text));
             if (mySelectedProduct.Count >= 1)
             {
 
@@ -295,10 +329,12 @@ namespace WholeSale.Forms
                 if (dcLine != null) {
 
 
-                    foreach (var a in MydocLine) {
-                        a.discountTotal = dcLine.discountTotal;
-                        a.discountUnit = dcLine.discountUnit;
-                    }
+                  //  foreach (var a in MydocLine.LastOrDefault) {
+                        MydocLine.LastOrDefault().discountTotal = dcLine.discountTotal;
+                        MydocLine.LastOrDefault().discountUnit = dcLine.discountUnit;
+                        MydocLine.LastOrDefault().dcPrice = dcLine.dcPrice;
+                        MydocLine.LastOrDefault().dcPriceTotal = dcLine.dcPriceTotal;
+                  //  }
                  
 
 
@@ -385,6 +421,20 @@ namespace WholeSale.Forms
                         msg.ShowDialog();
                     }
                     clearData();
+                }else
+                {
+
+                     
+
+
+                        myBill.finalDiscount = 0;
+                        setSummary();
+               
+
+
+
+
+
                 }
             }
 
@@ -464,14 +514,14 @@ namespace WholeSale.Forms
 
         private void btSearchProduct_Click(object sender, EventArgs e)
         {
-            using (Form_Search_Product fb = new Form_Search_Product(mstProduct))
+            using (Form_Search_Product fb = new Form_Search_Product(Global.mstProduct , true))
             {
                 productMaintain.clear();
                 productCodeSelect = "";
                 fb.StartPosition = FormStartPosition.CenterParent;
                 fb.ShowDialog();
 
-                if (productMaintain.haveNewProduct) { loadMaster(); }
+                if (productMaintain.haveNewProduct) { productMaintain.loadMaster(); }
                 if   (productCodeSelect != "") {
 
                     tbScan.Text = productCodeSelect;
@@ -549,16 +599,17 @@ namespace WholeSale.Forms
 
 
         private void loadDocument(int docH) {
-            var doclist = (from a in yndInven.DocumentLines where a.DocumentId == docH select a).ToList();
+            var doclist = (from a in yndInven.DocumentLines where a.DocumentId == docH  && a.isActive ==true select a).ToList();
+            var docHeader = (from a in yndInven.Documents where a.documentId == docH && a.isActive == true  select a).ToList();
             myBill = new Bill();
             Bill.docHeaderID = docH;
-            Bill.documentNumber = doclist.Select(s => s.DocumentNo).FirstOrDefault().ToString();
+            Bill.documentNumber = docHeader.Select(s => s.documentNo.Trim()).FirstOrDefault().ToString();
             label7.Text = Bill.documentNumber;
             foreach (DocumentLine docline in doclist) {
               
                tbxQty.Text = decimal.ToInt64(docline.qty).ToString();
-               tbScan.Text = mstProduct.Where(w => w.productId == docline.productId).Select(s => s.productCode).FirstOrDefault().ToString();
-                addData(docline);
+               tbScan.Text = Global.mstProduct.Where(w => w.productId == docline.productId).Select(s => s.productCode).FirstOrDefault().ToString();
+                addData(docline); // add discount form data base document line. 
                 tbScan.Text = "";
                 tbxQty.Text = "1";
             }
@@ -571,13 +622,19 @@ namespace WholeSale.Forms
         {
            
 
-            using (Modal_MsgBox msg = new Modal_MsgBox("ยืนยันการ Clear ข้อมูล ?", optionType.yseNoOk))
+            using (Modal_MsgBox msg = new Modal_MsgBox("ยืนยันการ การยกเลิกรายการ ?", optionType.yseNoOk))
             {
                 msg.StartPosition = FormStartPosition.CenterParent;
                 msg.ShowDialog();
 
 
                 if (msg.selectResult== Modal_MsgBox.resultOption.yes) {
+                    if (Bill.documentNumber.ToString().Trim().Length>0) {
+
+
+                        Bill.disableDocHeader(Bill.docHeaderID);
+                        Bill.disableDocLine(Bill.docHeaderID);
+                    }
                     clearData();
 
                 }
@@ -622,12 +679,17 @@ namespace WholeSale.Forms
                     fb.StartPosition = FormStartPosition.CenterParent;
                  
                     fb.ShowDialog();
-                 
+
                     if (fb.isFinalComplete)
                     {
                         myBill.finalDiscount = fb.finalDiscount;
                         setSummary();
                         OpenPayment();
+                    }
+                    else {
+
+                        myBill.finalDiscount = fb.finalDiscount;
+                        setSummary();
                     }
                 }
             }

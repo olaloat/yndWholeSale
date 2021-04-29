@@ -205,6 +205,7 @@
     <Property Name="amountIncludeVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
     <Property Name="discountUnit" Type="decimal" Precision="18" Scale="4" />
     <Property Name="discountTotal" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="dcPriceTotal" Type="decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>

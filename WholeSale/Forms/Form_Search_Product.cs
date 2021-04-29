@@ -17,6 +17,7 @@ namespace WholeSale.Forms
 
         List<Product> masterProduct = new List<Product>();
         FlexCell.Grid grdProd = new FlexCell.Grid();
+        bool posMode = false;
 
         static bool isAddProuctComplete = false;
         public static bool atusAddNewProduct
@@ -30,12 +31,12 @@ namespace WholeSale.Forms
                 isAddProuctComplete = value;
             }
         }
-        public Form_Search_Product(List<Product>  _masterProduct)
+        public Form_Search_Product(List<Product>  _masterProduct , bool canSelected =false) 
         {
 
 
-     
-            InitializeComponent();
+            posMode = canSelected;
+                   InitializeComponent();
             masterProduct = _masterProduct;
        
 
@@ -211,14 +212,28 @@ on a.unitId equals d.unitId
         private void GrdList_DoubleClick(object Sender, EventArgs e)
         {
 
-            if (grdProd.ActiveCell.Row > 0) {
 
-                Form_POS.selectedProductCode = grdProd.Cell(grdProd.ActiveCell.Row,1).Text.ToString();
+            if (posMode) {
+                if (grdProd.ActiveCell.Row > 0)
+                {
 
-                this.Dispose();
+                    Form_POS.selectedProductCode = grdProd.Cell(grdProd.ActiveCell.Row, 1).Text.ToString();
+
+                    this.Dispose();
+
+                }
+
 
             }
+         
             
         }
+
+
+    
+
+
+
+
     }
 }

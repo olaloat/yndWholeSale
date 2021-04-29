@@ -413,8 +413,9 @@ namespace WholeSale.Forms
             if (tbxPrice.Text.ToString() == "") { price = 0; } else { price = decimal.Parse(tbxPrice.Text); }
             if (tbxQty.Text.ToString() == "") { qty = 0; } else { qty = decimal.Parse(tbxQty.Text); }
 
-
-            myEdit.discountUnit = myEdit.unitPrice - price;
+            myEdit.dcPrice = myEdit.unitPrice - price;
+            myEdit.discountUnit = price;
+            myEdit.dcPriceTotal = myEdit.dcPrice * qty;
             myEdit.qty = qty;
                 myEdit.amount = myEdit.qty * myEdit.unitPrice;
                 myEdit.discountTotal = myEdit.qty * myEdit.discountUnit;
@@ -432,7 +433,7 @@ namespace WholeSale.Forms
 
         private void Modal_Edit_Load(object sender, EventArgs e)
         {
-            tbxPrice.Text = (myPrdLoad.unitPrice - myPrdLoad.discountUnit).ToString();
+            tbxPrice.Text = (myPrdLoad.unitPrice - myPrdLoad.dcPrice).ToString();
             tbxProduct.Text = myPrdLoad.productName.ToString();
             tbxQty.Text = myPrdLoad.qty.ToString();
             tbxTotalPrice.Text = myPrdLoad.amount.ToString();
@@ -474,6 +475,64 @@ namespace WholeSale.Forms
 
         private void btnOk_Click(object sender, EventArgs e)
         {
+
+            mainResult myResultCheck = CheckMaxMinPrice(decimal.Parse(tbxPrice.Text), myPrdLoad.productId);
+
+            if (!myResultCheck.isComplete) {
+
+                using (Modal_MsgBox msg = new Modal_MsgBox(myResultCheck.message))
+                {
+                    msg.StartPosition = FormStartPosition.CenterParent;
+                    msg.ShowDialog();
+
+                }
+
+            } else {
+
+                this.Dispose();
+            }
+
+
+           
+        }
+
+
+        private mainResult CheckMaxMinPrice(decimal price , int productId) {
+            mainResult rs = new mainResult();
+            List<Product> myFilterProduct = Global.mstProduct.Where(w => w.productId == productId).ToList();
+
+
+            if (myFilterProduct.Where(w  => w.productId == productId  && w.maxPrice==0 && w.minPrice == 0).ToList().Count  >=0 ) {
+                rs.isComplete = true;
+                rs.message = "OK";
+
+                return rs;
+
+            }
+            if (myFilterProduct.Where(w => w.productId == productId & (w.maxPrice < price || w.minPrice > price)).ToList().Count > 0)
+            {
+
+
+                rs.isComplete = false;
+                rs.message = "ราคาที่แก้ไขต้อง ไม่น้อยกว่า " + myFilterProduct.Select(s => s.minPrice).FirstOrDefault() + " และ ไม่มากกว่า " + myFilterProduct.Select(s => s.maxPrice).FirstOrDefault();
+           
+            }
+            else {
+                rs.isComplete = true;
+                rs.message = "OK";
+
+
+            }
+
+            return rs;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+
+            myEdit = new DocumentLine();
+            myEdit = myPrdLoad;
             this.Dispose();
         }
 

@@ -36,7 +36,7 @@ namespace WholeSale.Forms
 
         private void loadHoldingBill()
         {
-            var customerSearchList = (from a in yndInven.Documents where  a.status ==1 select a).ToList();
+            var customerSearchList = (from a in yndInven.Documents where  a.status ==1  && a.isActive == true select a).ToList();
             bsHoldingList = new BindingSource();
             dtHodling = Global.ToDataTable(customerSearchList);
             dvHodling = new DataView(dtHodling);
