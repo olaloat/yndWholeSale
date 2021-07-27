@@ -4,21 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a7df19f0382e444e9408cfd3bd6762a5" Name="Diagram1">
+      <Diagram DiagramId="33c63e7d85744df7b1520d563f267659" Name="Diagram1">
+        <EntityTypeShape EntityType="ynddevModel.AccountReceive" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.Balance" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ynddevModel.Branch" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ynddevModel.Brand" Width="1.5" PointX="10.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Branch" Width="1.5" PointX="5.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Brand" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.Category" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.Company" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.Customer" Width="1.5" PointX="8.75" PointY="12.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.Device" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ynddevModel.Document" Width="1.5" PointX="3.75" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ynddevModel.DocumentLine" Width="1.5" PointX="6" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Document" Width="1.5" PointX="3.75" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.DocumentLine" Width="1.5" PointX="6" PointY="15.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.Employee" Width="1.5" PointX="13.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.Group" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.Invoice" Width="1.5" PointX="13.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.InvoiceLine" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ynddevModel.MovementType" Width="1.5" PointX="6" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.MovementType" Width="1.5" PointX="6" PointY="22.875" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.Order" Width="1.5" PointX="11" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.OrderLine" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="ynddevModel.OrderType" Width="1.5" PointX="8.75" PointY="19.375" IsExpanded="true" />
@@ -43,7 +44,6 @@
         <AssociationConnector Association="ynddevModel.FK_Order_vendor" ManuallyRouted="false" />
         <AssociationConnector Association="ynddevModel.FK_Product_productType" ManuallyRouted="false" />
         <AssociationConnector Association="ynddevModel.FK_transaction_product" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ynddevModel.AccountReceive" Width="1.5" PointX="16.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

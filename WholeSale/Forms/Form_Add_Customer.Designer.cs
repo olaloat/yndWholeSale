@@ -420,6 +420,7 @@
             this.tbCustLevel.Name = "tbCustLevel";
             this.tbCustLevel.Size = new System.Drawing.Size(979, 27);
             this.tbCustLevel.TabIndex = 1;
+            this.tbCustLevel.TextChanged += new System.EventHandler(this.tbCustLevel_TextChanged);
             this.tbCustLevel.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbCustLevel_KeyPress);
             // 
             // label5
@@ -567,6 +568,7 @@
             this.btClear.TabIndex = 7;
             this.btClear.Text = "CLEAR";
             this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
             // 
             // tbCancel
             // 
@@ -600,6 +602,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form_Add_Customer";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Form_Add_Customer_Load_1);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);

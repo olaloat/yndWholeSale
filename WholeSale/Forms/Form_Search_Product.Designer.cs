@@ -53,11 +53,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pnGrid = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.productBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_prd)).BeginInit();
             this.panel1.SuspendLayout();
+            this.pnGrid.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,6 +145,7 @@
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(194, 29);
             this.comboBox2.TabIndex = 20;
+            this.comboBox2.Visible = false;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // label9
@@ -152,6 +156,7 @@
             this.label9.Size = new System.Drawing.Size(47, 20);
             this.label9.TabIndex = 11;
             this.label9.Text = "Type";
+            this.label9.Visible = false;
             // 
             // tbProdCode
             // 
@@ -301,11 +306,22 @@
             // 
             // pnGrid
             // 
+            this.pnGrid.Controls.Add(this.dataGridView1);
             this.pnGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnGrid.Location = new System.Drawing.Point(0, 126);
             this.pnGrid.Name = "pnGrid";
             this.pnGrid.Size = new System.Drawing.Size(1727, 574);
             this.pnGrid.TabIndex = 32;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(1727, 574);
+            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // productBindingSource
             // 
@@ -336,6 +352,8 @@
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtg_prd)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.pnGrid.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.productBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -368,5 +386,6 @@
         private System.Windows.Forms.DataGridView dtg_prd;
         private System.Windows.Forms.BindingSource productBindingSource;
         private System.Windows.Forms.Panel pnGrid;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

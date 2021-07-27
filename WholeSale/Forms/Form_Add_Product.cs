@@ -9,13 +9,27 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WholeSale.Model;
+using WholeSale.MyClass;
 
 namespace WholeSale.Forms
 {
     public partial class Form_Add_Product : Form
     {
-        public Form_Add_Product()
+        mode activeMode = mode.NEW;
+        public Product myProduct { get; set; }
+        public  int productId { get; set; }
+
+        public  bool isActionComplete {get ; set;}
+
+        public enum mode
         {
+            NEW,
+            EDIT
+        }
+        public Form_Add_Product(mode activeMode = mode.NEW)
+
+        {
+            this.activeMode = activeMode;
             InitializeComponent();
         }
 
@@ -30,7 +44,6 @@ namespace WholeSale.Forms
             {
                 fb.StartPosition = FormStartPosition.CenterParent;
                 fb.ShowDialog();
-
             }
         }
 
@@ -41,62 +54,61 @@ namespace WholeSale.Forms
 
         private void btSave_Click(object sender, EventArgs e)
         {
-            var rs = validateData();
-            if (!rs.isComplete)
-            {
-
-               // rs = insertDataToDB();
-                //string message = rs.message;
-                //string title = "ผลการทำงาน";
-                //MessageBox.Show(message, title);
-
-
-
-
-              
-             
-                using (Modal_MsgBox msg = new Modal_MsgBox(rs.message))
+            mainResult rs = new mainResult();
+            // calidate product code
+            if (activeMode == mode.NEW) {
+                rs = validateData();
+                if (!rs.isComplete)
                 {
-                    msg.StartPosition = FormStartPosition.CenterParent;
-                    msg.ShowDialog();
-
+                    mMsgBox.show(rs.message,Modal_MsgBox.icon.error,"Error");
+                    return;
                 }
+                rs = insertDataToDB();
+
+            } else if (activeMode == mode.EDIT) {
+
+
+                rs = editDataToDB();
             }
 
 
+                mMsgBox.show(rs.message);
+        
 
+
+         //   mMsgBox.show(rs.message);
             if (rs.isComplete)
             {
-                rs = insertDataToDB();
-                //string message = rs.message;
-                //string title = "ผลการทำงาน";
-                //MessageBox.Show(message, title);
 
 
-                using (Modal_MsgBox msg = new Modal_MsgBox(rs.message))
-                {
-                    msg.StartPosition = FormStartPosition.CenterParent;
-                    msg.ShowDialog();
+                isActionComplete = true;
+                Operation.loadProduct();
 
-                }
 
-                Form_Search_Product.atusAddNewProduct = true;
-                productMaintain.haveNewProduct = true;
+
                 this.Dispose();
-             
-
 
             }
+            else
+            {
+
+                isActionComplete = false;
+            }
+
+
+
+            this.Dispose();
+          //  }
 
         }
 
         private mainResult validateData() {
 
             mainResult rs = new mainResult();
-            ynddevEntities db = new ynddevEntities();
-         
+            ynd db = new ynd();
+
             List<Product> prd = new List<Product>();
-            prd = (from a in db.Products where a.productCode.Contains(tbProductCode.Text) select a).ToList();
+            prd = (from a in db.Products where a.productCode ==tbProductCode.Text.ToString().Trim() select a).ToList();
             if (prd.Count > 0) {
                 rs.isComplete = false;
                 rs.message = "รหัสสินค้านี้มีอยู่ในระบบแล้ว ไม่สามารถบันทึกซ้ำได้";
@@ -115,37 +127,94 @@ namespace WholeSale.Forms
         }
 
 
-        private mainResult insertDataToDB() {
+        private mainResult editDataToDB() {
             mainResult rs = new mainResult();
-            try { 
-           
-            ynddevEntities db = new ynddevEntities();
-            Product prd = new Product() {
-                productCode =tbProductCode.Text.Trim(),
-                productName =tbProductName.Text.Trim(),
-                price = Convert.ToDecimal(tbPrice.Text.Trim()) ,
-                maxPrice = Convert.ToDecimal(tbMaxPrice.Text.Trim()),
-                 minPrice = Convert.ToDecimal(tbMinPrice.Text.Trim()),
-                  previousPrice =0,
-                   branchCode=Global.branchCode,
-                   compCode=Global.compCode,
-                    categoryId=Convert.ToInt16(cbCategory2.SelectedValue),
-                     createBy ="ADMIN",
-                      createTime =DateTime.Now,
-                       editTime =DateTime.Now,
-                       editBy = "ADMIN",
-                        groupId = Convert.ToInt16(cbGroup.SelectedValue),
-                         isActive =true,
-                         typeId = Convert.ToInt16(cbType.SelectedValue),
-                productTypeId = Convert.ToInt16(cbType.SelectedValue),
-                unitId = Convert.ToInt16(cbUnit.SelectedValue),
+            try
+            {
 
-
-
+                Product myprod = new Product() {
+                    // Product myEditPrd = db.Products.Where(w => w.productId {== myProduct.productId).FirstOrDefault();
+                    productId = productId,
+               productCode = tbProductCode.Text.Trim(),
+               productName = tbProductName.Text.Trim(),
+               price = Convert.ToDecimal(tbPrice.Text.Trim()),
+               maxPrice = Convert.ToDecimal(tbMaxPrice.Text.Trim()),
+               minPrice = Convert.ToDecimal(tbMinPrice.Text.Trim()),
+               previousPrice = 0,
+               branchCode = global.BranchCode,
+               compCode = global.compCode,
+               categoryId = Convert.ToInt16(cbCategory2.SelectedValue),
+             //  createBy = "ADMIN",
+             //  createTime = DateTime.Now,
+               editTime = DateTime.Now,
+               editBy = "ADMIN",
+               groupId = Convert.ToInt16(cbGroup.SelectedValue),
+               isActive = true,
+               typeId = Convert.ToInt16(cbType.SelectedValue),
+               productTypeId = Convert.ToInt16(cbType.SelectedValue),
+               unitId = Convert.ToInt16(cbUnit.SelectedValue),
             };
 
-            db.Products.Add(prd);
-            db.SaveChanges();
+
+                 rs = db.updateProduct(myprod);
+
+            }
+            catch (Exception e)
+            {
+                string xxx = e.ToString();
+                rs.isComplete = false;
+                rs.message = "ERROR";
+                rs.isComplete = true;
+                rs.message = e.ToString();
+                return rs;
+            }
+
+
+            rs.isComplete = true;
+            rs.message = "บันทึกสำเร็จ";
+
+            return rs;
+
+
+
+        }
+
+        private mainResult insertDataToDB() {
+            mainResult rs = new mainResult();
+            try {
+
+                ynd db = new ynd();
+                Product prd = new Product() {
+                    productCode = tbProductCode.Text.Trim(),
+                    productName = tbProductName.Text.Trim(),
+                    price = Convert.ToDecimal(tbPrice.Text.Trim()),
+                    maxPrice = Convert.ToDecimal(tbMaxPrice.Text.Trim()),
+                    minPrice = Convert.ToDecimal(tbMinPrice.Text.Trim()),
+                    previousPrice = 0,
+                 
+                    categoryId = Convert.ToInt16(cbCategory2.SelectedValue),
+
+
+                    branchCode = global.BranchCode,
+                    compCode = global.compCode,
+                    createBy = "ADMIN",
+                    createTime = DateTime.Now,
+                    editTime = DateTime.Now,
+                    editBy = "ADMIN",
+
+
+                    groupId = Convert.ToInt16(cbGroup.SelectedValue),
+                    isActive = true,
+                    typeId = Convert.ToInt16(cbType.SelectedValue),
+                    productTypeId = Convert.ToInt16(cbType.SelectedValue),
+                    unitId = Convert.ToInt16(cbUnit.SelectedValue),
+
+
+
+                };
+
+                db.Products.Add(prd);
+                db.SaveChanges();
 
             }
             catch (Exception e)
@@ -169,10 +238,50 @@ namespace WholeSale.Forms
         private void Form_Add_Product_Load(object sender, EventArgs e)
         {
             setMaster();
+            clearControl();
+            if (activeMode == mode.NEW) {
+                myProduct = new Product();
+             //   clearControl();
+            }
+
+            if (activeMode == mode.EDIT) {
+                //   clearControl();
+              myProduct =  loadProduct(productId);
+                setProdToControl();
+            }
+        }
+        private Product loadProduct(int id) {
+            ynd myEn = new ynd();
+
+
+            var prodSelect = myEn.Products.Where(w => w.productId == id).FirstOrDefault();
+
+            return prodSelect;
+        }
+        private void setProdToControl() {
+
+            tbProductCode.Text = myProduct.productCode.ToString();
+            tbProductName.Text = myProduct.productName.ToString();
+            cbCategory2.SelectedValue = myProduct.categoryId;
+            cbType.SelectedValue = myProduct.typeId;
+            cbGroup.SelectedValue = myProduct.groupId;
+            tbPrice.Text = myProduct.price.ToString();
+            tbMaxPrice.Text = myProduct.maxPrice.ToString();
+            tbMinPrice.Text = myProduct.minPrice.ToString();
+            tbStandardPack.Text = "";
+            cbUnit.SelectedValue = myProduct.unitId;
+            tbMFG.Text = "";
+            tbSupplier.Text = "";
+            pictureBox1.Image = null;
+            tbxPath.Text = "";
+
+
+
+
         }
 
         private void setMaster (){
-           ynddevEntities db = new ynddevEntities();
+           ynd db = new ynd();
            //List< Category > ctg = new List<Category>();
             //List < ProductType > pdtype = new List<ProductType>();
             //List<Unit> unit = new List<Unit>();
@@ -244,6 +353,29 @@ namespace WholeSale.Forms
             tbMinPrice.Text = inputCurreny(tbMinPrice.Text);
         }
 
-      
+
+        private void clearControl() {
+            tbProductCode.Text = "";
+tbProductName.Text = "";
+            cbCategory2.SelectedIndex = -1;
+            cbType.SelectedIndex = -1;
+cbGroup.SelectedIndex = -1;
+            tbPrice.Text = "";
+            tbMaxPrice.Text = "0";
+            tbMinPrice.Text = "0";
+            tbStandardPack.Text = "";
+cbUnit.SelectedIndex = -1;
+            tbMFG.Text = "";
+            tbSupplier.Text = "";
+pictureBox1.Image = null;
+            tbxPath.Text = "";
+
+
+        }
+
+        private void btClear_Click(object sender, EventArgs e)
+        {
+            clearControl();
+        }
     }
 }

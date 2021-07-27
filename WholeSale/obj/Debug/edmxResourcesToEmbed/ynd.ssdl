@@ -157,13 +157,6 @@
     <Property Name="orderId" Type="int" Nullable="false" />
     <Property Name="customerId" Type="int" Nullable="false" />
     <Property Name="vendorId" Type="int" Nullable="false" />
-    <Property Name="totalVat" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="totalDc" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="totalQty" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="TotalPriceBeforeDc" Type="decimal" Precision="18" Scale="4" />
-    <Property Name="itemDc" Type="decimal" Precision="18" Scale="4" />
-    <Property Name="endDc" Type="decimal" Precision="18" Scale="4" />
-    <Property Name="totalPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="isOrder" Type="bit" Nullable="false" />
     <Property Name="isTax" Type="bit" Nullable="false" />
     <Property Name="paidType" Type="int" Nullable="false" />
@@ -176,6 +169,15 @@
     <Property Name="editTime" Type="datetime" Nullable="false" />
     <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="totalVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalLineDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceBeforeDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="endDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceAfterDiscountLine" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceAfterAllDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceBeforeVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="qty" Type="decimal" Precision="18" Scale="4" Nullable="false" />
   </EntityType>
   <EntityType Name="DocumentLine">
     <Key>
@@ -188,12 +190,8 @@
     <Property Name="invoiceNo" Type="nvarchar" MaxLength="250" />
     <Property Name="productId" Type="int" Nullable="false" />
     <Property Name="productName" Type="nvarchar" MaxLength="250" Nullable="false" />
-    <Property Name="unit" Type="nvarchar" MaxLength="250" Nullable="false" />
-    <Property Name="unitPrice" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-    <Property Name="qty" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-    <Property Name="amount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="qty" Type="int" Nullable="false" />
     <Property Name="vatType" Type="int" Nullable="false" />
-    <Property Name="dcPrice" Type="decimal" Precision="18" Scale="4" Nullable="false" />
     <Property Name="isActive" Type="bit" />
     <Property Name="createBy" Type="nvarchar" MaxLength="250" Nullable="false" />
     <Property Name="createTime" Type="datetime" Nullable="false" />
@@ -201,11 +199,15 @@
     <Property Name="editTime" Type="datetime" Nullable="false" />
     <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
-    <Property Name="vat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-    <Property Name="amountIncludeVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-    <Property Name="discountUnit" Type="decimal" Precision="18" Scale="4" />
-    <Property Name="discountTotal" Type="decimal" Precision="18" Scale="4" />
-    <Property Name="dcPriceTotal" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="unitPrice" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="unitVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="discountUnit" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceBeforeDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceAfterDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="unit" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="totalPriceBeforeVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>

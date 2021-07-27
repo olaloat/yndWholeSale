@@ -19,7 +19,7 @@ namespace WholeSale
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new FrmTestPrint());
             //  Application.Run(new Form_POS());
-            //Application.Run(new Form_POS());
+        // Application.Run(new Form_POS());
             Application.Run(new Form1());
         }
     }

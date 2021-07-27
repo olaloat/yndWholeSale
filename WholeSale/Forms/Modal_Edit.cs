@@ -7,66 +7,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WholeSale.MyClass;
 
 namespace WholeSale.Forms
 {
     public partial class Modal_Edit : Form
     {
-
-
-        
-        public Modal_Edit(DocumentLine productSelect)
-        {
-            firstLoad = true;
-            myPrdLoad = new DocumentLine();
-            myPrdLoad = productSelect;
-            myEdit = productSelect;
-            InitializeComponent();
+       
+        public List<DocumentLineDisplay> listEdited {
+            get; set;
         }
 
+        private DocumentLineDisplay docLineEdit = new DocumentLineDisplay();
 
+        private int productIDSelect { get; set; }
 
-        DocumentLine myEdit = new DocumentLine();
-        DocumentLine myPrdLoad = new DocumentLine();
-        bool firstLoad = true;
-
-        private mainResult validateDiscount()
+        public Modal_Edit(List<DocumentLineDisplay>  list , int productSelect)
         {
+           
+            InitializeComponent();
 
-            mainResult rs = new mainResult();
-            rs.isComplete = true;
-            if (payment.totalNetPay < 0)
-            {
-                rs.isComplete = false;
-                rs.message = "ส่วนลดมากกว่าราคารวมสินค้า";
+            listEdited = list;
+            productIDSelect = productSelect;
+            docLineEdit = list.Where(w => w.productId == productIDSelect).FirstOrDefault();
+            tbxProduct.Text = docLineEdit.productName.ToString();
+            tbxUnit.Text = docLineEdit.unit.ToString();
+            tbxPrice.Text = (docLineEdit.unitPrice - docLineEdit.discountUnit).ToString();
+            tbxQty.Text = docLineEdit.qty.ToString();
+            tbxTotalPrice.Text = docLineEdit.totalPriceAfterDiscount.ToString();
+            tbxUnit.Focus();
 
-            }
-            else
-            {
 
-
-            }
-
-            return rs;
         }
 
         private void button17_Click(object sender, EventArgs e)
         {
-            mainResult rs = new mainResult();
-            rs = validateDiscount();
-            if (!rs.isComplete)
-            {
-                using (Modal_MsgBox fb = new Modal_MsgBox(rs.message))
-                {
-
-                    fb.StartPosition = FormStartPosition.CenterParent;
-                    fb.ShowDialog();
-                    rs.isComplete = false;
-                }
-            }
-            else
-            {
-            }
+           
         }
 
         private void btnDot_Click(object sender, EventArgs e)
@@ -353,98 +329,23 @@ namespace WholeSale.Forms
 
         private void btnClearNum_Click(object sender, EventArgs e)
         {
-         
 
-            //if ((tbxPrice as Control).Focused)
-            //{
                 tbxPrice.Text = "";
-            //}
 
-            //if ((tbxQty as Control).Focused)
-            //{
-            //    tbxQty.Text = "";
-
-
-
-            //}
-            //calCulatePayment();
-            //setSummary();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-
-
-
             this.Dispose();
         }
 
         private void tbxPrice_TextChanged(object sender, EventArgs e)
         {
-
-            if (firstLoad) { return; }
-            calCulatePayment();
-            setSummary();
-            btnClearNum.Visible = tbxPrice.Text.Length > 0 ? true : false;
-        }
-
-        //private void setSummary()
-        //{
-
-        //    tbNetPay.Text = payment.totalNetPay.ToString();
-        //    tbTotalDiscount.Text = payment.totalDiscount.ToString();
-        //}
-
-        private void setSummary() {
-
-            tbxTotalPrice.Text = (myEdit.amount - myEdit.discountTotal).ToString();
-        
-        }
-
-        private void calCulatePayment()
-        {
-
-
-
-            decimal price = 0;
-            decimal qty = 0;
-
-
-            if (tbxPrice.Text.ToString() == "") { price = 0; } else { price = decimal.Parse(tbxPrice.Text); }
-            if (tbxQty.Text.ToString() == "") { qty = 0; } else { qty = decimal.Parse(tbxQty.Text); }
-
-            myEdit.dcPrice = myEdit.unitPrice - price;
-            myEdit.discountUnit = price;
-            myEdit.dcPriceTotal = myEdit.dcPrice * qty;
-            myEdit.qty = qty;
-                myEdit.amount = myEdit.qty * myEdit.unitPrice;
-                myEdit.discountTotal = myEdit.qty * myEdit.discountUnit;
-
-
-          
-
-     
-
-
-
-
+            summary();
 
         }
 
-        private void Modal_Edit_Load(object sender, EventArgs e)
-        {
-            tbxPrice.Text = (myPrdLoad.unitPrice - myPrdLoad.dcPrice).ToString();
-            tbxProduct.Text = myPrdLoad.productName.ToString();
-            tbxQty.Text = myPrdLoad.qty.ToString();
-            tbxTotalPrice.Text = myPrdLoad.amount.ToString();
-            tbxUnit.Text = myPrdLoad.unit.ToString();
-            tbxPrice_Click(null, null);
-
-
-            firstLoad = false;
-
-        }
-
+ 
 
         private tbxListEnum tbxEditFocus;
         private enum tbxListEnum { price , qty}
@@ -467,39 +368,73 @@ namespace WholeSale.Forms
         private void tbxQty_TextChanged(object sender, EventArgs e)
         {
 
-            if ( firstLoad) { return; }
-            calCulatePayment();
-            setSummary();
-           // btnClearNum.Visible = tbxPrice.Text.Length > 0 ? true : false;
+            summary();
         }
 
-        private void btnOk_Click(object sender, EventArgs e)
+       private void summary()
         {
 
-            mainResult myResultCheck = CheckMaxMinPrice(decimal.Parse(tbxPrice.Text), myPrdLoad.productId);
+            //  var dddd= tbxQty.ToString() != "" ? tbxQty.ToString() : 0;
+            var summary = (tbxQty.Text.ToString() == "" ? 0 : Convert.ToDecimal(tbxQty.Text.ToString())) * (tbxPrice.Text.ToString() == "" ? 0 : Convert.ToDecimal(tbxPrice.Text.ToString()));
+                //* decimal.Parse(tbxPrice.Text.ToString());
+            tbxTotalPrice.Text = summary.ToString();
 
-            if (!myResultCheck.isComplete) {
+        }
 
-                using (Modal_MsgBox msg = new Modal_MsgBox(myResultCheck.message))
-                {
-                    msg.StartPosition = FormStartPosition.CenterParent;
-                    msg.ShowDialog();
+        private mainResult checkCompleteValue() {
+            mainResult rs = new mainResult() { isComplete = false, message = "", status = "" };
+            if (tbxQty.Text.ToString().Trim().Length != 0 && tbxPrice.Text.ToString().Trim().Length != 0) {
+                 rs = new mainResult() { isComplete = true, message = "OK", status = "OK" };
+            } else {
+                 rs = new mainResult() { isComplete = false, message = "ยังไม่ได้ใส่จำนวน QTY หรือ Price กรุณาตรวจสอบ", status = "ERROR" };
+            }
+
+            return rs;
+        }
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            var rs = checkCompleteValue();
+            if (!rs.isComplete) {
+
+                mMsgBox.show(rs.message);
+                return; }
+            mainResult myResultCheck = CheckMaxMinPrice(decimal.Parse(tbxPrice.Text), productIDSelect);
+
+            if (!myResultCheck.isComplete)
+            {
+                mMsgBox.show(myResultCheck.message);
+                //using (Modal_MsgBox msg = new Modal_MsgBox(myResultCheck.message))
+                //{
+                //    msg.StartPosition = FormStartPosition.CenterParent;
+                //    msg.ShowDialog();
+
+                //}
+
+            }
+            else
+            {
+                foreach (DocumentLineDisplay a in listEdited) {
+                    if (a.productId == productIDSelect) {
+                        decimal discountUnit = a.unitPrice - decimal.Parse(tbxPrice.Text.ToString());
+                        a.qty = int.Parse(tbxQty.Text.ToString());
+                        a.discountUnit = discountUnit;
+                        a.totalPriceBeforeDiscount = a.qty * a.unitPrice;
+                        a.totalDiscount = a.qty * discountUnit;
+                        a.totalPriceAfterDiscount = a.totalPriceBeforeDiscount - a.totalDiscount;
+                    }
 
                 }
-
-            } else {
-
                 this.Dispose();
             }
 
 
-           
+
         }
 
 
         private mainResult CheckMaxMinPrice(decimal price , int productId) {
             mainResult rs = new mainResult();
-            List<Product> myFilterProduct = Global.mstProduct.Where(w => w.productId == productId).ToList();
+            List<Product> myFilterProduct = global.mstProduct.Where(w => w.productId == productId).ToList();
 
 
             if (myFilterProduct.Where(w  => w.productId == productId  && w.maxPrice==0 && w.minPrice == 0).ToList().Count  >=0 ) {
@@ -531,37 +466,12 @@ namespace WholeSale.Forms
         {
 
 
-            myEdit = new DocumentLine();
-            myEdit = myPrdLoad;
+            //myEdit = new DocumentLine();
+            //myEdit = myPrdLoad;
             this.Dispose();
         }
 
 
-
-        //private void Modal_FinalDc_Load(object sender, EventArgs e)
-        //{
-
-        //    clearAllTextBox();
-        //    tbSumTotal.Text = payment.totalAmount.ToString();
-        //    tbTotalDiscountInline.Text = payment.totalDiscountInline.ToString();
-        //    calCulatePayment();
-        //    setSummary();
-        //}
-
-
-        //private void clearAllTextBox()
-        //{
-        //    tbTotalDiscountInline.Text = "";
-        //    tbSumTotal.Text = "";
-        //    tbxPrice.Text = "";
-        //    tbTotalDiscountInline.Text = "";
-        //    tbTotalDiscount.Text = "";
-
-
-
-
-
-        //}
 
 
 

@@ -118,7 +118,6 @@
             this.tbxProduct.Size = new System.Drawing.Size(254, 27);
             this.tbxProduct.TabIndex = 1;
             this.tbxProduct.TabStop = false;
-            this.tbxProduct.Text = "Super Mario Play Station";
             // 
             // tbxUnit
             // 
@@ -128,7 +127,6 @@
             this.tbxUnit.Size = new System.Drawing.Size(47, 27);
             this.tbxUnit.TabIndex = 3;
             this.tbxUnit.TabStop = false;
-            this.tbxUnit.Text = "PC";
             // 
             // tbxPrice
             // 
@@ -462,7 +460,7 @@
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Modal_Edit";
             this.Text = "Modal_Edit";
-            this.Load += new System.EventHandler(this.Modal_Edit_Load);
+           // this.Load += new System.EventHandler(this.Modal_Edit_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();

@@ -33,7 +33,7 @@
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.label22 = new System.Windows.Forms.Label();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.tbxPath = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
@@ -158,7 +158,7 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel8.Controls.Add(this.textBox11, 0, 1);
+            this.tableLayoutPanel8.Controls.Add(this.tbxPath, 0, 1);
             this.tableLayoutPanel8.Controls.Add(this.label21, 0, 0);
             this.tableLayoutPanel8.Controls.Add(this.button4, 1, 1);
             this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 277);
@@ -169,12 +169,12 @@
             this.tableLayoutPanel8.Size = new System.Drawing.Size(242, 55);
             this.tableLayoutPanel8.TabIndex = 4;
             // 
-            // textBox11
+            // tbxPath
             // 
-            this.textBox11.Location = new System.Drawing.Point(3, 23);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(146, 27);
-            this.textBox11.TabIndex = 0;
+            this.tbxPath.Location = new System.Drawing.Point(3, 23);
+            this.tbxPath.Name = "tbxPath";
+            this.tbxPath.Size = new System.Drawing.Size(146, 27);
+            this.tbxPath.TabIndex = 0;
             // 
             // label21
             // 
@@ -776,6 +776,7 @@
             this.btClear.TabIndex = 7;
             this.btClear.Text = "CLEAR";
             this.btClear.UseVisualStyleBackColor = true;
+            this.btClear.Click += new System.EventHandler(this.btClear_Click);
             // 
             // tbCancel
             // 
@@ -847,7 +848,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox tbxPath;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;

@@ -1,5 +1,5 @@
 ﻿
-using Microsoft.Reporting.WinForms;
+//using Microsoft.Reporting.WinForms;
 
 using System;
 
@@ -41,19 +41,19 @@ namespace WholeSale
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //string sql = "select productId, productCode, productName, productTypeId, productRefId, categoryId, typeId, groupId, unitId, minPrice, maxPrice, previousPrice, price, reqSn, ctlExpDate, image1Id, image2Id, image3Id, orderBy, isActive, createBy, createTime, editBy, editTime, compCode, branchCode from Product";
-            string sql = "select top 30 productCode, productName, price from Product";
-            var dt = GetDataTable(sql);
-            LocalReport report = new LocalReport();
-            string path = Path.GetDirectoryName(Application.ExecutablePath);
-            string fullPath = Path.GetDirectoryName(Application.ExecutablePath).Remove(path.Length - 10) + @"\Report\rpProduct.rdlc";
-            report.ReportPath = fullPath;
-            report.DataSources.Add(new ReportDataSource("dsProduct", dt));
-            int printQty = Convert.ToInt32(1);
-            for (int i = 0; i < printQty; i++)
-            {
-                PrintToPrinter(report);
-            }
+            ////string sql = "select productId, productCode, productName, productTypeId, productRefId, categoryId, typeId, groupId, unitId, minPrice, maxPrice, previousPrice, price, reqSn, ctlExpDate, image1Id, image2Id, image3Id, orderBy, isActive, createBy, createTime, editBy, editTime, compCode, branchCode from Product";
+            //string sql = "select top 30 productCode, productName, price from Product";
+            //var dt = GetDataTable(sql);
+            //LocalReport report = new LocalReport();
+            //string path = Path.GetDirectoryName(Application.ExecutablePath);
+            //string fullPath = Path.GetDirectoryName(Application.ExecutablePath).Remove(path.Length - 10) + @"\Report\rpProduct.rdlc";
+            //report.ReportPath = fullPath;
+            //report.DataSources.Add(new ReportDataSource("dsProduct", dt));
+            //int printQty = Convert.ToInt32(1);
+            //for (int i = 0; i < printQty; i++)
+            //{
+            //    PrintToPrinter(report);
+            //}
         }
 
         public DataTable GetDataTable(string sql)
@@ -75,35 +75,35 @@ namespace WholeSale
             }
         }
 
-        public static void PrintToPrinter(LocalReport report)
-        {
-            Export(report);
+        //public static void PrintToPrinter(LocalReport report)
+        //{
+        //    Export(report);
 
-        }
+        //}
 
-        public static void Export(LocalReport report, bool print = true)
-        {
-            string deviceInfo =
-             @"<DeviceInfo>
-                 <OutputFormat>EMF</OutputFormat>
-                <PageWidth>3in</PageWidth>
-                <PageHeight>10.6in</PageHeight>
-                <MarginTop>0in</MarginTop>
-                <MarginLeft>0.1in</MarginLeft>
-                <MarginRight>0.1in</MarginRight>
-                <MarginBottom>0in</MarginBottom>
-            </DeviceInfo>";
-            Warning[] warnings;
-            m_streams = new List<Stream>();
-            report.Render("Image", deviceInfo, CreateStream, out warnings);
-            foreach (Stream stream in m_streams)
-                stream.Position = 0;
+        //public static void Export(LocalReport report, bool print = true)
+        //{
+        //    string deviceInfo =
+        //     @"<DeviceInfo>
+        //         <OutputFormat>EMF</OutputFormat>
+        //        <PageWidth>3in</PageWidth>
+        //        <PageHeight>10.6in</PageHeight>
+        //        <MarginTop>0in</MarginTop>
+        //        <MarginLeft>0.1in</MarginLeft>
+        //        <MarginRight>0.1in</MarginRight>
+        //        <MarginBottom>0in</MarginBottom>
+        //    </DeviceInfo>";
+        //    Warning[] warnings;
+        //    m_streams = new List<Stream>();
+        //    report.Render("Image", deviceInfo, CreateStream, out warnings);
+        //    foreach (Stream stream in m_streams)
+        //        stream.Position = 0;
 
-            if (print)
-            {
-                Print();
-            }
-        }
+        //    if (print)
+        //    {
+        //        Print();
+        //    }
+        //}
 
 
         public static void Print()

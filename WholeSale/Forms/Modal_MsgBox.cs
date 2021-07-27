@@ -13,181 +13,175 @@ namespace WholeSale.Forms
     public partial class Modal_MsgBox : Form
     {
 
-        public resultOption selectResult;
-        public enum resultOption { ok, cancel, yes, no }
-       
-        private optionType type ;
-        public Modal_MsgBox(string data, optionType msgBoxType = optionType.ok, string button1 = "", string button2 = "", string button3 = "")
+ 
+        public enum MessageBoxButtons
+        {
+            OK,
+            OKCancel,
+            RetryCancel,
+            YesNo,
+            YesNoCancel
+        }
+
+        public enum icon
+        {
+            information,
+            error,
+            warning
+        }
+
+        public MessageBoxButtons buttonType;
+
+        public DialogResult result { get; set; } = DialogResult.Cancel;
+        //public DialogResult   show(string msg ,string title= "Informarion", icon icon=icon.information)
+        //{ InitializeComponent();
+        //    this.lbHeader.Text = title.ToString();
+        //    this.tbMessage.Text = msg.ToString();
+        //    DialogResult result = new DialogResult();
+        //    setIcon(icon);
+        //    return result;
+
+        //}
+        public DialogResult show(string msg, string title="Informarion" ,icon icon= icon.information)
+        { InitializeComponent();
+
+            this.tbMessage.Text = msg.ToString();
+            DialogResult result = new DialogResult();
+            setIcon(icon);
+            return result;
+        }
+
+        public DialogResult show(string msg, string title ="Information" , MessageBoxButtons button = MessageBoxButtons.OK, icon icon = icon.information)
         {
             InitializeComponent();
-            type = msgBoxType;
-            selectResult = resultOption.cancel;
-            switch (msgBoxType) {
-                case optionType.ok:
-                    //type = "ok";
-                    pnButton.Visible = false;
+            showButton(button);
+            this.lbHeader.Text = title;
+            this.tbMessage.Text = msg.ToString();
+            setIcon(icon);
+
+            DialogResult result = new DialogResult();
+            return result;
+
+
+        }
+
+        private void setIcon(icon type) {
+
+            switch (type)
+            {
+                case icon.information:
+                   // lbHeader.Text = "Information";
+                    lbHeader.ForeColor = Color.Blue;
+                    pnClose.BackColor = Color.Blue;
+                    pcbIcon.Image = Properties.Resources.Information;
                     break;
-                case optionType.okCancel:  // ok cancel
-                    //type = "okCancel";
-                    pnButton.Visible = true;
 
-                    btOption1.Visible = false;
-                    btOption2.Visible = true;
-                    btOption3.Visible = true;
-
-                    button2Text = "Cancel";
-                    button3Text = "OK";
+                case icon.error:
+                    //lbHeader.Text = "Error";
+                    pnClose.BackColor = Color.Red;
+                    lbHeader.ForeColor = Color.Red;
+                    pcbIcon.Image = Properties.Resources.error;
                     break;
-                case optionType.yseNoOk: // yes no 
-                    //type = "yesNo";
-                    pnButton.Visible = true;
 
-                    btOption1.Visible = false;
-                    btOption2.Visible = true;
-                    btOption3.Visible = true;
 
-                    btOption2.Text = "YES";
-                    btOption3.Text = "NO";
-
-                    break;
-                case optionType.holding: // custom
-                    //type = "holding";
-
-                    pnButton.Visible = true;
-
-                   btOption1.Visible = true;
-                    btOption1.Text = "เปิดรายการที่พักไว้";
-                    btOption1.Enabled = false;
-                    btOption2.Visible = true;
-                    btOption2.Text = "พักรายการนี้";
-                    btOption3.Visible = false;
-                    btOption2.Enabled = Bill.isHasList;
-                    break;
-                // btOption1.Text = "";
-
-                case optionType.openHolding: // custom
-                    //type = "holding";
-
-                    pnButton.Visible = true;
-
-                    btOption1.Visible = true;
-                    btOption1.Text = "เปิดรายการที่พักไว้";
-                    btOption2.Visible = true;
-                    btOption2.Text = "พักรายการนี้";
-                    btOption2.Enabled = false;
-                    btOption3.Visible = false;
-                    btOption2.Enabled = Bill.isHasList;
-
-                    // btOption1.Text = "";
-
-                    break;
-                default:
-
+                case icon.warning:
+                  //  lbHeader.Text = "Warning";
+                    pnClose.BackColor = Color.Gold;
+                    lbHeader.ForeColor = Color.Black;
+                    pcbIcon.Image = Properties.Resources.warning;
                     break;
 
             }
 
-            tbMessage.Text = data;
         }
 
-        private string button1Text = "";
-        private string button2Text = "";
-        private string button3Text = "";
+        public void hideButton() {
+
+            tblOk.Visible = false;
+            tblYesNo.Visible = false;
+            tblYesNoCancel.Visible = false;
+        }
+
+        public void showButton(MessageBoxButtons buttonType) {
+
+            
+            switch (buttonType)
+            {
+                case MessageBoxButtons.OK:
+                  
+                    tblOk.Visible = true;
+                    tblOk.Dock = DockStyle.Bottom;
+                    break;
+
+                case MessageBoxButtons.YesNo:
+                    tblYesNo.Visible = true;
+                    tblYesNo.Dock = DockStyle.Bottom;
+                    break;
+
+
+                case MessageBoxButtons.YesNoCancel:
+                    tblYesNoCancel.Visible = true;
+                    tblYesNoCancel.Dock = DockStyle.Bottom;
+                    break;
+
+            }
+        }
 
         private void button10_Click(object sender, EventArgs e)
         {
             this.Dispose();
+
         }
 
-
-
-        private void btOption1_Click(object sender, EventArgs e)
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
-            switch (type) {
-
-                case optionType.openHolding:
-                    openPageHoldBill();
-                    if (Bill.docHeaderID != 0) { 
-                        
-                        this.Dispose();
-                        selectResult = resultOption.ok;
-                    } else {
-
-                        selectResult = resultOption.cancel;
-
-                    }
-
-                    break; }
+            
+            this.Dispose();
         }
 
-        private void btOption2_Click(object sender, EventArgs e)
+        private void lbHeader_Click(object sender, EventArgs e)
         {
-            switch (type)
-            {
-
-                case optionType.holding:
-                   mainResult rs = Bill.holdingBill();
-                    tbMessage.Text = rs.message;
-                    diableAllbutton();
-                    if (rs.isComplete)
-                    {
-                        tbMessage.ForeColor = Color.Green;
-                        selectResult = resultOption.ok;
-                    }
-                    else {
-
-                        tbMessage.ForeColor = Color.Red;
-                        selectResult = resultOption.cancel;
-                    }
-                    break;
-                case optionType.yseNoOk:
-                    selectResult = resultOption.yes;
-                    this.Dispose();
-                    break;
-            }
 
         }
 
-        private void diableAllbutton() {
-            btOption1.Enabled = false;
-            btOption2.Enabled = false;
-            btOption3.Enabled = false;
-
-        }
-
-        private void btOption3_Click(object sender, EventArgs e)
+        private void btnYesNoCancel_yes_Click(object sender, EventArgs e)
         {
-            switch (type)
-            {
-
-                case optionType.holding:
-                  
-                    break;
-                case optionType.yseNoOk:
-                    selectResult = resultOption.no;
-                    this.Dispose();
-                    break;
-            }
+            result = DialogResult.Yes;
+            this.Dispose();
         }
 
+        private void btnYesNoCancel_No_Click(object sender, EventArgs e)
+        {
+            result = DialogResult.No;
+            this.Dispose();
+        }
 
-        private void openPageHoldBill() {
+        private void btnYesNoCancel_cancel_Click(object sender, EventArgs e)
+        {
+            result = DialogResult.Cancel;
+            this.Dispose();
+        }
 
-            using (Form_Pending fb = new Form_Pending())
-            {
-                fb.ShowDialog();
-              
-            }
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            result = DialogResult.OK;
+            this.Dispose();
+        }
 
+        private void btnYesNo_yes_Click(object sender, EventArgs e)
+        {
+            result = DialogResult.Yes;
+            this.Dispose();
 
         }
 
-     
+        private void btnYesNo_No_Click(object sender, EventArgs e)
+        {
+            result = DialogResult.No;
+            this.Dispose();
+        }
     }
 
-    public enum optionType { ok, okCancel, yseNoOk,holding , openHolding   }
-
-    public enum ButtonSelect { ok, yes, no, cancel, close }
 
 
 

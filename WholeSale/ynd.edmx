@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ynddevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ynddevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AccountReceive">
           <Key>
             <PropertyRef Name="arId" />
@@ -162,13 +162,6 @@
           <Property Name="orderId" Type="int" Nullable="false" />
           <Property Name="customerId" Type="int" Nullable="false" />
           <Property Name="vendorId" Type="int" Nullable="false" />
-          <Property Name="totalVat" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="totalDc" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="totalQty" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="TotalPriceBeforeDc" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="itemDc" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="endDc" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="totalPrice" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="isOrder" Type="bit" Nullable="false" />
           <Property Name="isTax" Type="bit" Nullable="false" />
           <Property Name="paidType" Type="int" Nullable="false" />
@@ -181,6 +174,15 @@
           <Property Name="editTime" Type="datetime" Nullable="false" />
           <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="totalVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalLineDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceBeforeDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="endDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceAfterDiscountLine" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceAfterAllDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceBeforeVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="qty" Type="decimal" Precision="18" Scale="4" Nullable="false" />
         </EntityType>
         <EntityType Name="DocumentLine">
           <Key>
@@ -193,12 +195,8 @@
           <Property Name="invoiceNo" Type="nvarchar" MaxLength="250" />
           <Property Name="productId" Type="int" Nullable="false" />
           <Property Name="productName" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="unit" Type="nvarchar" MaxLength="250" Nullable="false" />
-          <Property Name="unitPrice" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="qty" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="amount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="qty" Type="int" Nullable="false" />
           <Property Name="vatType" Type="int" Nullable="false" />
-          <Property Name="dcPrice" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="isActive" Type="bit" />
           <Property Name="createBy" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="createTime" Type="datetime" Nullable="false" />
@@ -206,11 +204,15 @@
           <Property Name="editTime" Type="datetime" Nullable="false" />
           <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="vat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="amountIncludeVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="discountUnit" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="discountTotal" Type="decimal" Precision="18" Scale="4" />
-          <Property Name="dcPriceTotal" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="unitPrice" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="unitVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="discountUnit" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceBeforeDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceAfterDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="unit" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="totalPriceBeforeVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -814,10 +816,35 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
             <End Role="Transaction" EntitySet="Transaction" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ynddevModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccountReceive">
+          <Key>
+            <PropertyRef Name="arId" />
+          </Key>
+          <Property Name="arId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="docId" Type="Int32" Nullable="false" />
+          <Property Name="refDocId" Type="Int32" />
+          <Property Name="invoiceId" Type="Int32" />
+          <Property Name="creditAmont" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="debitAmount" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="paymentType" Type="Int32" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="pay" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="change" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="balance" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="isActive" Type="Boolean" />
+          <Property Name="createBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="editBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="compCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="branchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="Balance">
           <Key>
             <PropertyRef Name="productId" />
@@ -954,10 +981,6 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <Property Name="orderId" Type="Int32" Nullable="false" />
           <Property Name="customerId" Type="Int32" Nullable="false" />
           <Property Name="vendorId" Type="Int32" Nullable="false" />
-          <Property Name="totalVat" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="totalDc" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="totalQty" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="totalPrice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="isOrder" Type="Boolean" Nullable="false" />
           <Property Name="isTax" Type="Boolean" Nullable="false" />
           <Property Name="paidType" Type="Int32" Nullable="false" />
@@ -970,10 +993,16 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="compCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="branchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="totalVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalLineDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceBeforeDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="endDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceAfterDiscountLine" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceAfterAllDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceBeforeVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="qty" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
           <NavigationProperty Name="DocumentLines" Relationship="Self.FK_DocumentLine_Document" FromRole="Document" ToRole="DocumentLine" />
-          <Property Name="TotalPriceBeforeDc" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="itemDc" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="endDc" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="DocumentLine">
           <Key>
@@ -986,12 +1015,8 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <Property Name="invoiceNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="productId" Type="Int32" Nullable="false" />
           <Property Name="productName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="unit" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="unitPrice" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="qty" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="amount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="qty" Type="Int32" Nullable="false" />
           <Property Name="vatType" Type="Int32" Nullable="false" />
-          <Property Name="dcPrice" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="isActive" Type="Boolean" />
           <Property Name="createBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -999,13 +1024,17 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="compCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="branchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="vat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="amountIncludeVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="discountUnit" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="discountTotal" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="unitPrice" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="unitVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="discountUnit" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceBeforeDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalPriceAfterDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="totalVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="unit" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="totalPriceBeforeVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
           <NavigationProperty Name="Document" Relationship="Self.FK_DocumentLine_Document" FromRole="DocumentLine" ToRole="Document" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_transaction_DocumentLine" FromRole="DocumentLine" ToRole="Transaction" />
-          <Property Name="dcPriceTotal" Type="Decimal" Precision="18" Scale="4" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -1503,7 +1532,8 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ynddevEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ynd" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccountReceives" EntityType="Self.AccountReceive" />
           <EntitySet Name="Balances" EntityType="Self.Balance" />
           <EntitySet Name="Branches" EntityType="Self.Branch" />
           <EntitySet Name="Brands" EntityType="Self.Brand" />
@@ -1611,10 +1641,9 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
-          <FunctionImport Name="spGetDocumentBill" ReturnType="Collection(ynddevModel.spGetDocumentBill_Result)">
-          <Parameter Name="docNum" Mode="In" Type="String" />
+          <FunctionImport Name="spGetDocumentBill">
+            <Parameter Name="docNum" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="AccountReceives" EntityType="ynddevModel.AccountReceive" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1627,54 +1656,37 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
-        <ComplexType Name="spGetDocumentBill_Result">
-          <Property Type="String" Name="documentNo" Nullable="false" MaxLength="250" />
-          <Property Type="Decimal" Name="totalVat" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="totalDc" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="totalQty" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="Decimal" Name="totalPrice" Nullable="false" Precision="18" Scale="0" />
-          <Property Type="String" Name="productName" Nullable="false" MaxLength="250" />
-          <Property Type="String" Name="unit" Nullable="false" MaxLength="250" />
-          <Property Type="Decimal" Name="unitPrice" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="qty" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="amount" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="discountUnit" Nullable="true" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="dcPrice" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="discountTotal" Nullable="true" Precision="18" Scale="4" />
-          <Property Type="Decimal" Name="vat" Nullable="false" Precision="18" Scale="4" />
-          <Property Type="Int32" Name="vatType" Nullable="false" />
-          <Property Type="Decimal" Name="amountIncludeVat" Nullable="false" Precision="18" Scale="4" />
-        </ComplexType>
-        <EntityType Name="AccountReceive">
-          <Key>
-            <PropertyRef Name="arId" />
-          </Key>
-          <Property Name="arId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="docId" Type="Int32" Nullable="false" />
-          <Property Name="refDocId" Type="Int32" />
-          <Property Name="invoiceId" Type="Int32" />
-          <Property Name="creditAmont" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="debitAmount" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="paymentType" Type="Int32" />
-          <Property Name="Amount" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="pay" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="change" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="balance" Type="Decimal" Precision="18" Scale="4" />
-          <Property Name="status" Type="Int32" />
-          <Property Name="isActive" Type="Boolean" />
-          <Property Name="createBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="editBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="compCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="branchCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ynddevModelStoreContainer" CdmEntityContainer="ynddevEntities">
+        <EntityContainerMapping StorageEntityContainer="ynddevModelStoreContainer" CdmEntityContainer="ynd">
+          <EntitySetMapping Name="AccountReceives">
+            <EntityTypeMapping TypeName="ynddevModel.AccountReceive">
+              <MappingFragment StoreEntitySet="AccountReceive">
+                <ScalarProperty Name="arId" ColumnName="arId" />
+                <ScalarProperty Name="docId" ColumnName="docId" />
+                <ScalarProperty Name="refDocId" ColumnName="refDocId" />
+                <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
+                <ScalarProperty Name="creditAmont" ColumnName="creditAmont" />
+                <ScalarProperty Name="debitAmount" ColumnName="debitAmount" />
+                <ScalarProperty Name="paymentType" ColumnName="paymentType" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="pay" ColumnName="pay" />
+                <ScalarProperty Name="change" ColumnName="change" />
+                <ScalarProperty Name="balance" ColumnName="balance" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="editBy" ColumnName="editBy" />
+                <ScalarProperty Name="editTime" ColumnName="editTime" />
+                <ScalarProperty Name="compCode" ColumnName="compCode" />
+                <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Balances">
             <EntityTypeMapping TypeName="ynddevModel.Balance">
               <MappingFragment StoreEntitySet="Balance">
@@ -1809,18 +1821,11 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <EntitySetMapping Name="Documents">
             <EntityTypeMapping TypeName="ynddevModel.Document">
               <MappingFragment StoreEntitySet="Document">
-                <ScalarProperty Name="endDc" ColumnName="endDc" />
-                <ScalarProperty Name="itemDc" ColumnName="itemDc" />
-                <ScalarProperty Name="TotalPriceBeforeDc" ColumnName="TotalPriceBeforeDc" />
                 <ScalarProperty Name="documentId" ColumnName="documentId" />
                 <ScalarProperty Name="documentNo" ColumnName="documentNo" />
                 <ScalarProperty Name="orderId" ColumnName="orderId" />
                 <ScalarProperty Name="customerId" ColumnName="customerId" />
                 <ScalarProperty Name="vendorId" ColumnName="vendorId" />
-                <ScalarProperty Name="totalVat" ColumnName="totalVat" />
-                <ScalarProperty Name="totalDc" ColumnName="totalDc" />
-                <ScalarProperty Name="totalQty" ColumnName="totalQty" />
-                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
                 <ScalarProperty Name="isOrder" ColumnName="isOrder" />
                 <ScalarProperty Name="isTax" ColumnName="isTax" />
                 <ScalarProperty Name="paidType" ColumnName="paidType" />
@@ -1833,13 +1838,21 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
                 <ScalarProperty Name="editTime" ColumnName="editTime" />
                 <ScalarProperty Name="compCode" ColumnName="compCode" />
                 <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+                <ScalarProperty Name="totalVat" ColumnName="totalVat" />
+                <ScalarProperty Name="totalLineDiscount" ColumnName="totalLineDiscount" />
+                <ScalarProperty Name="totalPriceBeforeDiscount" ColumnName="totalPriceBeforeDiscount" />
+                <ScalarProperty Name="endDiscount" ColumnName="endDiscount" />
+                <ScalarProperty Name="totalDiscount" ColumnName="totalDiscount" />
+                <ScalarProperty Name="totalPriceAfterDiscountLine" ColumnName="totalPriceAfterDiscountLine" />
+                <ScalarProperty Name="totalPriceAfterAllDiscount" ColumnName="totalPriceAfterAllDiscount" />
+                <ScalarProperty Name="totalPriceBeforeVat" ColumnName="totalPriceBeforeVat" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DocumentLines">
             <EntityTypeMapping TypeName="ynddevModel.DocumentLine">
               <MappingFragment StoreEntitySet="DocumentLine">
-                <ScalarProperty Name="dcPriceTotal" ColumnName="dcPriceTotal" />
                 <ScalarProperty Name="DocumentLineId" ColumnName="DocumentLineId" />
                 <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
                 <ScalarProperty Name="DocumentNo" ColumnName="DocumentNo" />
@@ -1847,12 +1860,8 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
                 <ScalarProperty Name="invoiceNo" ColumnName="invoiceNo" />
                 <ScalarProperty Name="productId" ColumnName="productId" />
                 <ScalarProperty Name="productName" ColumnName="productName" />
-                <ScalarProperty Name="unit" ColumnName="unit" />
-                <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
                 <ScalarProperty Name="qty" ColumnName="qty" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="vatType" ColumnName="vatType" />
-                <ScalarProperty Name="dcPrice" ColumnName="dcPrice" />
                 <ScalarProperty Name="isActive" ColumnName="isActive" />
                 <ScalarProperty Name="createBy" ColumnName="createBy" />
                 <ScalarProperty Name="createTime" ColumnName="createTime" />
@@ -1860,10 +1869,15 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
                 <ScalarProperty Name="editTime" ColumnName="editTime" />
                 <ScalarProperty Name="compCode" ColumnName="compCode" />
                 <ScalarProperty Name="branchCode" ColumnName="branchCode" />
-                <ScalarProperty Name="vat" ColumnName="vat" />
-                <ScalarProperty Name="amountIncludeVat" ColumnName="amountIncludeVat" />
+                <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+                <ScalarProperty Name="unitVat" ColumnName="unitVat" />
                 <ScalarProperty Name="discountUnit" ColumnName="discountUnit" />
-                <ScalarProperty Name="discountTotal" ColumnName="discountTotal" />
+                <ScalarProperty Name="totalDiscount" ColumnName="totalDiscount" />
+                <ScalarProperty Name="totalPriceBeforeDiscount" ColumnName="totalPriceBeforeDiscount" />
+                <ScalarProperty Name="totalPriceAfterDiscount" ColumnName="totalPriceAfterDiscount" />
+                <ScalarProperty Name="totalVat" ColumnName="totalVat" />
+                <ScalarProperty Name="unit" ColumnName="unit" />
+                <ScalarProperty Name="totalPriceBeforeVat" ColumnName="totalPriceBeforeVat" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2227,53 +2241,7 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ynddevModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ynddevModel.Store.sp_upgraddiagrams" />
-          <FunctionImportMapping FunctionImportName="spGetDocumentBill" FunctionName="ynddevModel.Store.spGetDocumentBill">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ynddevModel.spGetDocumentBill_Result">
-                <ScalarProperty Name="documentNo" ColumnName="documentNo" />
-                <ScalarProperty Name="totalVat" ColumnName="totalVat" />
-                <ScalarProperty Name="totalDc" ColumnName="totalDc" />
-                <ScalarProperty Name="totalQty" ColumnName="totalQty" />
-                <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
-                <ScalarProperty Name="productName" ColumnName="productName" />
-                <ScalarProperty Name="unit" ColumnName="unit" />
-                <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
-                <ScalarProperty Name="qty" ColumnName="qty" />
-                <ScalarProperty Name="amount" ColumnName="amount" />
-                <ScalarProperty Name="discountUnit" ColumnName="discountUnit" />
-                <ScalarProperty Name="dcPrice" ColumnName="dcPrice" />
-                <ScalarProperty Name="discountTotal" ColumnName="discountTotal" />
-                <ScalarProperty Name="vat" ColumnName="vat" />
-                <ScalarProperty Name="vatType" ColumnName="vatType" />
-                <ScalarProperty Name="amountIncludeVat" ColumnName="amountIncludeVat" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="AccountReceives">
-            <EntityTypeMapping TypeName="ynddevModel.AccountReceive">
-              <MappingFragment StoreEntitySet="AccountReceive">
-                <ScalarProperty Name="branchCode" ColumnName="branchCode" />
-                <ScalarProperty Name="compCode" ColumnName="compCode" />
-                <ScalarProperty Name="editTime" ColumnName="editTime" />
-                <ScalarProperty Name="editBy" ColumnName="editBy" />
-                <ScalarProperty Name="createTime" ColumnName="createTime" />
-                <ScalarProperty Name="createBy" ColumnName="createBy" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="balance" ColumnName="balance" />
-                <ScalarProperty Name="change" ColumnName="change" />
-                <ScalarProperty Name="pay" ColumnName="pay" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="paymentType" ColumnName="paymentType" />
-                <ScalarProperty Name="debitAmount" ColumnName="debitAmount" />
-                <ScalarProperty Name="creditAmont" ColumnName="creditAmont" />
-                <ScalarProperty Name="invoiceId" ColumnName="invoiceId" />
-                <ScalarProperty Name="refDocId" ColumnName="refDocId" />
-                <ScalarProperty Name="docId" ColumnName="docId" />
-                <ScalarProperty Name="arId" ColumnName="arId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spGetDocumentBill" FunctionName="ynddevModel.Store.spGetDocumentBill" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

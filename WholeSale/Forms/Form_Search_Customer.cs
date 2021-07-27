@@ -7,14 +7,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WholeSale.MyClass;
 
 namespace WholeSale.Forms
 {
     public partial class Form_Search_Customer : Form
     {
-        public Form_Search_Customer()
+
+        List<Customer> MyCustList = new List<Customer>();
+        public int customerId { get; set; }
+
+        public Customer MyCustSelected { get; set; }
+
+        public bool isSelected { get; set; }
+        option.mode activeMode = option. mode.SELECT;
+
+        static bool isAddCustomerComplete = false;
+
+      
+
+
+        public Form_Search_Customer(option.mode _mode = option.mode.SELECT)
+    
         {
+
+            activeMode = _mode;
             InitializeComponent();
+
+        
+
+        }
+
+        private void defultGrid()
+        {
+            dtgCustomer = UI.prepareGridCustomer(dtgCustomer, MyCustList , activeMode);
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -22,25 +48,35 @@ namespace WholeSale.Forms
             this.Dispose();
         }
 
-        private void Form_Search_Customer_Load(object sender, EventArgs e)
-        {
-            loadCustomer();
-
+        private void clearData() {
+            isSelected = false;
+            MyCustSelected = new Customer();// = 0;
 
         }
-        ynddevEntities yndInven = new ynddevEntities();
+
+        private void Form_Search_Customer_Load(object sender, EventArgs e)
+        {
+          
+            clearData();
+            Operation.loadCustomer();
+            int qty = global.defultQty;
+            defultGrid();
+            loadCustomer();
+        }
+        ynd yndInven = new ynd();
         List<Customer> mstCustomer = new List<Customer>();
         BindingSource bsCustomer = new BindingSource();
         DataTable dtCustomer = new DataTable();
         DataView dvCustomer = new DataView();
 
-       public static bool isAddCustomerComplete = false;
+   
 
         private void loadCustomer()
         {
+            yndInven = new ynd();
             var customerSearchList = (from a in yndInven.Customers select a  ).ToList();
             bsCustomer = new BindingSource();
-            dtCustomer = Global.ToDataTable(customerSearchList);
+            dtCustomer = global.ToDataTable(customerSearchList);
             dvCustomer = new DataView(dtCustomer);
             bsCustomer.DataSource = dvCustomer;
             dtgCustomer.DataSource = bsCustomer;
@@ -59,10 +95,13 @@ namespace WholeSale.Forms
             {
                 fb.StartPosition = FormStartPosition.CenterParent;
                 fb.ShowDialog();
-                if (isAddCustomerComplete)
+                if (fb.IsUpdateComplete)
                 {
                     loadCustomer();
-                    isAddCustomerComplete = false;
+                    // setDefualtGrid();
+                    //load product again
+
+
                 }
             }
         }
@@ -88,12 +127,12 @@ namespace WholeSale.Forms
 
             string filter = "";
 
-            if (tbCustCode.Text.ToString().Trim() != "")
-            {
-                filter += "customerCode like '%" + tbCustCode.Text + "%' and";
-            }
+            //if (tbCustCode.Text.ToString().Trim() != "")
+            //{
+            //    filter += "cast(customerId as varchar(100)) like '%" + tbCustCode.Text + "%' and";
+            //}
             if (tbCustName.Text.ToString().Trim() != "")
-            {
+            {   
                 filter += "customerName like '%" + tbCustName.Text + "%' and";
             }
             if (tbAddress.Text.ToString().Trim() != "")
@@ -136,36 +175,70 @@ namespace WholeSale.Forms
             }
         }
 
-        private void dtgCustomer_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-           
-        }
 
-        private void dtgCustomer_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
+
+        private void dtgCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dtgCustomer.CurrentCell.RowIndex >= 0)
+            if (e.RowIndex >= 0)
             {
 
-                customerInfo.clear();
-                int row = dtgCustomer.CurrentCell.RowIndex;
+                string columnButonName = dtgCustomer.Columns[e.ColumnIndex].HeaderText.ToString().ToUpper();
+                if (columnButonName.ToUpper() == "SELECT")
+                {
+                   
+                    string strIndx = dtgCustomer.Rows[e.RowIndex].Cells["customerId"].Value.ToString();
+                    int indx =int.Parse(strIndx);
+                    //  int indx = (int)strIndx;
+                    MyCustSelected = masterCustomer.List.ToList().Where(w => w.customerId == indx).FirstOrDefault();
+
+                    isSelected = true;
+                    this.Dispose();
+                    return;
+                }
 
 
-                int colsCustomerName = dtCustomer.Columns["customerName"].Ordinal;
-                int colsAddress1 = dtCustomer.Columns["address1"].Ordinal;
-                int colsAddress2 = dtCustomer.Columns["address2"].Ordinal;
-                int colsCity = dtCustomer.Columns["city"].Ordinal;
-                int colsPostal = dtCustomer.Columns["postal"].Ordinal;
+                if (columnButonName.ToUpper() == "EDIT")
+                {
 
-                string address = dtgCustomer.Rows[row].Cells[colsAddress1].Value.ToString() + " " + dtgCustomer.Rows[row].Cells[colsAddress2].Value.ToString() + " " +
-                    dtgCustomer.Rows[row].Cells[colsCity].Value.ToString() + " " + dtgCustomer.Rows[row].Cells[colsCustomerName].Value.ToString();
+                    int custId = (int)this.dtgCustomer.Rows[e.RowIndex].Cells["customerID"].Value;
 
 
-                customerInfo.customerAddress = address;
-                customerInfo.customerName = dtgCustomer.Rows[row].Cells[colsCustomerName].Value.ToString();
-                customerInfo.isSelected = true;
-                this.Dispose();
+
+                    using (Form_Add_Customer fb = new Form_Add_Customer(option.mode.EDIT))
+                    {
+                     
+                        fb.customerID = custId;
+                        fb.StartPosition = FormStartPosition.CenterParent;
+                        fb.ShowDialog();
+                        if (fb.IsUpdateComplete)
+                        {
+                            loadCustomer();
+
+
+
+                        }
+                    }
+
+                }
+
+
+
+
+
+
 
             }
+
+
+
+
+
+
+        }
+
+        private void btnUpload_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

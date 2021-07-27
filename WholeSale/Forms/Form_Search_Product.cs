@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WholeSale.Model;
+using WholeSale.MyClass;
+
 
 
 namespace WholeSale.Forms
@@ -15,11 +17,21 @@ namespace WholeSale.Forms
     public partial class Form_Search_Product : Form
     {
 
-        List<Product> masterProduct = new List<Product>();
-        FlexCell.Grid grdProd = new FlexCell.Grid();
-        bool posMode = false;
+        public string productCode { get; set; }
+        public bool isSelected { get; set; }
+
+        //bool posMode = false;
 
         static bool isAddProuctComplete = false;
+        mode activeMode = mode.select;
+
+        public enum mode
+        {
+          select  ,
+          edit
+        }
+
+
         public static bool atusAddNewProduct
         {
             get
@@ -31,20 +43,21 @@ namespace WholeSale.Forms
                 isAddProuctComplete = value;
             }
         }
-        public Form_Search_Product(List<Product>  _masterProduct , bool canSelected =false) 
+        public Form_Search_Product( mode mode = mode.select)
         {
+            activeMode = mode;
 
+            InitializeComponent();
+         
 
-            posMode = canSelected;
-                   InitializeComponent();
-            masterProduct = _masterProduct;
-       
 
             //InitializeComponent();
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
+
+            isSelected = false;
             this.Dispose();
         }
 
@@ -54,18 +67,21 @@ namespace WholeSale.Forms
             {
                 fb.StartPosition = FormStartPosition.CenterParent;
                 fb.ShowDialog();
-                if (isAddProuctComplete)
+                if (fb.isActionComplete)
                 {
-                    loadProduct();
-                    //load product again
 
+                    activeMode = mode.select;
+                    loadProduct();
+                    // setDefualtGrid();
+                    //load product again
+                   // activeMode = mode.select;
 
                 }
             }
         }
 
-        ynddevEntities yndInven = new ynddevEntities();
-        List<productInfo> mstProduct = new List<productInfo>();
+        ynd yndInven = new ynd();
+    //    List<productInfo> mstProduct = new List<productInfo>();
         DataView dvProd = new DataView();
 
         //private void grid_doubleClick((object sender, EventArgs e) { 
@@ -75,97 +91,163 @@ namespace WholeSale.Forms
 
         //}
 
+      
 
+        private void loadProduct()
+        {
 
-        private void loadProduct() {
-
-            this.pnGrid.Controls.Add(grdProd);
-            grdProd.Dock = System.Windows.Forms.DockStyle.Fill;
-            //  grdProd.Click += new EventHandler(grid_doubleClick);
-
-            var productSearchList = (from a in yndInven.Products
+            masterProduct.getdataMaster();
+            var productSearchList = (from a in masterProduct.List
                                      join b in yndInven.Categories on a.categoryId equals b.categoryId
                                      join c in yndInven.ProductTypes on a.productTypeId equals c.productTypeId
                                      join d in yndInven.Units
 on a.unitId equals d.unitId
                                      select new
                                      {
+                                         productId= a.productId,
                                          productCode = a.productCode,
                                          productName = a.productName,
                                          price = a.price,
                                          unit = d.unitName,
                                          type = c.productTypeName,
                                          category = b.categoryName
-                                     }).ToList();// yndInven.Products.ToList();
-                                                 //  mstProduct = new List<Product>();
-                                                 //  this.dataGridView2 = new DataGridView();
+                                     }).ToList();
+
+
             productBindingSource = new BindingSource();
             //this.dtg_prd = new DataGridView();
 
-            productBindingSource.DataSource = productSearchList;
+            //productBindingSource.DataSource = productSearchList;
 
-            dtg_prd.DataSource = productBindingSource;
-
+            //dtg_prd.DataSource = productBindingSource;
+            dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridView1.RowHeadersVisible = false;
             DataTable dtPrd = new DataTable();
-            dtPrd = Global.ToDataTable(productSearchList);
+            dtPrd = global.ToDataTable(productSearchList);
             dvProd = new DataView(dtPrd);
-            grdProd.AutoRedraw = false;
-            grdProd.DataSource = dvProd;
-            grdProd = util.autoFit(grdProd);
+            productBindingSource.DataSource = dvProd;
+            dataGridView1.Visible = false;
+           // dataGridView1.AutoRedraw = false;
+            dataGridView1.DataSource = dvProd;
+            dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
+            //dataGridView1 = util.autoFit(grdProd);
+
+            for (int i = 0; i < dataGridView1.Columns.Count; i++)
+            {
+                dataGridView1.Columns[i].Visible = false;
+
+            }
+
+            dataGridView1.Columns["productCode"].Visible = true;
+            dataGridView1.Columns["productName"].Visible = true;
+            dataGridView1.Columns["unit"].Visible = true;
+            dataGridView1.Columns["price"].Visible = true;
+            dataGridView1.Columns["type"].Visible = true;
+            dataGridView1.Columns["category"].Visible = true;
 
 
 
+            dataGridView1.Columns["productCode"].HeaderText = "รหัสสินค้า";
+            dataGridView1.Columns["productName"].HeaderText = "ชื่อสินค้า";
+            dataGridView1.Columns["unit"].HeaderText = "หน่วย";
+            dataGridView1.Columns["price"].HeaderText = "ราคา/หน่วย";
+            dataGridView1.Columns["type"].HeaderText = "ประเภท";
+            dataGridView1.Columns["category"].HeaderText = "หมวดหมู่";
+
+
+            DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
+
+
+            if (activeMode == mode.select) {
+                dataGridView1.Columns.Add(btn);
+                btn.HeaderText = "Select";
+                btn.Text = "Select";
+                btn.Name = "btn";
+                btn.UseColumnTextForButtonValue = true;
+
+            }
+
+            if (activeMode == mode.edit)
+            {
+                dataGridView1.Columns.Add(btn);
+                btn.HeaderText = "Edit";
+                btn.Text = "Edit";
+                btn.Name = "btn";
+                btn.UseColumnTextForButtonValue = true;
+
+            }
 
 
 
-            grdProd = util.chnageGridColumnName(grdProd, dtPrd, "productCode", "รหัสสินค้า");
-            grdProd = util.chnageGridColumnName(grdProd, dtPrd, "productName", "ชื่อสินค้า");
-            grdProd = util.chnageGridColumnName(grdProd, dtPrd, "unit", "หน่วย");
-            grdProd = util.chnageGridColumnName(grdProd, dtPrd, "price", "ราคา/หน่วย");
-            grdProd = util.chnageGridColumnName(grdProd, dtPrd, "type", "ประเภท");
-            grdProd = util.chnageGridColumnName(grdProd, dtPrd, "category", "หมวดหมู่");
-            grdProd.DisplayRowNumber = true;
-
-
-            grdProd.AutoRedraw = true;
-            grdProd.Locked = true;
-
-
-
-
-
-
-
-            grdProd.Refresh();
-            // this.dataGridView2.Columns["ProductID"].Visible = false;
-
-
-            grdProd.DoubleClick += new FlexCell.Grid.DoubleClickEventHandler(GrdList_DoubleClick);
+            dataGridView1.ReadOnly = true;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.Refresh();
+            dataGridView1.Visible = true;
+           // dataGridView1.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.EnableResizing;
+         //  dataGridView1.RowHeadersVisible = true;
 
         }
         private void Form_Search_Product_Load(object sender, EventArgs e)
         {
             loadProduct();
+            loadMasterFilter();
+            setMasterDataToUI();
 
 
 
 
         }
 
+        private void setMasterDataToUI() {
 
+
+            var ctg = masterCategory.List.ToList();
+            var pdtype = masterType.List.ToList();
+
+
+            cbType.DataSource = ctg;
+            cbType.ValueMember = "categoryId";
+            cbType.DisplayMember = "categoryName";
+            cbType.SelectedIndex = -1;
+
+            //cbCatagory.DataSource = ctg;
+            //cbCatagory.ValueMember = "categoryId";
+            //cbCatagory.DisplayMember = "categoryName";
+
+            //cbType.DataSource = pdtype;
+            //cbType.ValueMember = "productTypeId";
+            //cbType.DisplayMember = "productTypeName";
+
+
+            cbCatagory.DataSource = pdtype;
+            cbCatagory.ValueMember = "productTypeId";
+            cbCatagory.DisplayMember = "productTypeName";
+            cbCatagory.SelectedIndex = -1;
+
+        }
+
+        private void loadMasterFilter() {
+            Operation.loadProducType();
+            Operation.loadCategoly();
+
+
+        }
 
         string flterPrdCode = "";
         string filterPrdName = "";
         string filterType = "";
         string filterCategory = "";
-     
 
 
-        private void filterData() {
+
+        private void filterData()
+        {
 
             string filter = "";
 
-            if (tbProdCode.Text.ToString().Trim() !="") {
+            if (tbProdCode.Text.ToString().Trim() != "")
+            {
                 filter += " productCode like '%" + tbProdCode.Text + "%' and";
             }
             if (tbProdName.Text.ToString().Trim() != "")
@@ -182,7 +264,7 @@ on a.unitId equals d.unitId
             }
             if (filter.Length > 0) { filter = filter.Substring(0, filter.Length - 3); }
             dvProd.RowFilter = filter;// " productCode like '%" + tbProdCode.Text + "%' or productName like '%" + tbProdName.Text +"%'" +" or category like '%" + cbCatagory.Text + "%'" +" or type like '%" + cbType.Text + "%'";
-       }
+        }
 
         private void tbProdCode_TextChanged(object sender, EventArgs e)
         {
@@ -209,29 +291,55 @@ on a.unitId equals d.unitId
             filterData();
         }
 
-        private void GrdList_DoubleClick(object Sender, EventArgs e)
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+          
 
+            if (e.RowIndex >= 0)
+            {
 
-            if (posMode) {
-                if (grdProd.ActiveCell.Row > 0)
+                string columnButonName = dataGridView1.Columns[e.ColumnIndex].HeaderText.ToString().ToUpper();
+               // if (dataGridView1.Columns[e.ColumnIndex].HeaderText.ToString().ToUpper() == "SELECT")
+                    if (columnButonName == "SELECT")
+                    {
+
+                    productCode = this.dataGridView1.Rows[e.RowIndex].Cells["productCode"].Value.ToString();
+                    isSelected = true;
+                    this.Dispose();
+                    return;
+                }
+
+              //  if (dataGridView1.Columns[e.ColumnIndex].HeaderText.ToString().ToUpper() == "EDIT")
+
+                    if(columnButonName == "EDIT")
                 {
 
-                    Form_POS.selectedProductCode = grdProd.Cell(grdProd.ActiveCell.Row, 1).Text.ToString();
+                 int   productID = (int)this.dataGridView1.Rows[e.RowIndex].Cells["productID"].Value;
 
-                    this.Dispose();
+
+
+                    using (Form_Add_Product fb = new Form_Add_Product(Form_Add_Product.mode.EDIT))
+                    {
+
+                        fb.productId = productID;
+                        fb.StartPosition = FormStartPosition.CenterParent;
+                        fb.ShowDialog();
+                        if (isAddProuctComplete)
+                        {
+                            loadProduct();
+                        
+
+
+                        }
+                    }
 
                 }
 
 
+
             }
-         
-            
         }
-
-
-    
-
 
 
 

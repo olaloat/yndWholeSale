@@ -37,8 +37,8 @@
             this.dtgCustomer = new System.Windows.Forms.DataGridView();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnNew = new System.Windows.Forms.Button();
+            this.btnUpload = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tbCustCode = new System.Windows.Forms.TextBox();
             this.tbAddress = new System.Windows.Forms.TextBox();
@@ -125,13 +125,14 @@
             // 
             // dtgCustomer
             // 
+            this.dtgCustomer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dtgCustomer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgCustomer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgCustomer.Location = new System.Drawing.Point(0, 100);
             this.dtgCustomer.Name = "dtgCustomer";
             this.dtgCustomer.Size = new System.Drawing.Size(1712, 534);
             this.dtgCustomer.TabIndex = 30;
-            this.dtgCustomer.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgCustomer_CellDoubleClick_1);
+            this.dtgCustomer.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgCustomer_CellClick);
             // 
             // panel4
             // 
@@ -145,34 +146,35 @@
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.button2);
-            this.panel5.Controls.Add(this.button1);
+            this.panel5.Controls.Add(this.btnNew);
+            this.panel5.Controls.Add(this.btnUpload);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel5.Location = new System.Drawing.Point(1494, 0);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(218, 77);
             this.panel5.TabIndex = 32;
             // 
-            // button2
+            // btnNew
             // 
-            this.button2.Location = new System.Drawing.Point(3, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(99, 33);
-            this.button2.TabIndex = 28;
-            this.button2.TabStop = false;
-            this.button2.Text = "New";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnNew.Location = new System.Drawing.Point(3, 3);
+            this.btnNew.Name = "btnNew";
+            this.btnNew.Size = new System.Drawing.Size(99, 33);
+            this.btnNew.TabIndex = 28;
+            this.btnNew.TabStop = false;
+            this.btnNew.Text = "New";
+            this.btnNew.UseVisualStyleBackColor = true;
+            this.btnNew.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button1
+            // btnUpload
             // 
-            this.button1.Location = new System.Drawing.Point(108, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(99, 33);
-            this.button1.TabIndex = 29;
-            this.button1.TabStop = false;
-            this.button1.Text = "Upload";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnUpload.Location = new System.Drawing.Point(108, 3);
+            this.btnUpload.Name = "btnUpload";
+            this.btnUpload.Size = new System.Drawing.Size(99, 33);
+            this.btnUpload.TabIndex = 29;
+            this.btnUpload.TabStop = false;
+            this.btnUpload.Text = "Upload";
+            this.btnUpload.UseVisualStyleBackColor = true;
+            this.btnUpload.Click += new System.EventHandler(this.btnUpload_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -204,6 +206,7 @@
             this.tbCustCode.Name = "tbCustCode";
             this.tbCustCode.Size = new System.Drawing.Size(194, 27);
             this.tbCustCode.TabIndex = 8;
+            this.tbCustCode.Visible = false;
             this.tbCustCode.TextChanged += new System.EventHandler(this.tbCustCode_TextChanged);
             // 
             // tbAddress
@@ -231,6 +234,7 @@
             this.label7.Size = new System.Drawing.Size(72, 20);
             this.label7.TabIndex = 7;
             this.label7.Text = "Address";
+            this.label7.Visible = false;
             // 
             // tbCustName
             // 
@@ -354,8 +358,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbCustCode;
         private System.Windows.Forms.DataGridView dtgCustomer;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btnUpload;
+        private System.Windows.Forms.Button btnNew;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
     }

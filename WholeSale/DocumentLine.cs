@@ -27,12 +27,8 @@ namespace WholeSale
         public string invoiceNo { get; set; }
         public int productId { get; set; }
         public string productName { get; set; }
-        public string unit { get; set; }
-        public decimal unitPrice { get; set; }
-        public decimal qty { get; set; }
-        public decimal amount { get; set; }
+        public int qty { get; set; }
         public int vatType { get; set; }
-        public decimal dcPrice { get; set; }
         public Nullable<bool> isActive { get; set; }
         public string createBy { get; set; }
         public System.DateTime createTime { get; set; }
@@ -40,11 +36,15 @@ namespace WholeSale
         public System.DateTime editTime { get; set; }
         public string compCode { get; set; }
         public string branchCode { get; set; }
-        public decimal vat { get; set; }
-        public decimal amountIncludeVat { get; set; }
-        public Nullable<decimal> discountUnit { get; set; }
-        public Nullable<decimal> discountTotal { get; set; }
-        public Nullable<decimal> dcPriceTotal { get; set; }
+        public decimal unitPrice { get; set; }
+        public decimal unitVat { get; set; }
+        public decimal discountUnit { get; set; }
+        public decimal totalDiscount { get; set; }
+        public decimal totalPriceBeforeDiscount { get; set; }
+        public decimal totalPriceAfterDiscount { get; set; }
+        public decimal totalVat { get; set; }
+        public string unit { get; set; }
+        public decimal totalPriceBeforeVat { get; set; }
     
         public virtual Document Document { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

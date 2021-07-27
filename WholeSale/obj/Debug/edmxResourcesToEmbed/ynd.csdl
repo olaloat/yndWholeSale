@@ -1,5 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="ynddevModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AccountReceive">
+    <Key>
+      <PropertyRef Name="arId" />
+    </Key>
+    <Property Name="arId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="docId" Type="Int32" Nullable="false" />
+    <Property Name="refDocId" Type="Int32" />
+    <Property Name="invoiceId" Type="Int32" />
+    <Property Name="creditAmont" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="debitAmount" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="paymentType" Type="Int32" />
+    <Property Name="Amount" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="pay" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="change" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="balance" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="status" Type="Int32" />
+    <Property Name="isActive" Type="Boolean" />
+    <Property Name="createBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="editBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="compCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="branchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
   <EntityType Name="Balance">
     <Key>
       <PropertyRef Name="productId" />
@@ -136,10 +160,6 @@
     <Property Name="orderId" Type="Int32" Nullable="false" />
     <Property Name="customerId" Type="Int32" Nullable="false" />
     <Property Name="vendorId" Type="Int32" Nullable="false" />
-    <Property Name="totalVat" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="totalDc" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="totalQty" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-    <Property Name="totalPrice" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
     <Property Name="isOrder" Type="Boolean" Nullable="false" />
     <Property Name="isTax" Type="Boolean" Nullable="false" />
     <Property Name="paidType" Type="Int32" Nullable="false" />
@@ -152,10 +172,16 @@
     <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="compCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="branchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="totalVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalLineDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceBeforeDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="endDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceAfterDiscountLine" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceAfterAllDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceBeforeVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="qty" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
     <NavigationProperty Name="DocumentLines" Relationship="Self.FK_DocumentLine_Document" FromRole="Document" ToRole="DocumentLine" />
-    <Property Name="TotalPriceBeforeDc" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="itemDc" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="endDc" Type="Decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="DocumentLine">
     <Key>
@@ -168,12 +194,8 @@
     <Property Name="invoiceNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="productId" Type="Int32" Nullable="false" />
     <Property Name="productName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="unit" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="unitPrice" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-    <Property Name="qty" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-    <Property Name="amount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="qty" Type="Int32" Nullable="false" />
     <Property Name="vatType" Type="Int32" Nullable="false" />
-    <Property Name="dcPrice" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
     <Property Name="isActive" Type="Boolean" />
     <Property Name="createBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
@@ -181,13 +203,17 @@
     <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="compCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="branchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="vat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-    <Property Name="amountIncludeVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-    <Property Name="discountUnit" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="discountTotal" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="unitPrice" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="unitVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="discountUnit" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceBeforeDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalPriceAfterDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="totalVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="unit" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="totalPriceBeforeVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
     <NavigationProperty Name="Document" Relationship="Self.FK_DocumentLine_Document" FromRole="DocumentLine" ToRole="Document" />
     <NavigationProperty Name="Transactions" Relationship="Self.FK_transaction_DocumentLine" FromRole="DocumentLine" ToRole="Transaction" />
-    <Property Name="dcPriceTotal" Type="Decimal" Precision="18" Scale="4" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>
@@ -685,7 +711,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="ynddevEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="ynd" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AccountReceives" EntityType="Self.AccountReceive" />
     <EntitySet Name="Balances" EntityType="Self.Balance" />
     <EntitySet Name="Branches" EntityType="Self.Branch" />
     <EntitySet Name="Brands" EntityType="Self.Brand" />
@@ -793,10 +820,9 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
-    <FunctionImport Name="spGetDocumentBill" ReturnType="Collection(ynddevModel.spGetDocumentBill_Result)">
+    <FunctionImport Name="spGetDocumentBill">
       <Parameter Name="docNum" Mode="In" Type="String" />
     </FunctionImport>
-    <EntitySet Name="AccountReceives" EntityType="ynddevModel.AccountReceive" />
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -809,46 +835,4 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
-  <ComplexType Name="spGetDocumentBill_Result">
-    <Property Type="String" Name="documentNo" Nullable="false" MaxLength="250" />
-    <Property Type="Decimal" Name="totalVat" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="totalDc" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="totalQty" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="Decimal" Name="totalPrice" Nullable="false" Precision="18" Scale="0" />
-    <Property Type="String" Name="productName" Nullable="false" MaxLength="250" />
-    <Property Type="String" Name="unit" Nullable="false" MaxLength="250" />
-    <Property Type="Decimal" Name="unitPrice" Nullable="false" Precision="18" Scale="4" />
-    <Property Type="Decimal" Name="qty" Nullable="false" Precision="18" Scale="4" />
-    <Property Type="Decimal" Name="amount" Nullable="false" Precision="18" Scale="4" />
-    <Property Type="Decimal" Name="discountUnit" Nullable="true" Precision="18" Scale="4" />
-    <Property Type="Decimal" Name="dcPrice" Nullable="false" Precision="18" Scale="4" />
-    <Property Type="Decimal" Name="discountTotal" Nullable="true" Precision="18" Scale="4" />
-    <Property Type="Decimal" Name="vat" Nullable="false" Precision="18" Scale="4" />
-    <Property Type="Int32" Name="vatType" Nullable="false" />
-    <Property Type="Decimal" Name="amountIncludeVat" Nullable="false" Precision="18" Scale="4" />
-  </ComplexType>
-  <EntityType Name="AccountReceive">
-    <Key>
-      <PropertyRef Name="arId" />
-    </Key>
-    <Property Name="arId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="docId" Type="Int32" Nullable="false" />
-    <Property Name="refDocId" Type="Int32" />
-    <Property Name="invoiceId" Type="Int32" />
-    <Property Name="creditAmont" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="debitAmount" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="paymentType" Type="Int32" />
-    <Property Name="Amount" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="pay" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="change" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="balance" Type="Decimal" Precision="18" Scale="4" />
-    <Property Name="status" Type="Int32" />
-    <Property Name="isActive" Type="Boolean" />
-    <Property Name="createBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="editBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
-    <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="compCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-    <Property Name="branchCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-  </EntityType>
 </Schema>

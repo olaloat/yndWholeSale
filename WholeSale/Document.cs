@@ -25,10 +25,6 @@ namespace WholeSale
         public int orderId { get; set; }
         public int customerId { get; set; }
         public int vendorId { get; set; }
-        public decimal totalVat { get; set; }
-        public decimal totalDc { get; set; }
-        public decimal totalQty { get; set; }
-        public decimal totalPrice { get; set; }
         public bool isOrder { get; set; }
         public bool isTax { get; set; }
         public int paidType { get; set; }
@@ -41,9 +37,17 @@ namespace WholeSale
         public System.DateTime editTime { get; set; }
         public string compCode { get; set; }
         public string branchCode { get; set; }
-        public Nullable<decimal> TotalPriceBeforeDc { get; set; }
-        public Nullable<decimal> itemDc { get; set; }
-        public Nullable<decimal> endDc { get; set; }
+
+
+        public decimal totalVat { get; set; }
+        public decimal totalLineDiscount { get; set; }
+        public decimal totalPriceBeforeDiscount { get; set; }
+        public decimal endDiscount { get; set; }
+        public decimal totalDiscount { get; set; }
+        public decimal totalPriceAfterDiscountLine { get; set; }
+        public decimal totalPriceAfterAllDiscount { get; set; }
+        public decimal totalPriceBeforeVat { get; set; }
+        public decimal qty { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DocumentLine> DocumentLines { get; set; }

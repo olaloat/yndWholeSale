@@ -7,17 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using WholeSale.MyClass;
 namespace WholeSale.Forms
 {
     public partial class Form_Pending : Form
     {
 
 
-        ynddevEntities yndInven = new ynddevEntities();
+       // ynddevEntities yndInven = new ynddevEntities();
         BindingSource bsHoldingList = new BindingSource();
         DataTable dtHodling = new DataTable();
         DataView dvHodling = new DataView();
+        ynd ynd = new ynd();
+     
+
+
+        List<DocumentDisplay> myDocumentList = new List<DocumentDisplay>();
+        public DocumentDisplay myDocHeader { get; set; }
+        public List<DocumentLineDisplay> myDocLine { get; set; }
+        public bool isSelected { get; set; }
+      
+
         public Form_Pending()
         {
             InitializeComponent();
@@ -28,20 +38,40 @@ namespace WholeSale.Forms
             this.Dispose();
         }
 
+
+        private void clearData() {
+            myDocHeader = new DocumentDisplay();
+            isSelected = false;
+
+          
+        }
         private void Form_Pending_Load(object sender, EventArgs e)
         {
-            loadHoldingBill();
-        }
+
+            clearData();
+         //   defultGrid();
+            Operation.loadDocument();
+            dtgHoldingList = UI.prepareGridDocument(dtgHoldingList, masterDocument.List);
+    }
+
+
+    //private void defultGrid()
+    //    {
+    //        dtgHoldingList = UI.prepareGridDocument(dtgHoldingList, myDocumentList);
+    //    }
 
 
         private void loadHoldingBill()
         {
-            var customerSearchList = (from a in yndInven.Documents where  a.status ==1  && a.isActive == true select a).ToList();
+
+            var docList = (from a in ynd.Documents where  a.status ==(int)global.statusList.HOLD  && a.isActive == true select a).ToList();
             bsHoldingList = new BindingSource();
-            dtHodling = Global.ToDataTable(customerSearchList);
+            dtHodling = Util.ToDataTable(docList);
             dvHodling = new DataView(dtHodling);
             bsHoldingList.DataSource = dvHodling;
             dtgHoldingList.DataSource = bsHoldingList;
+
+
             this.dtgHoldingList.ReadOnly = true;
             this.dtgHoldingList.AllowUserToAddRows = false;
         }
@@ -49,43 +79,29 @@ namespace WholeSale.Forms
 
 
 
-        private void dtgHoldingList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dtgHoldingList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dtgHoldingList.CurrentCell.RowIndex >= 0)
             {
 
-                customerInfo.clear();
-                int row = dtgHoldingList.CurrentCell.RowIndex;
+                if (e.RowIndex >= 0)
+                {
+                    if (dtgHoldingList.Columns[e.ColumnIndex].HeaderText.ToString().ToUpper() == "SELECT")
+                    {
 
-
-                int colHeaderID = dtHodling.Columns["documentId"].Ordinal;
-                int colDocNum = dtHodling.Columns["documentNo"].Ordinal;
-                //int colsAddress1 = dtHodling.Columns["address1"].Ordinal;
-                //int colsAddress2 = dtHodling.Columns["address2"].Ordinal;
-                //int colsCity = dtHodling.Columns["city"].Ordinal;
-                //int colsPostal = dtHodling.Columns["postal"].Ordinal;
-
-                //string address = dtgHoldingList.Rows[row].Cells[colsAddress1].Value.ToString() + " " + dtgHoldingList.Rows[row].Cells[colsAddress2].Value.ToString() + " " +
-                //    dtgHoldingList.Rows[row].Cells[colsCity].Value.ToString() + " " + dtgHoldingList.Rows[row].Cells[colsCustomerName].Value.ToString();
-
-                Bill.docHeaderID = int.Parse(dtgHoldingList.Rows[row].Cells[colHeaderID].Value.ToString());
-                Bill.isFromHolding = true;
-                Bill.documentNumber = dtgHoldingList.Rows[row].Cells[colDocNum].Value.ToString();
-                //customerInfo.customerAddress = address;
-                //customerInfo.customerName = dtgHoldingList.Rows[row].Cells[colsCustomerName].Value.ToString();
-                //customerInfo.isSelected = true;
-                this.Dispose();
-
+                        //};
+                        int docId = (int)dtgHoldingList.Rows[e.RowIndex].Cells["documentId"].Value;
+                        // List<Document> myList = masterDocument.List;
+                        // myDocHeader = myList.ToList().Where(w => w.documentId == docId).FirstOrDefault();
+                        myDocHeader = masterDocument.List.Where(w=> w.documentId ==  docId).FirstOrDefault();
+                        myDocLine = masterDocument.getLineList(docId).ToList();
+                        isSelected = true;
+                        this.Dispose();
+                    }
+                }
             }
         }
 
-     
-
-
-
-        //private void dtgHoldingList_CellClick(object sender, DataGridViewCellEventArgs e)
-        //{
-
-        //}
+ 
     }
 }

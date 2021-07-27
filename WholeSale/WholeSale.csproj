@@ -32,6 +32,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
@@ -56,22 +60,8 @@
     <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.Common.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportViewer.Common.10.0.40219.1\lib\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ReportViewer.WinForms.10.0.40219.1\lib\Microsoft.ReportViewer.WinForms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
@@ -82,6 +72,7 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -128,23 +119,11 @@
     <Compile Include="Employee.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Form2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Form2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Form_Add_Customer.cs">
       <SubType>Form</SubType>
@@ -170,41 +149,17 @@
     <Compile Include="Forms\Form_Pending.Designer.cs">
       <DependentUpon>Form_Pending.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Form_POS.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Form_POS.Designer.cs">
-      <DependentUpon>Form_POS.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Form_Search_Customer.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Form_Search_Customer.Designer.cs">
       <DependentUpon>Form_Search_Customer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Form_Search_Delivery.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Form_Search_Delivery.Designer.cs">
-      <DependentUpon>Form_Search_Delivery.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Form_Search_Product.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Form_Search_Product.Designer.cs">
       <DependentUpon>Form_Search_Product.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Form_Test_Connection.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Form_Test_Connection.Designer.cs">
-      <DependentUpon>Form_Test_Connection.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FrmTestPrint.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FrmTestPrint.Designer.cs">
-      <DependentUpon>FrmTestPrint.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Modal_Edit.cs">
       <SubType>Form</SubType>
@@ -230,7 +185,13 @@
     <Compile Include="Forms\Modal_Payment.Designer.cs">
       <DependentUpon>Modal_Payment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Global.cs" />
+    <Compile Include="Forms\PrintBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PrintBill.Designer.cs">
+      <DependentUpon>PrintBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\_qty.cs" />
     <Compile Include="Group.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>
@@ -240,10 +201,39 @@
     <Compile Include="InvoiceLine.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\model.cs" />
     <Compile Include="MovementType.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>
+    <Compile Include="MyClass\Address.cs" />
+    <Compile Include="MyClass\Bill.cs" />
+    <Compile Include="MyClass\Calculator.cs" />
+    <Compile Include="MyClass\Category.cs" />
+    <Compile Include="MyClass\Customer.cs" />
+    <Compile Include="MyClass\db.cs" />
+    <Compile Include="MyClass\Discount.cs" />
+    <Compile Include="MyClass\Document.cs" />
+    <Compile Include="MyClass\DocumentHeader.cs" />
+    <Compile Include="MyClass\global.cs" />
+    <Compile Include="MyClass\Grid.cs" />
+    <Compile Include="MyClass\MsgBox.cs" />
+    <Compile Include="MyClass\Operation.cs" />
+    <Compile Include="MyClass\Product.cs" />
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmPOS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPOS.Designer.cs">
+      <DependentUpon>FrmPOS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\model.cs" />
+    <Compile Include="MyClass\type.cs" />
+    <Compile Include="MyClass\UI.cs" />
+    <Compile Include="MyClass\Util.cs" />
     <Compile Include="Order.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>
@@ -275,9 +265,6 @@
       <DependentUpon>dsDocBill.xsd</DependentUpon>
     </Compile>
     <Compile Include="Route.cs">
-      <DependentUpon>ynd.tt</DependentUpon>
-    </Compile>
-    <Compile Include="spGetDocumentBill_Result.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
@@ -319,18 +306,17 @@
     </Compile>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_Add_Customer.resx">
       <DependentUpon>Form_Add_Customer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_Add_Product.resx">
       <DependentUpon>Form_Add_Product.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_Dashboard.resx">
       <DependentUpon>Form_Dashboard.cs</DependentUpon>
@@ -338,35 +324,33 @@
     <EmbeddedResource Include="Forms\Form_Pending.resx">
       <DependentUpon>Form_Pending.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form_POS.resx">
-      <DependentUpon>Form_POS.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_Search_Customer.resx">
       <DependentUpon>Form_Search_Customer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form_Search_Delivery.resx">
-      <DependentUpon>Form_Search_Delivery.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Form_Search_Product.resx">
       <DependentUpon>Form_Search_Product.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Form_Test_Connection.resx">
-      <DependentUpon>Form_Test_Connection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmTestPrint.resx">
-      <DependentUpon>FrmTestPrint.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\FrmPOS.resx">
+      <DependentUpon>FrmPOS.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Modal_Edit.resx">
       <DependentUpon>Modal_Edit.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Modal_FinalDc.resx">
       <DependentUpon>Modal_FinalDc.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Modal_MsgBox.resx">
       <DependentUpon>Modal_MsgBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Modal_Payment.resx">
       <DependentUpon>Modal_Payment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PrintBill.resx">
+      <DependentUpon>PrintBill.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -376,10 +360,15 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="report\Report1.rdlc" />
+    <EmbeddedResource Include="report\Report2.rdlc" />
     <EmbeddedResource Include="report\rpBill.rdlc">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\AccountReceive.datasource" />
     <None Include="Properties\DataSources\Balance.datasource" />
@@ -394,6 +383,7 @@
     <None Include="Properties\DataSources\Customer.datasource" />
     <None Include="Properties\DataSources\Device.datasource" />
     <None Include="Properties\DataSources\Document.datasource" />
+    <None Include="Properties\DataSources\DocumentDisplay.datasource" />
     <None Include="Properties\DataSources\DocumentLine.datasource" />
     <None Include="Properties\DataSources\Employee.datasource" />
     <None Include="Properties\DataSources\Form1.datasource" />
@@ -456,10 +446,6 @@
     <None Include="report\dsBill.xss">
       <DependentUpon>dsBill.xsd</DependentUpon>
     </None>
-    <EntityDeploy Include="ynd.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ynd.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="report\dsDocBill.xsc">
       <DependentUpon>dsDocBill.xsd</DependentUpon>
     </None>
@@ -471,6 +457,11 @@
     <None Include="report\dsDocBill.xss">
       <DependentUpon>dsDocBill.xsd</DependentUpon>
     </None>
+    <EntityDeploy Include="ynd.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ynd.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Resources\bill.flx" />
     <None Include="ynd.edmx.diagram">
       <DependentUpon>ynd.edmx</DependentUpon>
     </None>
@@ -484,6 +475,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\error.png" />
+    <None Include="Resources\Information.png" />
+    <None Include="Resources\warning.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

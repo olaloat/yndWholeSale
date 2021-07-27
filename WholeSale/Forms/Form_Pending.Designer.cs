@@ -81,14 +81,15 @@
             // 
             // dtgHoldingList
             // 
+            this.dtgHoldingList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dtgHoldingList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgHoldingList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dtgHoldingList.Location = new System.Drawing.Point(0, 0);
             this.dtgHoldingList.Name = "dtgHoldingList";
             this.dtgHoldingList.Size = new System.Drawing.Size(1712, 634);
             this.dtgHoldingList.TabIndex = 29;
-         
-            this.dtgHoldingList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgHoldingList_CellDoubleClick);
+            this.dtgHoldingList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgHoldingList_CellClick);
+           // this.dtgHoldingList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgHoldingList_CellDoubleClick);
             // 
             // panel3
             // 

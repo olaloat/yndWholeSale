@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.tbDiscountBill = new System.Windows.Forms.TextBox();
+            this.tbEndDiscount = new System.Windows.Forms.TextBox();
             this.btn0 = new System.Windows.Forms.Button();
             this.btn3 = new System.Windows.Forms.Button();
             this.btn2 = new System.Windows.Forms.Button();
@@ -46,12 +46,12 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnClearNum = new System.Windows.Forms.Button();
-            this.tbSumTotal = new System.Windows.Forms.TextBox();
+            this.tbTotalPriceBeforeDiscount = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tbTotalDiscount = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.tbNetPay = new System.Windows.Forms.TextBox();
+            this.tbTotalDiscountAfterDiscount = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.tbTotalDiscountInline = new System.Windows.Forms.TextBox();
             this.btnDel = new System.Windows.Forms.Button();
@@ -62,15 +62,15 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // tbDiscountBill
+            // tbEndDiscount
             // 
-            this.tbDiscountBill.Location = new System.Drawing.Point(313, 34);
-            this.tbDiscountBill.Name = "tbDiscountBill";
-            this.tbDiscountBill.Size = new System.Drawing.Size(105, 27);
-            this.tbDiscountBill.TabIndex = 5;
-            this.tbDiscountBill.Text = "100.00";
-            this.tbDiscountBill.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.tbDiscountBill.TextChanged += new System.EventHandler(this.tbDiscountBill_TextChanged);
+            this.tbEndDiscount.Location = new System.Drawing.Point(313, 34);
+            this.tbEndDiscount.Name = "tbEndDiscount";
+            this.tbEndDiscount.Size = new System.Drawing.Size(105, 27);
+            this.tbEndDiscount.TabIndex = 5;
+            this.tbEndDiscount.Text = "0.00";
+            this.tbEndDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbEndDiscount.TextChanged += new System.EventHandler(this.tbDiscountBill_TextChanged);
             // 
             // btn0
             // 
@@ -244,14 +244,14 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 119F));
             this.tableLayoutPanel2.Controls.Add(this.btnClearNum, 3, 1);
-            this.tableLayoutPanel2.Controls.Add(this.tbSumTotal, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.tbTotalPriceBeforeDiscount, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.label5, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tbDiscountBill, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.tbEndDiscount, 2, 1);
             this.tableLayoutPanel2.Controls.Add(this.label3, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.tbTotalDiscount, 5, 1);
             this.tableLayoutPanel2.Controls.Add(this.label1, 5, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tbNetPay, 4, 1);
+            this.tableLayoutPanel2.Controls.Add(this.tbTotalDiscountAfterDiscount, 4, 1);
             this.tableLayoutPanel2.Controls.Add(this.label7, 4, 0);
             this.tableLayoutPanel2.Controls.Add(this.tbTotalDiscountInline, 1, 1);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(16, 62);
@@ -277,16 +277,16 @@
             this.btnClearNum.UseVisualStyleBackColor = false;
             this.btnClearNum.Click += new System.EventHandler(this.btnClearNum_Click);
             // 
-            // tbSumTotal
+            // tbTotalPriceBeforeDiscount
             // 
-            this.tbSumTotal.Location = new System.Drawing.Point(3, 34);
-            this.tbSumTotal.Name = "tbSumTotal";
-            this.tbSumTotal.ReadOnly = true;
-            this.tbSumTotal.Size = new System.Drawing.Size(105, 27);
-            this.tbSumTotal.TabIndex = 13;
-            this.tbSumTotal.TabStop = false;
-            this.tbSumTotal.Text = "10,000.00";
-            this.tbSumTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbTotalPriceBeforeDiscount.Location = new System.Drawing.Point(3, 34);
+            this.tbTotalPriceBeforeDiscount.Name = "tbTotalPriceBeforeDiscount";
+            this.tbTotalPriceBeforeDiscount.ReadOnly = true;
+            this.tbTotalPriceBeforeDiscount.Size = new System.Drawing.Size(105, 27);
+            this.tbTotalPriceBeforeDiscount.TabIndex = 13;
+            this.tbTotalPriceBeforeDiscount.TabStop = false;
+            this.tbTotalPriceBeforeDiscount.Text = "0.00";
+            this.tbTotalPriceBeforeDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label2
             // 
@@ -316,7 +316,7 @@
             this.tbTotalDiscount.Size = new System.Drawing.Size(105, 27);
             this.tbTotalDiscount.TabIndex = 16;
             this.tbTotalDiscount.TabStop = false;
-            this.tbTotalDiscount.Text = "1,100.00";
+            this.tbTotalDiscount.Text = "0.00";
             this.tbTotalDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label1
@@ -328,16 +328,16 @@
             this.label1.TabIndex = 15;
             this.label1.Text = "(ส่วนลดรวม)";
             // 
-            // tbNetPay
+            // tbTotalDiscountAfterDiscount
             // 
-            this.tbNetPay.Location = new System.Drawing.Point(468, 34);
-            this.tbNetPay.Name = "tbNetPay";
-            this.tbNetPay.ReadOnly = true;
-            this.tbNetPay.Size = new System.Drawing.Size(105, 27);
-            this.tbNetPay.TabIndex = 11;
-            this.tbNetPay.TabStop = false;
-            this.tbNetPay.Text = "8,900.00";
-            this.tbNetPay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tbTotalDiscountAfterDiscount.Location = new System.Drawing.Point(468, 34);
+            this.tbTotalDiscountAfterDiscount.Name = "tbTotalDiscountAfterDiscount";
+            this.tbTotalDiscountAfterDiscount.ReadOnly = true;
+            this.tbTotalDiscountAfterDiscount.Size = new System.Drawing.Size(105, 27);
+            this.tbTotalDiscountAfterDiscount.TabIndex = 11;
+            this.tbTotalDiscountAfterDiscount.TabStop = false;
+            this.tbTotalDiscountAfterDiscount.Text = "0.00";
+            this.tbTotalDiscountAfterDiscount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label7
             // 
@@ -356,7 +356,7 @@
             this.tbTotalDiscountInline.Size = new System.Drawing.Size(105, 27);
             this.tbTotalDiscountInline.TabIndex = 12;
             this.tbTotalDiscountInline.TabStop = false;
-            this.tbTotalDiscountInline.Text = "1,000.00";
+            this.tbTotalDiscountInline.Text = "0.00";
             this.tbTotalDiscountInline.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // btnDel
@@ -446,7 +446,6 @@
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "Modal_FinalDc";
             this.Text = "Form_FinalDc";
-            this.Load += new System.EventHandler(this.Modal_FinalDc_Load);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -456,7 +455,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.TextBox tbDiscountBill;
+        private System.Windows.Forms.TextBox tbEndDiscount;
         private System.Windows.Forms.Button btn0;
         private System.Windows.Forms.Button btn3;
         private System.Windows.Forms.Button btn2;
@@ -477,10 +476,10 @@
         private System.Windows.Forms.Button btnDel;
         private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TextBox tbSumTotal;
+        private System.Windows.Forms.TextBox tbTotalPriceBeforeDiscount;
         private System.Windows.Forms.TextBox tbTotalDiscountInline;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tbNetPay;
+        private System.Windows.Forms.TextBox tbTotalDiscountAfterDiscount;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbTotalDiscount;

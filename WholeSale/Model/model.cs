@@ -11,10 +11,10 @@ namespace WholeSale.Model
     }
 
 
-    class productInfo : Product{
-        public string type = "";
-        public string unit = "";
-        public string category = "";
+    //class productInfo : Product{
+    //    public string type = "";
+    //    public string unit = "";
+    //    public string category = "";
 
-    }
+    //}
 }

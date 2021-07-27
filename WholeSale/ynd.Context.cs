@@ -15,10 +15,10 @@ namespace WholeSale
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ynddevEntities : DbContext
+    public partial class ynd : DbContext
     {
-        public ynddevEntities()
-            : base("name=ynddevEntities")
+        public ynd()
+            : base("name=ynd")
         {
         }
     
@@ -27,6 +27,7 @@ namespace WholeSale
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AccountReceive> AccountReceives { get; set; }
         public virtual DbSet<Balance> Balances { get; set; }
         public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
@@ -52,7 +53,6 @@ namespace WholeSale
         public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
-        public virtual DbSet<AccountReceive> AccountReceives { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
@@ -157,13 +157,13 @@ namespace WholeSale
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
-        public virtual ObjectResult<spGetDocumentBill_Result> spGetDocumentBill(string docNum)
+        public virtual int spGetDocumentBill(string docNum)
         {
             var docNumParameter = docNum != null ?
                 new ObjectParameter("docNum", docNum) :
                 new ObjectParameter("docNum", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetDocumentBill_Result>("spGetDocumentBill", docNumParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetDocumentBill", docNumParameter);
         }
     }
 }

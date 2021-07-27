@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using WholeSale.MyClass;
 
 namespace WholeSale.Forms
 {
@@ -16,23 +16,88 @@ namespace WholeSale.Forms
   
     public partial class Modal_FinalDc : Form
     {
+        decimal totalPriceBeforeDiscount     =0;
+        decimal totalDiscountLine            =0;
+        decimal totalDiscountEnd             =0;
+        decimal totalPriceAfterDiscount      =0;
+        decimal totalDiscountAll             = 0;
+        
+     public bool isOkClick { get; set; }
+        public DocumentDisplay DocumentHeader
+        {
+            get; set;
+        }
 
-        public bool isFinalComplete = false;
-        public decimal finalDiscount = 0;
-        public Modal_FinalDc()
+        public Modal_FinalDc(DocumentDisplay myDocumentHeader)
         {
             InitializeComponent();
-            isFinalComplete = false;
-            finalDiscount = 0;
-           
+            DocumentHeader = myDocumentHeader;
+            clearTextBox();
+            ClearData();
+            setDefualData();
+            setSummary();
+            setDataToUI();
+
         }
+
+        private void setDefualData() {
+             totalPriceBeforeDiscount = DocumentHeader.totalPriceBeforeDiscount;
+             totalDiscountLine = DocumentHeader.totalLineDiscount;
+             totalDiscountEnd = 0;
+             totalPriceAfterDiscount = DocumentHeader.totalPriceAfterAllDiscount ;
+             totalDiscountAll = DocumentHeader.totalDiscount;
+
+        }
+
+        private void setSummary() {
+
+
+            DocumentHeader.totalPriceBeforeDiscount = totalPriceBeforeDiscount;
+            DocumentHeader.totalLineDiscount = totalDiscountLine;
+            DocumentHeader.endDiscount = totalDiscountEnd;
+            DocumentHeader.totalPriceAfterAllDiscount = totalPriceAfterDiscount;
+            DocumentHeader.totalDiscount = totalDiscountAll;
+        }
+
+        private void setDataToUI() {
+            // 
+            tbTotalPriceBeforeDiscount.Text = DocumentHeader.totalPriceBeforeDiscount.ToString();
+             tbTotalDiscountInline.Text = DocumentHeader.totalLineDiscount.ToString();
+            tbEndDiscount.Text = DocumentHeader.endDiscount.ToString();
+            tbTotalDiscountAfterDiscount.Text = DocumentHeader.totalPriceAfterAllDiscount.ToString();
+            tbTotalDiscount.Text = DocumentHeader.totalDiscount.ToString();
+
+        }
+
+        private void ClearData() {
+            totalPriceBeforeDiscount = 0;
+            totalDiscountLine = 0;
+            totalDiscountEnd = 0;
+            totalPriceAfterDiscount = 0;
+            totalDiscountAll = 0;
+            isOkClick = false;
+        }
+
+
+        private void clearTextBox()
+        {
+
+            tbTotalPriceBeforeDiscount.Text = "0.00";
+            tbTotalDiscountInline.Text = "0.00";
+            tbEndDiscount.Text = "0.00";
+            tbTotalDiscountAfterDiscount.Text = "0.00";
+            tbTotalDiscount.Text = "0.00";
+
+        }
+
+
 
 
         private mainResult validateDiscount() {
            
             mainResult rs = new mainResult();
             rs.isComplete = true;
-            if (payment.totalNetPay < 0)
+            if (totalPriceAfterDiscount < 0)
             {
                 rs.isComplete = false;
                 rs.message = "ส่วนลดมากกว่าราคารวมสินค้า";
@@ -52,32 +117,14 @@ namespace WholeSale.Forms
             rs = validateDiscount();
             if (!rs.isComplete)
             {
-             
 
-                    using (Modal_MsgBox fb = new Modal_MsgBox(rs.message))
-                    {
-
-                        fb.StartPosition = FormStartPosition.CenterParent;
-                        fb.ShowDialog();
-                        rs.isComplete = false;
-
-                     
-                    }
-
-
-
-
-
-
-
-
-                
+                mMsgBox.show(rs.message);
+               
              
             }
             else
             {
-                isFinalComplete = true;
-                finalDiscount = decimal.Parse(tbDiscountBill.Text.ToString());
+                isOkClick = true;
                 this.Dispose();
 
 
@@ -87,15 +134,15 @@ namespace WholeSale.Forms
         private void btnDot_Click(object sender, EventArgs e)
         {
 
-            if (tbDiscountBill.Text.Trim().Length == 0)
+            if (tbEndDiscount.Text.Trim().Length == 0)
             {
 
 
-                tbDiscountBill.Text = "0.";
+                tbEndDiscount.Text = "0.";
 
             }
 
-            if (tbDiscountBill.Text.Contains("."))
+            if (tbEndDiscount.Text.Contains("."))
             {
 
 
@@ -105,13 +152,13 @@ namespace WholeSale.Forms
             else
             {
 
-                tbDiscountBill.Text += ".";
+                tbEndDiscount.Text += ".";
             }
         }
 
         private void btn0_Click(object sender, EventArgs e)
         {
-            if (tbDiscountBill.Text.Trim().Length == 0)
+            if (tbEndDiscount.Text.Trim().Length == 0)
             {
 
 
@@ -120,7 +167,7 @@ namespace WholeSale.Forms
             }
             else
             {
-                tbDiscountBill.Text += "0";
+                tbEndDiscount.Text += "0";
 
 
             }
@@ -128,7 +175,7 @@ namespace WholeSale.Forms
 
         private void btn00_Click(object sender, EventArgs e)
         {
-            if (tbDiscountBill.Text.Trim().Length == 0)
+            if (tbEndDiscount.Text.Trim().Length == 0)
             {
 
 
@@ -137,7 +184,7 @@ namespace WholeSale.Forms
             }
             else
             {
-                tbDiscountBill.Text += "00";
+                tbEndDiscount.Text += "00";
 
 
             }
@@ -145,64 +192,65 @@ namespace WholeSale.Forms
 
         private void btn1_Click(object sender, EventArgs e)
         {
-            tbDiscountBill.Text += "1";
+            tbEndDiscount.Text += "1";
         }
 
         private void btn2_Click(object sender, EventArgs e)
         {
-            tbDiscountBill.Text += "2";
+            tbEndDiscount.Text += "2";
         }
 
         private void btn3_Click(object sender, EventArgs e)
         {
-            tbDiscountBill.Text += "3";
+            tbEndDiscount.Text += "3";
         }
 
         private void btn4_Click(object sender, EventArgs e)
         {
-            tbDiscountBill.Text += "4";
+            tbEndDiscount.Text += "4";
         }
 
         private void btn5_Click(object sender, EventArgs e)
         {
-            tbDiscountBill.Text += "5";
+            tbEndDiscount.Text += "5";
         }
 
         private void btn6_Click(object sender, EventArgs e)
         {
-            tbDiscountBill.Text += "6";
+            tbEndDiscount.Text += "6";
         }
 
         private void btn7_Click(object sender, EventArgs e)
         {
-            tbDiscountBill.Text += "7";
+            tbEndDiscount.Text += "7";
           
         }
 
         private void btn8_Click(object sender, EventArgs e)
         {
-            tbDiscountBill.Text += "8";
+            tbEndDiscount.Text += "8";
         }
 
         private void btn9_Click(object sender, EventArgs e)
         {
-            tbDiscountBill.Text += "9";
+            tbEndDiscount.Text += "9";
         }
 
         private void btnDel_Click(object sender, EventArgs e)
         {
-            if (tbDiscountBill.Text.Length > 0) { tbDiscountBill.Text = tbDiscountBill.Text.Substring(0, tbDiscountBill.Text.Length - 1); }
+            if (tbEndDiscount.Text.Length > 0) { tbEndDiscount.Text = tbEndDiscount.Text.Substring(0, tbEndDiscount.Text.Length - 1); }
         }
 
         private void btnClearNum_Click(object sender, EventArgs e)
         {
-            tbDiscountBill.Text = "";
+            tbEndDiscount.Text = "";
             //calCulatePayment();
             //setSummary();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            isOkClick = false;
             this.Dispose();
         }
 
@@ -210,26 +258,23 @@ namespace WholeSale.Forms
         {
             calCulatePayment();
             setSummary();
-            btnClearNum.Visible = tbDiscountBill.Text.Length > 0 ? true : false;
+            setDataToUI();
+            btnClearNum.Visible = tbEndDiscount.Text.Length > 0 ? true : false;
         }
 
-        private void setSummary()
-        {
-
-            tbNetPay.Text = payment.totalNetPay.ToString();
-            tbTotalDiscount.Text = payment.totalDiscount.ToString();
-        }
+ 
 
 
 
         private void calCulatePayment()
         {
             decimal dis = 0;
-            if (tbDiscountBill.Text == "") { dis = 0; } else { dis = System.Convert.ToDecimal(tbDiscountBill.Text); }
-            payment.dicountBill = dis;
-            payment.totalDiscount = payment.totalDiscountInline + payment.dicountBill;
-
-            payment.totalNetPay = payment.totalAmount - payment.totalDiscount;
+            if (tbEndDiscount.Text == "") { dis = 0; } else { dis = System.Convert.ToDecimal(tbEndDiscount.Text); }
+         
+            totalDiscountEnd = dis;
+            totalDiscountAll = totalDiscountLine + totalDiscountEnd;
+            totalPriceAfterDiscount = totalPriceBeforeDiscount - totalDiscountAll;
+          
        
 
 
@@ -239,22 +284,22 @@ namespace WholeSale.Forms
 
         }
 
-        private void Modal_FinalDc_Load(object sender, EventArgs e)
-        {
+        //private void Modal_FinalDc_Load(object sender, EventArgs e)
+        //{
 
-            //clearAllTextBox();
-            tbSumTotal.Text = payment.totalAmount.ToString();
-            tbDiscountBill.Text = payment.dicountBill.ToString();
-            tbTotalDiscountInline.Text = payment.totalDiscountInline.ToString();
-            calCulatePayment();
-            setSummary();
-        }
+        //    //clearAllTextBox();
+        //    tbSumTotal.Text = payment.totalPriceAfterDiscount.ToString();
+        //    tbDiscountBill.Text = payment.dicountBill.ToString();
+        //    tbTotalDiscountInline.Text = payment.totalDiscountInline.ToString();
+        //    calCulatePayment();
+        //    setSummary();
+        //}
 
 
         private void clearAllTextBox() {
             tbTotalDiscountInline.Text = "";
-            tbSumTotal.Text = "";
-            tbDiscountBill.Text = "";
+            tbTotalPriceBeforeDiscount.Text = "";
+            tbEndDiscount.Text = "";
             tbTotalDiscountInline.Text = "";
             tbTotalDiscount.Text = "";
 
