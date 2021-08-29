@@ -217,6 +217,7 @@
     <Compile Include="MyClass\Grid.cs" />
     <Compile Include="MyClass\MsgBox.cs" />
     <Compile Include="MyClass\Operation.cs" />
+    <Compile Include="MyClass\Print.cs" />
     <Compile Include="MyClass\Product.cs" />
     <Compile Include="Form2.cs">
       <SubType>Form</SubType>
