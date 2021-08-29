@@ -56,9 +56,11 @@ namespace WholeSale
             foreach (var db in ListDocDB)
             {
                 var a = new DocumentDisplay();
-                var myCust = masterCustomer.List.Where(w => w.customerId == a.customerId).FirstOrDefault();
+                var myCust = masterCustomer.List.Where(w => w.customerId == db.customerId).FirstOrDefault();
+
+
                 if (myCust != null) {
-                a = (DocumentDisplay)db;
+              //  a = (DocumentDisplay)db;
                 a.customerName = myCust.customerName;
                 a.address1 = myCust.address1;
                 a.address2 = myCust.address2;

@@ -36,7 +36,7 @@ namespace WholeSale
 
             mainResult rs = new mainResult() { isComplete = true, status = "OK", message = "บันทึกรายการสำเร็จ" };
 
-            return rs;
+                return rs;
         }
 
         public static mainResult updateHoldBill(Bill myBill) {

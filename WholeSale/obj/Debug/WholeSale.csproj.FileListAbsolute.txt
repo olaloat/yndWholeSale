@@ -171,3 +171,4 @@ D:\_freelance\gitHubRepo\yndWholeSale_reNew\WholeSale\obj\Debug\WholeSale.Forms.
 D:\_freelance\gitHubRepo\yndWholeSale_reNew\WholeSale\obj\Debug\RdlCompile.cache
 D:\_freelance\gitHubRepo\yndWholeSale_reNew\WholeSale\obj\Debug\RdlCompile.compiled
 D:\_freelance\gitHubRepo\yndWholeSale_reNew\WholeSale\bin\Debug\Microsoft.ReportViewer.WinForms.dll
+D:\_freelance\gitHubRepo\yndWholeSale_reNew\WholeSale\obj\Debug\WholeSale.csprojResolveAssemblyReference.cache
