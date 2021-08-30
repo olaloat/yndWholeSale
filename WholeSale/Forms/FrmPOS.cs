@@ -89,8 +89,8 @@ namespace WholeSale.Forms
             int qty = global.defultQty;
             defultGrid();
             setUiSummary(myDocHeader);
-
-         
+            lbUsername.Text = global.username;
+            lbIssueDate.Text =DateTime.Now.ToString("dd.MM.yyyy");
             // setUiDocHeader(fb.MyCustSelected);
 
             Customer myCust = masterCustomer.List.ToList().Where(w => w.customerId == 1).FirstOrDefault();
@@ -272,7 +272,6 @@ namespace WholeSale.Forms
                     // insert new hold bill
                     if (billHold.docHeader.status==(int)global.statusList.NONE)
                     {
-                         
                         rs = Operation.holdNewBill(billHold);
                     }
                    
@@ -287,7 +286,6 @@ namespace WholeSale.Forms
                     }
                     else
                     {
-
                         mMsgBox.show("ไม่ save แล้วกดทำไม??", Modal_MsgBox.icon.warning);
                     }
             } else {
@@ -426,7 +424,7 @@ namespace WholeSale.Forms
             global. compCode ="001";
             global.plantCode = "001";
             global.BranchCode = "001";
-            global.username = "oat";
+         
         }
         private void clearData() {
         myUI = new UI();

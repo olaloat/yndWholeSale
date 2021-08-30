@@ -110,7 +110,8 @@ on a.unitId equals d.unitId
                                          price = a.price,
                                          unit = d.unitName,
                                          type = c.productTypeName,
-                                         category = b.categoryName
+                                         category = b.categoryName,
+                                         active = a.isActive
                                      }).ToList();
 
 
@@ -175,6 +176,12 @@ on a.unitId equals d.unitId
                 btn.Text = "Edit";
                 btn.Name = "btn";
                 btn.UseColumnTextForButtonValue = true;
+
+                dataGridView1.Columns["active"].Visible = true;
+
+
+
+                dataGridView1.Columns["active"].HeaderText = "Active";
 
             }
 

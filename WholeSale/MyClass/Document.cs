@@ -52,39 +52,95 @@ namespace WholeSale
                      a.status == (int)global.statusList.HOLD && a.isActive == true
                     select a).ToList();
 
-            List = new List<DocumentDisplay>();
-            foreach (var db in ListDocDB)
-            {
-                var a = new DocumentDisplay();
-                var myCust = masterCustomer.List.Where(w => w.customerId == db.customerId).FirstOrDefault();
+            PropertyDescriptorCollection properties =
+              TypeDescriptor.GetProperties(typeof(Document));
+            DataTable table = new DataTable();
 
+
+            foreach (Document item in ListDocDB)
+            {
+                DocumentDisplay newItem = new DocumentDisplay();
+                foreach (PropertyDescriptor prop in properties)
+                {
+                    prop.SetValue(newItem, prop.GetValue(item) ?? DBNull.Value);
+                }
+            
+
+                var myCust = masterCustomer.List.Where(w => w.customerId == item.customerId).FirstOrDefault();
 
                 if (myCust != null) {
-              //  a = (DocumentDisplay)db;
-                a.customerName = myCust.customerName;
-                a.address1 = myCust.address1;
-                a.address2 = myCust.address2;
-                a.city = myCust.city;
-                a.tel = myCust.tel;
-                a.mobile = myCust.mobile;
-                a.fax = myCust.fax;
-                a.email = myCust.email;
-                a.contactName = myCust.contactName;
-            }
-                List.Add(a);
 
+                if (myCust.customerId !=0) {
+                    newItem.customerName = myCust.customerName;
+                    newItem.address1 = myCust.address1;
+                    newItem.address2 = myCust.address2;
+                    newItem.city = myCust.city;
+                    newItem.tel = myCust.tel;
+                    newItem.mobile = myCust.mobile;
+                    newItem.fax = myCust.fax;
+                    newItem.email = myCust.email;
+                    newItem.contactName = myCust.contactName;
+
+                    List.Add(newItem);
+                }
+                }
             }
 
+               
 
             Log.print("load new master document");
         }
+
 
         public static List<DocumentLineDisplay> getLineList(int documentId) {
             lineList = new List<DocumentLineDisplay>();
 
             List<DocumentLine> lineListDB = (from a in global.yndInven.DocumentLines where a.DocumentId == documentId select a).ToList();
-            lineList = lineListDB.OfType<DocumentLineDisplay>().ToList();// convert parent to child class
-            lineList = Operation.setProductDetailToDoclineList(lineList);
+            //   lineList = lineListDB.OfType<DocumentLineDisplay>().ToList();// convert parent to child class
+
+
+
+
+
+            foreach (DocumentLine item in lineListDB)
+            {
+
+                PropertyDescriptorCollection properties =
+           TypeDescriptor.GetProperties(typeof(DocumentLine));
+                DocumentLineDisplay newItem = new DocumentLineDisplay();
+                foreach (PropertyDescriptor prop in properties)
+                {
+
+
+                    try {
+
+                        prop.SetValue(newItem, prop.GetValue(item) ?? DBNull.Value);
+                    } catch (Exception ex) {
+
+
+                    }
+
+
+
+
+
+
+                }
+
+
+
+                lineList.Add(newItem);
+            }
+
+                lineList = Operation.setProductDetailToDoclineList(lineList);
+             
+
+              
+          
+
+
+
+        
             return lineList;
 
         }

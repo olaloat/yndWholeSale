@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.btnClose = new System.Windows.Forms.Button();
             this.btPayment = new System.Windows.Forms.Button();
             this.btDelivery = new System.Windows.Forms.Button();
             this.btCustomer = new System.Windows.Forms.Button();
@@ -51,7 +52,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
+            this.lbUsername = new System.Windows.Forms.Label();
             this.lbCustomer = new System.Windows.Forms.Label();
             this.lbStatus = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -77,11 +78,10 @@
             this.label32 = new System.Windows.Forms.Label();
             this.lbPriceBeforeVat = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.tbPuase = new System.Windows.Forms.Button();
             this.btFinalDc = new System.Windows.Forms.Button();
             this.btCancel = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -98,6 +98,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(71)))), ((int)(((byte)(161)))));
+            this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.button10);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(1727, 0);
@@ -156,7 +157,6 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(27)))), ((int)(((byte)(28)))), ((int)(((byte)(33)))));
-            this.panel3.Controls.Add(this.btnClose);
             this.panel3.Controls.Add(this.btPayment);
             this.panel3.Controls.Add(this.btDelivery);
             this.panel3.Controls.Add(this.btCustomer);
@@ -166,6 +166,20 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(402, 720);
             this.panel3.TabIndex = 10;
+            // 
+            // btnClose
+            // 
+            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(71)))), ((int)(((byte)(161)))));
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
+            this.btnClose.Location = new System.Drawing.Point(3, 8);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(58, 48);
+            this.btnClose.TabIndex = 17;
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btPayment
             // 
@@ -279,7 +293,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label12, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label13, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.label14, 2, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label15, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lbUsername, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.lbCustomer, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.lbStatus, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label21, 2, 3);
@@ -396,15 +410,14 @@
             this.label14.TabIndex = 8;
             this.label14.Text = "ที่อยู่ / Address :";
             // 
-            // label15
+            // lbUsername
             // 
-            this.label15.AutoSize = true;
-            this.label15.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label15.Location = new System.Drawing.Point(456, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(89, 30);
-            this.label15.TabIndex = 9;
-            this.label15.Text = "Nattawut";
+            this.lbUsername.AutoSize = true;
+            this.lbUsername.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lbUsername.Location = new System.Drawing.Point(456, 0);
+            this.lbUsername.Name = "lbUsername";
+            this.lbUsername.Size = new System.Drawing.Size(0, 30);
+            this.lbUsername.TabIndex = 9;
             // 
             // lbCustomer
             // 
@@ -690,6 +703,19 @@
             this.panel8.Size = new System.Drawing.Size(1305, 90);
             this.panel8.TabIndex = 15;
             // 
+            // button1
+            // 
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(592, 9);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(120, 73);
+            this.button1.TabIndex = 15;
+            this.button1.TabStop = false;
+            this.button1.Text = "testPrint";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // tbPuase
             // 
             this.tbPuase.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -729,33 +755,6 @@
             this.btCancel.Text = "ยกเลิกรายการ";
             this.btCancel.UseVisualStyleBackColor = true;
             this.btCancel.Click += new System.EventHandler(this.btCancel_Click);
-            // 
-            // btnClose
-            // 
-            this.btnClose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(71)))), ((int)(((byte)(161)))));
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Image = ((System.Drawing.Image)(resources.GetObject("btnClose.Image")));
-            this.btnClose.Location = new System.Drawing.Point(324, 0);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(78, 48);
-            this.btnClose.TabIndex = 17;
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // button1
-            // 
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(592, 9);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 73);
-            this.button1.TabIndex = 15;
-            this.button1.TabStop = false;
-            this.button1.Text = "testPrint";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // FrmPOS
             // 
@@ -825,7 +824,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label lbUsername;
         private System.Windows.Forms.Label lbCustomer;
         private System.Windows.Forms.Label lbAddress;
         private System.Windows.Forms.Panel panel6;

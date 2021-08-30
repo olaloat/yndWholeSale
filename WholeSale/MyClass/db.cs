@@ -189,7 +189,7 @@ namespace WholeSale
 
         
 
-              public static mainResult updateCustomer(Customer myCutEdit)
+        public static mainResult updateCustomer(Customer myCutEdit)
         {
             mainResult rs = new mainResult();
 
@@ -394,7 +394,16 @@ namespace WholeSale
             //return rs;
         }
 
+        public static List<Employee> getUserName() {
+         
+            List<Employee> myEnp = new List<Employee>();
+            ynd yndEn = new ynd();
+            myEnp = yndEn.Employees.Where(w => w.isActive == true).ToList();
+           
+                return myEnp;
+        }
 
+        //select empId, username, [password], passcode, token, fName, lName from dbo.Employee where isActive = 1
 
     }
 }

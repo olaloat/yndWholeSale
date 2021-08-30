@@ -52,12 +52,158 @@ namespace WholeSale.Forms
             this.Dispose();
         }
 
+
+
+
+        private mainResult validateSaveProduct() {
+
+            mainResult rs = new mainResult();
+
+            if (tbProductCode.Text .ToString().Trim().Length==0)
+            {
+                rs = new mainResult();
+                rs.isComplete = false;
+                rs.message = "please input product code";
+
+                return rs;
+            }
+
+
+
+
+            if (cbUnit.Text.ToString().Trim().Length == 0)
+            {
+
+                rs = new mainResult();
+                rs.isComplete = false;
+                rs.message = "please input Unit .";
+
+                return rs;
+            }
+
+
+            if (tbMinPrice.Text.ToString().Trim().Length == 0)
+            {
+                rs = new mainResult();
+                rs.isComplete = false;
+                rs.message = "please input min Price .";
+
+                return rs;
+
+            }
+
+
+            if (tbMaxPrice.Text.ToString().Trim().Length == 0)
+            {
+
+
+                rs.isComplete = false;
+                rs.message = "please input max Price .";
+
+                return rs;
+
+
+
+
+            }
+
+
+            if (tbPrice.Text.ToString().Trim().Length == 0)
+            {
+
+                rs.isComplete = false;
+                rs.message = "please input  Price. ";
+
+                return rs;
+            }
+
+
+            if (cbGroup.Text.ToString().Trim().Length == 0)
+            {
+
+                rs.isComplete = false;
+                rs.message = "please select group .";
+
+                return rs;
+            }
+
+
+            if (cbType.Text.ToString().Trim().Length == 0)
+            {
+                rs.isComplete = false;
+                rs.message = "please select type .";
+
+                return rs;
+
+            }
+
+
+            if (cbCategory2.Text.ToString().Trim().Length == 0)
+            {
+                rs.isComplete = false;
+                rs.message = "please select category .";
+
+                return rs;
+
+            }
+
+
+            if (tbProductName.Text.ToString().Trim().Length == 0)
+            {
+                rs.isComplete = false;
+                rs.message = "please input product name.";
+
+                return rs;
+
+            }
+
+     
+
+
+            double mxP = Convert.ToDouble(tbMaxPrice.Text.ToString());
+            double mnP = Convert.ToDouble(tbMinPrice.Text.ToString());
+            double P = Convert.ToDouble(tbPrice.Text.ToString());
+
+
+            if (!(mnP <= P && P <= mxP && mnP <= mxP)) {
+                rs = new mainResult();
+                rs.isComplete = false;
+                rs.message = "price , max , min is worng.";
+
+                return rs;
+
+
+            }
+
+         
+            ynd db = new ynd();
+
+            List<Product> prd = new List<Product>();
+            prd = (from a in db.Products where a.productCode == tbProductCode.Text.ToString().Trim() select a).ToList();
+            if (prd.Count > 0)
+            {
+                rs.isComplete = false;
+                rs.message = "รหัสสินค้านี้มีอยู่ในระบบแล้ว ไม่สามารถบันทึกซ้ำได้";
+
+                return rs;
+
+            }
+
+            rs.isComplete = true;
+            rs.message = "ok";
+
+
+
+            return rs;
+
+
+        }
         private void btSave_Click(object sender, EventArgs e)
         {
             mainResult rs = new mainResult();
             // calidate product code
             if (activeMode == mode.NEW) {
-                rs = validateData();
+                rs = validateSaveProduct();
                 if (!rs.isComplete)
                 {
                     mMsgBox.show(rs.message,Modal_MsgBox.icon.error,"Error");
@@ -147,8 +293,8 @@ namespace WholeSale.Forms
              //  createBy = "ADMIN",
              //  createTime = DateTime.Now,
                editTime = DateTime.Now,
-               editBy = "ADMIN",
-               groupId = Convert.ToInt16(cbGroup.SelectedValue),
+               editBy = global.username,
+                    groupId = Convert.ToInt16(cbGroup.SelectedValue),
                isActive = true,
                typeId = Convert.ToInt16(cbType.SelectedValue),
                productTypeId = Convert.ToInt16(cbType.SelectedValue),
@@ -191,20 +337,20 @@ namespace WholeSale.Forms
                     maxPrice = Convert.ToDecimal(tbMaxPrice.Text.Trim()),
                     minPrice = Convert.ToDecimal(tbMinPrice.Text.Trim()),
                     previousPrice = 0,
-                 
+
                     categoryId = Convert.ToInt16(cbCategory2.SelectedValue),
 
 
                     branchCode = global.BranchCode,
                     compCode = global.compCode,
-                    createBy = "ADMIN",
+                    createBy = global.username,
                     createTime = DateTime.Now,
                     editTime = DateTime.Now,
-                    editBy = "ADMIN",
+                    editBy = global.username,
 
 
                     groupId = Convert.ToInt16(cbGroup.SelectedValue),
-                    isActive = true,
+                    isActive = active,
                     typeId = Convert.ToInt16(cbType.SelectedValue),
                     productTypeId = Convert.ToInt16(cbType.SelectedValue),
                     unitId = Convert.ToInt16(cbUnit.SelectedValue),
@@ -376,6 +522,34 @@ pictureBox1.Image = null;
         private void btClear_Click(object sender, EventArgs e)
         {
             clearControl();
+        }
+
+        private void label25_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label26_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        bool active = true;
+        private void btnActive_Click(object sender, EventArgs e)
+        {
+            active = !active;
+
+            if (active) {
+                btnActive.BackColor = Color.Green;
+
+
+                btnActive.Text = "Active";
+            } else {
+                btnActive.Text = "InActive";
+
+                btnActive.BackColor = Color.Red;
+            }
         }
     }
 }
