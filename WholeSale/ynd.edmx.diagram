@@ -44,6 +44,7 @@
         <AssociationConnector Association="ynddevModel.FK_Order_vendor" ManuallyRouted="false" />
         <AssociationConnector Association="ynddevModel.FK_Product_productType" ManuallyRouted="false" />
         <AssociationConnector Association="ynddevModel.FK_transaction_product" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ynddevModel.Picture" Width="1.5" PointX="16.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

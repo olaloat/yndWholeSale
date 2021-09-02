@@ -382,6 +382,21 @@
     <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
+  <EntityType Name="Picture">
+    <Key>
+      <PropertyRef Name="pictureId" />
+    </Key>
+    <Property Name="pictureId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productId" Type="int" Nullable="false" />
+    <Property Name="image" Type="image" Nullable="false" />
+    <Property Name="isActive" Type="bit" Nullable="false" />
+    <Property Name="createBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="createTime" Type="datetime" Nullable="false" />
+    <Property Name="editBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="editTime" Type="datetime" Nullable="false" />
+    <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="productId" />
@@ -443,18 +458,6 @@
     <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
     <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="SalePrice">
-          <Property Name="salePriceId" Type="int" />
-          <Property Name="productId" Type="nchar" MaxLength="100" />
-          <Property Name="salePrice" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="isActive" Type="bit" />
-          <Property Name="createBy" Type="nvarchar" MaxLength="250" />
-          <Property Name="createTime" Type="datetime" />
-          <Property Name="editBy" Type="nvarchar" MaxLength="250" />
-          <Property Name="editTime" Type="datetime" />
-        </EntityType>-->
   <EntityType Name="sysdiagrams">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -750,6 +753,7 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
     <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderLine" EntityType="Self.OrderLine" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderType" EntityType="Self.OrderType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Picture" EntityType="Self.Picture" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />

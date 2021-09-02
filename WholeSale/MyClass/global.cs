@@ -20,23 +20,23 @@ namespace WholeSale.MyClass
     static class global
     {
         public static ynd yndInven;
-        public static int defultQty =1;
-       
+        public static int defultQty = 1;
 
-        public static  string compCode { get; set; }
+
+        public static string compCode { get; set; }
 
         public static string plantCode { get; set; }
 
         public static string BranchCode { get; set; }
 
-        public static  string username { get; set; }
+        public static string username { get; set; }
 
-         public    enum optionType { ok, okCancel, yseNoOk, holding, openHolding }
+        public enum optionType { ok, okCancel, yseNoOk, holding, openHolding }
 
         //public enum mode {SELECT , EDIT , NEW  }
-       // public static modeList mode;
+        // public static modeList mode;
 
-        public enum statusList { NONE ,PAY, HOLD, DELETE, CLOSE }
+        public enum statusList { NONE, PAY, HOLD, DELETE, CLOSE }
         public static statusList status;
         public static List<Product> mstProduct = new List<Product>();
 
@@ -58,24 +58,24 @@ namespace WholeSale.MyClass
 
         static global() {
             Log.print("reload global data");
-             yndInven = new ynd();
-         //   masterProduct.getdatemaster();
+            yndInven = new ynd();
+            //   masterProduct.getdatemaster();
 
 
         }
 
-       public  static void setParamGlobal() {
+        public static void setParamGlobal() {
             Log.print("========  set param global ========");
             Log.print("======== this is method " +
                 System.Reflection.MethodBase.GetCurrentMethod().Name);
             // get current method name 
 
 
-               defultQty = 1;
-               compCode = "";
-               plantCode = "";
-               BranchCode = "";
-    }
+            defultQty = 1;
+            compCode = "";
+            plantCode = "";
+            BranchCode = "";
+        }
 
         public static DataTable ToDataTable<T>(this IList<T> data)
         {
@@ -128,7 +128,7 @@ namespace WholeSale.MyClass
     }
 
     class result {
-       public result()
+        public result()
         {
             bool isComplete = false;
             string message = "";
@@ -136,18 +136,18 @@ namespace WholeSale.MyClass
 
 
         }
-      
+
 
     }
 
-    static class Log{
+    static class Log {
 
-         public  static void print (String msg){
+        public static void print(String msg) {
             Console.WriteLine("====================" + msg + "=============================");
 
-            }
-        
         }
+
+    }
 
 
     public class mainResult
@@ -157,6 +157,10 @@ namespace WholeSale.MyClass
         public string status = "";
         public bool isComplete = false;
 
+    }
+
+    public class prodResultSaveDB  :mainResult{
+        public int ProdID;
     }
 
 

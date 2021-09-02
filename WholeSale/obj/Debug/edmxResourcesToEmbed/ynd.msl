@@ -581,5 +581,21 @@
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ynddevModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ynddevModel.Store.sp_upgraddiagrams" />
     <FunctionImportMapping FunctionImportName="spGetDocumentBill" FunctionName="ynddevModel.Store.spGetDocumentBill" />
+    <EntitySetMapping Name="Pictures">
+      <EntityTypeMapping TypeName="ynddevModel.Picture">
+        <MappingFragment StoreEntitySet="Picture">
+          <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+          <ScalarProperty Name="compCode" ColumnName="compCode" />
+          <ScalarProperty Name="editTime" ColumnName="editTime" />
+          <ScalarProperty Name="editBy" ColumnName="editBy" />
+          <ScalarProperty Name="createTime" ColumnName="createTime" />
+          <ScalarProperty Name="createBy" ColumnName="createBy" />
+          <ScalarProperty Name="isActive" ColumnName="isActive" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="productId" ColumnName="productId" />
+          <ScalarProperty Name="pictureId" ColumnName="pictureId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

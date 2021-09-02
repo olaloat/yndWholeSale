@@ -41,7 +41,6 @@ namespace WholeSale
             string docNum = "";
             var lastDoc = (yndEn.Documents.Max(m => m.documentNo));
             if (lastDoc == null) { lastDoc = ""; } else { }
-
             int docHID = 0;
             if (lastDoc == "")
             {
@@ -52,18 +51,13 @@ namespace WholeSale
                 int lasteRunning = Convert.ToInt16(lastDoc.Substring(lastDoc.Length - 4, 4));
                 docNum = DateTime.Now.ToString("yyyyMMddHHmmss") + (lasteRunning + 1).ToString("000#");
             }
-
-          
             mydoc.documentNo = docNum;
             Document docAdd = new Document();
-
             docAdd = Util.copyDataFromChildToParentModel(mydoc, docAdd);
-
             yndEn.Documents.Add(docAdd);
             yndEn.SaveChanges();
             mydoc.documentId = docAdd.documentId;
             mydoc.myResult = new mainResult() { isComplete =true , message ="OK" , status ="OK"};
-       
             return mydoc;
         }
 
@@ -241,10 +235,10 @@ namespace WholeSale
         }
 
 
-        public static mainResult updateProduct(Product myProdEdit)
+        public static prodResultSaveDB updateProduct(Product myProdEdit)
         {
-            mainResult rs = new mainResult();
-
+            prodResultSaveDB rs = new prodResultSaveDB();
+            int prdLineId = 0;
             try { 
             using (var context = new ynd())
             {
@@ -283,13 +277,13 @@ namespace WholeSale
             }
             catch (Exception e) {
 
-                 rs = new mainResult() { isComplete = false, message = "Error :" + e.Message, status = "OK" };
+                 rs = new prodResultSaveDB() { isComplete = false, message = "Error :" + e.Message, status = "OK" , ProdID = 0 };
                 return rs;
 
             }
 
 
-             rs = new mainResult() { isComplete = true, message = "ทำรายการสำเร็จ", status = "OK" };
+             rs = new prodResultSaveDB() { isComplete = true, message = "ทำรายการสำเร็จ", status = "OK" , ProdID = myProdEdit.productId };
             return rs;
         }
         public static mainResult updateBill(Bill billUpdated)
@@ -404,6 +398,47 @@ namespace WholeSale
         }
 
         //select empId, username, [password], passcode, token, fName, lName from dbo.Employee where isActive = 1
+
+
+           public static mainResult insertPictureProduction(   Picture myPict)
+        {
+            mainResult rs = new mainResult();
+
+            try {
+
+                ynd Myen = new ynd();
+
+
+                //chek already exit picture of this product id
+                var pictList = (from a in Myen.Pictures where a.isActive == true && a.productId == myPict.productId select a).ToList();
+                if (pictList.Count > 0) {
+
+                    foreach (var a in pictList) {
+                        a.isActive = false;
+                        Myen.SaveChanges();
+
+                    }
+
+
+                }
+                 Myen = new ynd();
+                Myen.Pictures.Add(myPict);
+                Myen.SaveChanges();
+
+
+            }
+            catch (Exception ex) {
+                rs.isComplete = false;
+                rs.message = ex.Message.ToString();
+                return rs;
+
+            }
+          
+            rs.isComplete = true;
+            rs.message = "ok";
+            return rs;
+        }
+
 
     }
 }

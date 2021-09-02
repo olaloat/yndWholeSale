@@ -35,7 +35,7 @@
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.tbxPath = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnAttachFile = new System.Windows.Forms.Button();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
@@ -169,7 +169,7 @@
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel8.Controls.Add(this.tbxPath, 0, 1);
             this.tableLayoutPanel8.Controls.Add(this.label21, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.button4, 1, 1);
+            this.tableLayoutPanel8.Controls.Add(this.btnAttachFile, 1, 1);
             this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 277);
             this.tableLayoutPanel8.Name = "tableLayoutPanel8";
             this.tableLayoutPanel8.RowCount = 2;
@@ -194,14 +194,15 @@
             this.label21.TabIndex = 4;
             this.label21.Text = "File Path";
             // 
-            // button4
+            // btnAttachFile
             // 
-            this.button4.Location = new System.Drawing.Point(155, 23);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(84, 29);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Choose";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btnAttachFile.Location = new System.Drawing.Point(155, 23);
+            this.btnAttachFile.Name = "btnAttachFile";
+            this.btnAttachFile.Size = new System.Drawing.Size(84, 29);
+            this.btnAttachFile.TabIndex = 5;
+            this.btnAttachFile.Text = "Choose";
+            this.btnAttachFile.UseVisualStyleBackColor = true;
+            this.btnAttachFile.Click += new System.EventHandler(this.btAttachPict_Click);
             // 
             // tableLayoutPanel7
             // 
@@ -972,7 +973,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
         private System.Windows.Forms.TextBox tbxPath;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnAttachFile;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;

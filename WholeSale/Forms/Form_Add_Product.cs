@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,11 +16,17 @@ namespace WholeSale.Forms
 {
     public partial class Form_Add_Product : Form
     {
+
+        bool isUpPict = false;
+        string pathPict = "";
         mode activeMode = mode.NEW;
         public Product myProduct { get; set; }
+        public Picture myPicture { get; set; }
         public  int productId { get; set; }
 
         public  bool isActionComplete {get ; set;}
+
+        public string pathPicture = "";
 
         public enum mode
         {
@@ -30,6 +37,8 @@ namespace WholeSale.Forms
 
         {
             this.activeMode = activeMode;
+            this.pathPict = "";
+       
             InitializeComponent();
         }
 
@@ -132,120 +141,135 @@ namespace WholeSale.Forms
             {
                 rs.isComplete = false;
                 rs.message = "please select type .";
-
                 return rs;
-
             }
-
-
             if (cbCategory2.Text.ToString().Trim().Length == 0)
             {
                 rs.isComplete = false;
                 rs.message = "please select category .";
-
                 return rs;
-
             }
-
-
             if (tbProductName.Text.ToString().Trim().Length == 0)
             {
                 rs.isComplete = false;
                 rs.message = "please input product name.";
-
                 return rs;
-
             }
-
-     
-
-
             double mxP = Convert.ToDouble(tbMaxPrice.Text.ToString());
             double mnP = Convert.ToDouble(tbMinPrice.Text.ToString());
             double P = Convert.ToDouble(tbPrice.Text.ToString());
-
-
             if (!(mnP <= P && P <= mxP && mnP <= mxP)) {
                 rs = new mainResult();
                 rs.isComplete = false;
                 rs.message = "price , max , min is worng.";
-
                 return rs;
-
-
             }
-
-         
             ynd db = new ynd();
-
             List<Product> prd = new List<Product>();
             prd = (from a in db.Products where a.productCode == tbProductCode.Text.ToString().Trim() select a).ToList();
             if (prd.Count > 0)
             {
                 rs.isComplete = false;
                 rs.message = "รหัสสินค้านี้มีอยู่ในระบบแล้ว ไม่สามารถบันทึกซ้ำได้";
-
                 return rs;
-
             }
-
             rs.isComplete = true;
             rs.message = "ok";
-
-
-
             return rs;
-
-
         }
         private void btSave_Click(object sender, EventArgs e)
         {
-            mainResult rs = new mainResult();
-            // calidate product code
+            prodResultSaveDB rsPrd = new prodResultSaveDB();
+            mainResult rsPct = new mainResult();
+            Byte[] btpct = Util.convertImageToByte(pictureBox1);
+            // set instance picture model 
+            Picture pct = new Picture();
+            pct = Util.setStadardInfo(pct);
+            pct.image = btpct;
+         
+
+
+
+
             if (activeMode == mode.NEW) {
-                rs = validateSaveProduct();
-                if (!rs.isComplete)
+              mainResult   rsVld  = validateSaveProduct();
+                if (!rsVld.isComplete)
                 {
-                    mMsgBox.show(rs.message,Modal_MsgBox.icon.error,"Error");
+                    mMsgBox.show(rsVld.message,Modal_MsgBox.icon.error,"Error");
                     return;
                 }
-                rs = insertDataToDB();
+                //  insert product to db
+                rsPrd = insertDataToDB();
 
-            } else if (activeMode == mode.EDIT) {
+                // convert picture to byte
 
 
-                rs = editDataToDB();
+                //var GetDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+                //FileStream fs = File.Create(GetDirectory +"\\foo.jpg");
+
+
+                //using (var ms = new MemoryStream())
+                //{
+
+                //    tbxPath.Text
+                //    ImageFile.InputStream.CopyTo(ms);
+                //    catalogitemmodel.Image = ms.ToArray();
+                //}
+
+                //if (ModelState.IsValid)
+                //{
+                //    db.CatalogItemModels.Add(catalogitemmodel);
+                //    db.SaveChanges();
+                //    return RedirectToAction("Index");
+                //}
+
+
+
+                pct.productId = rsPrd.ProdID;
+                if (pct.image==null) {
+
+                    pct.isActive = false;
+                }
+
+
+                // insert picture
+                rsPct = db.insertPictureProduction(pct);
+
+                //update  id to production
+
             }
+            else if (activeMode == mode.EDIT) {
+                rsPrd = editDataToDB();
+
+                //Picture pct = new Picture();
+                //pct = Util.setStadardInfo(pct);
+                //pct.image = btpct;
+                //pct.productId = rsPrd.ProdID;
+
+                // insert picture
+                pct.productId = rsPrd.ProdID;
+                if (pct.image == null)
+                {
+
+                    pct.isActive = false;
+                }
+                rsPct = db.insertPictureProduction(pct);
 
 
-                mMsgBox.show(rs.message);
-        
-
-
-         //   mMsgBox.show(rs.message);
-            if (rs.isComplete)
+               
+            }
+                mMsgBox.show(rsPct.message);
+            if (rsPct.isComplete)
             {
-
-
                 isActionComplete = true;
                 Operation.loadProduct();
-
-
-
                 this.Dispose();
-
             }
             else
             {
-
                 isActionComplete = false;
             }
-
-
-
             this.Dispose();
-          //  }
-
         }
 
         private mainResult validateData() {
@@ -273,14 +297,14 @@ namespace WholeSale.Forms
         }
 
 
-        private mainResult editDataToDB() {
-            mainResult rs = new mainResult();
+        private prodResultSaveDB editDataToDB() {
+            prodResultSaveDB rs = new prodResultSaveDB();
             try
             {
 
                 Product myprod = new Product() {
                     // Product myEditPrd = db.Products.Where(w => w.productId {== myProduct.productId).FirstOrDefault();
-                    productId = productId,
+               productId = productId,
                productCode = tbProductCode.Text.Trim(),
                productName = tbProductName.Text.Trim(),
                price = Convert.ToDecimal(tbPrice.Text.Trim()),
@@ -294,14 +318,13 @@ namespace WholeSale.Forms
              //  createTime = DateTime.Now,
                editTime = DateTime.Now,
                editBy = global.username,
-                    groupId = Convert.ToInt16(cbGroup.SelectedValue),
-               isActive = true,
+               groupId = Convert.ToInt16(cbGroup.SelectedValue),
+               isActive = active,
                typeId = Convert.ToInt16(cbType.SelectedValue),
                productTypeId = Convert.ToInt16(cbType.SelectedValue),
                unitId = Convert.ToInt16(cbUnit.SelectedValue),
+               
             };
-
-
                  rs = db.updateProduct(myprod);
 
             }
@@ -325,8 +348,8 @@ namespace WholeSale.Forms
 
         }
 
-        private mainResult insertDataToDB() {
-            mainResult rs = new mainResult();
+        private prodResultSaveDB insertDataToDB() {
+            prodResultSaveDB rs = new prodResultSaveDB();
             try {
 
                 ynd db = new ynd();
@@ -337,48 +360,42 @@ namespace WholeSale.Forms
                     maxPrice = Convert.ToDecimal(tbMaxPrice.Text.Trim()),
                     minPrice = Convert.ToDecimal(tbMinPrice.Text.Trim()),
                     previousPrice = 0,
-
                     categoryId = Convert.ToInt16(cbCategory2.SelectedValue),
-
-
                     branchCode = global.BranchCode,
                     compCode = global.compCode,
                     createBy = global.username,
                     createTime = DateTime.Now,
                     editTime = DateTime.Now,
                     editBy = global.username,
-
-
                     groupId = Convert.ToInt16(cbGroup.SelectedValue),
                     isActive = active,
                     typeId = Convert.ToInt16(cbType.SelectedValue),
                     productTypeId = Convert.ToInt16(cbType.SelectedValue),
                     unitId = Convert.ToInt16(cbUnit.SelectedValue),
 
-
-
                 };
 
                 db.Products.Add(prd);
                 db.SaveChanges();
 
+                rs.ProdID = prd.productId;
+                rs.isComplete = true;
+                rs.message = "บันทึกสำเร็จ";
+                rs.status = "OK";
+            
             }
             catch (Exception e)
             {
                 string xxx = e.ToString();
                 rs.isComplete = false;
-                rs.message = "ERROR";
-                rs.isComplete = true;
-                rs.message = e.ToString();
+                rs.message = "ERROR :";
+                rs.message += e.ToString();
+                rs.ProdID = 0;
                 return rs;
             }
 
-
-            rs.isComplete = true;
-            rs.message = "บันทึกสำเร็จ";
-
+       
             return rs;
-
         }
 
         private void Form_Add_Product_Load(object sender, EventArgs e)
@@ -392,7 +409,8 @@ namespace WholeSale.Forms
 
             if (activeMode == mode.EDIT) {
                 //   clearControl();
-              myProduct =  loadProduct(productId);
+                myProduct =  loadProduct(productId);
+                myPicture = loadPicture(productId);
                 setProdToControl();
             }
         }
@@ -404,6 +422,22 @@ namespace WholeSale.Forms
 
             return prodSelect;
         }
+
+
+        private Picture loadPicture(int id)
+        {
+            ynd myEn = new ynd();
+
+
+            var picture = myEn.Pictures.Where(w => w.productId == id && w.isActive ==true).FirstOrDefault();
+
+            return picture;
+        }
+
+
+
+
+
         private void setProdToControl() {
 
             tbProductCode.Text = myProduct.productCode.ToString();
@@ -420,6 +454,16 @@ namespace WholeSale.Forms
             tbSupplier.Text = "";
             pictureBox1.Image = null;
             tbxPath.Text = "";
+
+
+            if (myPicture !=null) {
+                byte[] _ImageData = new byte[0];
+                _ImageData = (byte[])myPicture.image;
+                System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream(_ImageData);
+                pictureBox1.Image = System.Drawing.Image.FromStream(_MemoryStream);
+
+            }
+          
 
 
 
@@ -551,5 +595,26 @@ pictureBox1.Image = null;
                 btnActive.BackColor = Color.Red;
             }
         }
+
+        private void btAttachPict_Click(object sender, EventArgs e)
+        {
+            // open file dialog   
+            OpenFileDialog open = new OpenFileDialog();
+            // image filters  
+            open.Filter = "Image Files(*.jpg; *.jpeg; *.gif; *.bmp)|*.jpg; *.jpeg; *.gif; *.bmp";
+            if (open.ShowDialog() == DialogResult.OK)
+            {
+
+                isUpPict = true;
+                // display image in picture box  
+                pictureBox1.Image = new Bitmap(open.FileName);
+                // image file path  
+                tbxPath.Text = open.FileName;
+
+            
+            }
+        }
+
+      
     }
 }

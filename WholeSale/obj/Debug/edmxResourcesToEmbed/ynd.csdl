@@ -823,6 +823,7 @@
     <FunctionImport Name="spGetDocumentBill">
       <Parameter Name="docNum" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="Pictures" EntityType="ynddevModel.Picture" />
   </EntityContainer>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
@@ -835,4 +836,19 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <EntityType Name="Picture">
+    <Key>
+      <PropertyRef Name="pictureId" />
+    </Key>
+    <Property Name="pictureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productId" Type="Int32" Nullable="false" />
+    <Property Name="image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="isActive" Type="Boolean" Nullable="false" />
+    <Property Name="createBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="editBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="compCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="branchCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+  </EntityType>
 </Schema>

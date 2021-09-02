@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ynddevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ynddevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AccountReceive">
           <Key>
             <PropertyRef Name="arId" />
@@ -387,6 +387,21 @@
           <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="pictureId" />
+          </Key>
+          <Property Name="pictureId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="image" Type="image" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="createBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="createTime" Type="datetime" Nullable="false" />
+          <Property Name="editBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="editTime" Type="datetime" Nullable="false" />
+          <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="productId" />
@@ -448,18 +463,6 @@
           <Property Name="compCode" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="branchCode" Type="nvarchar" MaxLength="20" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="SalePrice">
-          <Property Name="salePriceId" Type="int" />
-          <Property Name="productId" Type="nchar" MaxLength="100" />
-          <Property Name="salePrice" Type="decimal" Precision="18" Scale="0" />
-          <Property Name="isActive" Type="bit" />
-          <Property Name="createBy" Type="nvarchar" MaxLength="250" />
-          <Property Name="createTime" Type="datetime" />
-          <Property Name="editBy" Type="nvarchar" MaxLength="250" />
-          <Property Name="editTime" Type="datetime" />
-        </EntityType>-->
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -755,6 +758,7 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderLine" EntityType="Self.OrderLine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderType" EntityType="Self.OrderType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Picture" EntityType="Self.Picture" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
@@ -816,8 +820,7 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
             <End Role="Transaction" EntitySet="Transaction" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ynddevModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1642,8 +1645,9 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
           <FunctionImport Name="spGetDocumentBill">
-            <Parameter Name="docNum" Mode="In" Type="String" />
+          <Parameter Name="docNum" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Pictures" EntityType="ynddevModel.Picture" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1656,6 +1660,21 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="pictureId" />
+          </Key>
+          <Property Name="pictureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productId" Type="Int32" Nullable="false" />
+          <Property Name="image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="createBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="editBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="compCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="branchCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2242,6 +2261,22 @@ warning 6013: The table/view 'ynddev.dbo.SalePrice' does not have a primary key 
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="ynddevModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="ynddevModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="spGetDocumentBill" FunctionName="ynddevModel.Store.spGetDocumentBill" />
+          <EntitySetMapping Name="Pictures">
+            <EntityTypeMapping TypeName="ynddevModel.Picture">
+              <MappingFragment StoreEntitySet="Picture">
+                <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+                <ScalarProperty Name="compCode" ColumnName="compCode" />
+                <ScalarProperty Name="editTime" ColumnName="editTime" />
+                <ScalarProperty Name="editBy" ColumnName="editBy" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="pictureId" ColumnName="pictureId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

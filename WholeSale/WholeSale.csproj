@@ -244,6 +244,9 @@
     <Compile Include="OrderType.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>
+    <Compile Include="Picture.cs">
+      <DependentUpon>ynd.tt</DependentUpon>
+    </Compile>
     <Compile Include="Product.cs">
       <DependentUpon>ynd.tt</DependentUpon>
     </Compile>

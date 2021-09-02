@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using System.Windows.Forms;
 
 namespace WholeSale.MyClass
 {
-  static  class Util
+    static class Util
     {
 
         public static FlexCell.Grid autoFit(FlexCell.Grid grd)
@@ -53,7 +54,7 @@ namespace WholeSale.MyClass
         }
 
 
-        public static List<T2> copyDataFromChildToParentList<T1 , T2>(this List<T1> data , T2 target) where T2 :new()
+        public static List<T2> copyDataFromChildToParentList<T1, T2>(this List<T1> data, T2 target) where T2 : new()
         {
             PropertyDescriptorCollection properties =
                 TypeDescriptor.GetProperties(typeof(T2));
@@ -67,17 +68,17 @@ namespace WholeSale.MyClass
                 T2 newItem = new T2();
 
 
-            
+
                 foreach (PropertyDescriptor prop in properties)
                 {
                     prop.SetValue(newItem, prop.GetValue(item) ?? DBNull.Value);
-                 
+
                 }
                 dataOutput.Add(newItem);
 
 
             }
-        //    IList<T> docLine = new IList<T>();
+            //    IList<T> docLine = new IList<T>();
             return dataOutput;
         }
 
@@ -86,36 +87,83 @@ namespace WholeSale.MyClass
         {
             PropertyDescriptorCollection properties =
                 TypeDescriptor.GetProperties(typeof(T2));
-        
+
             T2 dataOutput = new T2();
-          
-                foreach (PropertyDescriptor prop in properties)
-                {
+
+            foreach (PropertyDescriptor prop in properties)
+            {
 
                 //if (prop.GetType() == null){
 
                 //    var xxx = 0000;
                 //}
                 try { prop.SetValue(dataOutput, prop.GetValue(data) ?? DBNull.Value); } catch { }
-                        
-                     //   data)!=DBNull.Value) {
 
-               
-                }
-               
-
-          
+                //   data)!=DBNull.Value) {
 
 
-
-              
+            }
 
 
 
 
-           
+
+
+
+
+
+
+
+
             return dataOutput;
         }
+
+
+        public static T setStadardInfo<T>(T model) where T : new()
+        {
+
+            foreach (var property in typeof(T).GetProperties())
+            {
+                if (property.Name.ToUpper() == "CREATETIME") // setting value for x
+                {
+                    property.SetValue(model, DateTime.Now);
+                }
+                if (property.Name.ToUpper() == "EDITTIME") // setting value for x
+                {
+                    property.SetValue(model, DateTime.Now);
+                }
+
+
+                if (property.Name.ToUpper() == "CREATEBY") // setting value for x
+                {
+                    property.SetValue(model, global.username);
+                }
+                if (property.Name.ToUpper() == "EDITBY") // setting value for x
+                {
+                    property.SetValue(model, global.username);
+                }
+
+
+                if (property.Name.ToUpper() == "COMPCODE") // setting value for x
+                {
+                    property.SetValue(model, global.compCode);
+                }
+
+                if (property.Name.ToUpper() == "BRANCHCODE") // setting value for x
+                {
+                    property.SetValue(model, global.BranchCode);
+                }
+
+                if (property.Name.ToUpper() == "ISACTIVE") // setting value for x
+                {
+                    property.SetValue(model, true);
+                }
+            }
+
+
+            return model;
+        }
+
 
 
 
@@ -138,12 +186,20 @@ namespace WholeSale.MyClass
 
 
 
+        public static byte[] convertImageToByte(PictureBox pict)
+        {
 
+            System.IO.MemoryStream SndImageStream = new System.IO.MemoryStream();
+            pict.Image.Save(SndImageStream, System.Drawing.Imaging.ImageFormat.Bmp);
 
+        //    pict.image.Save(SndImageStream, pict.BackgroundImage.RawFormat);
+            byte[] data = SndImageStream.GetBuffer();
+
+            return data;
+
+        }
 
     }
-
-
 
 
 
@@ -179,4 +235,10 @@ namespace WholeSale.MyClass
 
 
     }
+
+
+
+
+
+
 }

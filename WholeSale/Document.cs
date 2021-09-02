@@ -37,8 +37,6 @@ namespace WholeSale
         public System.DateTime editTime { get; set; }
         public string compCode { get; set; }
         public string branchCode { get; set; }
-
-
         public decimal totalVat { get; set; }
         public decimal totalLineDiscount { get; set; }
         public decimal totalPriceBeforeDiscount { get; set; }
