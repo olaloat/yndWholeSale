@@ -62,11 +62,36 @@ namespace WholeSale.Forms
         }
 
 
-
-
-        private mainResult validateSaveProduct() {
-
+        private mainResult validateDuplicateProductCode() {
+            ynd db = new ynd();
+            List<Product> prd = new List<Product>();
             mainResult rs = new mainResult();
+            prd = (from a in db.Products where a.productCode == tbProductCode.Text.ToString().Trim() select a).ToList();
+            if (prd.Count > 0)
+            {
+                rs.isComplete = false;
+                rs.message = "รหัสสินค้านี้มีอยู่ในระบบแล้ว ไม่สามารถบันทึกซ้ำได้";
+                return rs;
+            }
+            rs.isComplete = true;
+            rs.message = "ok";
+            return rs;
+        }
+
+        private mainResult validateSaveProduct(mode modeValidate) {
+            mainResult rs = new mainResult();
+
+            if (modeValidate == mode.NEW) { 
+            rs = validateDuplicateProductCode();
+                 if (!rs.isComplete)
+            {
+                
+              
+
+                return rs;
+            }
+
+            }
 
             if (tbProductCode.Text .ToString().Trim().Length==0)
             {
@@ -164,15 +189,7 @@ namespace WholeSale.Forms
                 rs.message = "price , max , min is worng.";
                 return rs;
             }
-            ynd db = new ynd();
-            List<Product> prd = new List<Product>();
-            prd = (from a in db.Products where a.productCode == tbProductCode.Text.ToString().Trim() select a).ToList();
-            if (prd.Count > 0)
-            {
-                rs.isComplete = false;
-                rs.message = "รหัสสินค้านี้มีอยู่ในระบบแล้ว ไม่สามารถบันทึกซ้ำได้";
-                return rs;
-            }
+         
             rs.isComplete = true;
             rs.message = "ok";
             return rs;
@@ -192,7 +209,7 @@ namespace WholeSale.Forms
 
 
             if (activeMode == mode.NEW) {
-              mainResult   rsVld  = validateSaveProduct();
+              mainResult   rsVld  = validateSaveProduct(activeMode);
                 if (!rsVld.isComplete)
                 {
                     mMsgBox.show(rsVld.message,Modal_MsgBox.icon.error,"Error");
@@ -239,6 +256,15 @@ namespace WholeSale.Forms
 
             }
             else if (activeMode == mode.EDIT) {
+
+                mainResult rsVld = validateSaveProduct(activeMode);
+                if (!rsVld.isComplete)
+                {
+                    mMsgBox.show(rsVld.message, Modal_MsgBox.icon.error, "Error");
+                    return;
+                }
+
+
                 rsPrd = editDataToDB();
 
                 //Picture pct = new Picture();
@@ -351,6 +377,17 @@ namespace WholeSale.Forms
         private prodResultSaveDB insertDataToDB() {
             prodResultSaveDB rs = new prodResultSaveDB();
             try {
+
+
+
+                //var user = new User() { Id = userId, Password = password };
+                //using (var db = new MyEfContextName())
+                //{
+                //    db.Users.Attach(user);
+                //    db.Entry(user).Property(x => x.Password).IsModified = true;
+                //    db.SaveChanges();
+                //}
+
 
                 ynd db = new ynd();
                 Product prd = new Product() {

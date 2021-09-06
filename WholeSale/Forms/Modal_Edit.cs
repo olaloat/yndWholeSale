@@ -434,10 +434,12 @@ namespace WholeSale.Forms
 
         private mainResult CheckMaxMinPrice(decimal price , int productId) {
             mainResult rs = new mainResult();
-            List<Product> myFilterProduct = global.mstProduct.Where(w => w.productId == productId).ToList();
+
+            
+            List<Product> myFilterProduct = masterProduct.List.Where(w => w.productId == productId).ToList();
 
 
-            if (myFilterProduct.Where(w  => w.productId == productId  && w.maxPrice==0 && w.minPrice == 0).ToList().Count  >=0 ) {
+            if (myFilterProduct.Where(w  => w.productId == productId  && w.maxPrice>=price && w.minPrice <=price).ToList().Count  >0 ) {
                 rs.isComplete = true;
                 rs.message = "OK";
 
