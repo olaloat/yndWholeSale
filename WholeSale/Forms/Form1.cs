@@ -183,7 +183,7 @@ namespace WholeSale
         {
             generateButonEmployee();
             createNumPad();
-
+            global.setParamGlobal();
 
 
         }

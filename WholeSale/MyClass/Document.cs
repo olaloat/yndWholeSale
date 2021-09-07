@@ -47,15 +47,20 @@ namespace WholeSale
         public static List<DocumentDisplay> List = new List<DocumentDisplay>();
         public static List<DocumentLineDisplay> lineList = new List<DocumentLineDisplay>();
         public static void getdata()
+
+            
+   
         {
-           var ListDocDB = (from a in global.yndInven.Documents where
+
+            ynd myEn = new ynd();
+            var ListDocDB = (from a in myEn.Documents where
                      a.status == (int)global.statusList.HOLD && a.isActive == true
                     select a).ToList();
 
             PropertyDescriptorCollection properties =
               TypeDescriptor.GetProperties(typeof(Document));
             DataTable table = new DataTable();
-
+            List = new List<DocumentDisplay>();
 
             foreach (Document item in ListDocDB)
             {
@@ -95,7 +100,7 @@ namespace WholeSale
         public static List<DocumentLineDisplay> getLineList(int documentId) {
             lineList = new List<DocumentLineDisplay>();
 
-            List<DocumentLine> lineListDB = (from a in global.yndInven.DocumentLines where a.DocumentId == documentId select a).ToList();
+            List<DocumentLine> lineListDB = (from a in global.yndInven.DocumentLines where a.DocumentId == documentId && a.isActive ==true select a).ToList();
             //   lineList = lineListDB.OfType<DocumentLineDisplay>().ToList();// convert parent to child class
 
 

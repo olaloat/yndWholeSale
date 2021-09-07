@@ -197,12 +197,18 @@ on a.unitId equals d.unitId
         }
         private void Form_Search_Product_Load(object sender, EventArgs e)
         {
+
+            loadDefualValue();
+
+
+
+        }
+
+        private void loadDefualValue() {
+
             loadProduct();
             loadMasterFilter();
             setMasterDataToUI();
-
-
-
 
         }
 
@@ -332,10 +338,10 @@ on a.unitId equals d.unitId
                         fb.productId = productID;
                         fb.StartPosition = FormStartPosition.CenterParent;
                         fb.ShowDialog();
-                        if (isAddProuctComplete)
+                        if (fb.isActionComplete)
                         {
-                            loadProduct();
-                        
+                            loadDefualValue();
+
 
 
                         }

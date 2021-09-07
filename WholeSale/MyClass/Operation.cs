@@ -76,9 +76,10 @@ namespace WholeSale
         public static void renewDataDocumentHeader() { }//clear data document Header
         public static void renewDataDocumentLine() { }//clear data document line
 
-        public static DocumentDisplay setSummaryData(DocumentDisplay documentHeader ,List<DocumentLineDisplay> docLine, Customer customer, decimal discount) {
+        public static DocumentDisplay setSummaryData(DocumentDisplay documentHeader ,List<DocumentLineDisplay> docLine,// Customer customer, 
+            decimal discount) {
 
-            int customerId = customer.customerId;
+        //    int customerId = customer.customerId;
             decimal qty = docLine.Sum(s => s.qty);
             decimal totalPriceLineBeforeDiscount = docLine.Sum(s => s.totalPriceBeforeDiscount);
             decimal totalDcLine = docLine.Sum(s => s.totalDiscount);
@@ -103,7 +104,7 @@ namespace WholeSale
              documentHeader. totalPriceAfterAllDiscount = totalPriceAfterDiscountLine;
              documentHeader. totalPriceBeforeVat = totalPriceBeforeVat;
              documentHeader. createTime = DateTime.UtcNow;
-             documentHeader. customerId = customerId;
+            // documentHeader. customerId = customerId;
              //documentHeader. documentId = 0;
              documentHeader. DocumentLines = null;
              documentHeader. documentNo = "";
@@ -264,7 +265,24 @@ namespace WholeSale
         public static mainResult pay(Bill bill) {
 
 
-            DocumentDisplay docInsert = db.insertDocHeader(bill.docHeader);
+            if (Util.checkKeyIsAvailabel(bill.docHeader, "documentid").isComplete)
+            {
+
+                var resDisable = db.disableDocuments(bill.docHeader);
+
+                if (!resDisable.isComplete) {
+                  
+                    return resDisable;
+                }
+            }
+            //if document from hold bill.
+
+
+            DocumentDisplay docInsert = new DocumentDisplay();
+             docInsert = db.insertDocHeader(bill.docHeader);
+
+        
+
             if (docInsert.myResult.isComplete)
             {
 
@@ -280,6 +298,24 @@ namespace WholeSale
                         {
                             var rsInsertTR = db.insertTransaction(rs.Item2);
                             if (rsInsertTR.isComplete) {
+
+
+                                //pay from ge hold bill
+                                if (bill.docHeader.documentId != null)
+                                {
+                                    if (bill.docHeader.documentId != 0)
+                                    {
+                                        db.disableDocumentHeaders(bill.docHeader.documentId);
+
+                                        foreach (var a in bill.docLine) {
+                                            db.disableDocumentLine(a.DocumentLineId);
+                                        }
+
+                                    }
+                                }
+
+
+
                                 mainResult result = new mainResult() { isComplete = true, message = "บันทึกสำเร็จ", status = "OK" };
                                 return result;
 

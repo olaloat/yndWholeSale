@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -54,6 +55,8 @@ namespace WholeSale
             mydoc.documentNo = docNum;
             Document docAdd = new Document();
             docAdd = Util.copyDataFromChildToParentModel(mydoc, docAdd);
+            docAdd.documentId = 0;
+            if (docAdd.DocumentLines != null) { docAdd.DocumentLines = null; }
             yndEn.Documents.Add(docAdd);
             yndEn.SaveChanges();
             mydoc.documentId = docAdd.documentId;
@@ -93,6 +96,8 @@ namespace WholeSale
         public static Tuple<mainResult, List<DocumentLineDisplay>> insertDocline(List<DocumentLineDisplay> myDocline , int docHid)
         {
             mainResult rs = new mainResult();
+            ynd dbInsert = new ynd();
+            try { 
 
             List<DocumentLine> docLineAdd = new List<DocumentLine>();
 
@@ -102,12 +107,25 @@ namespace WholeSale
                 //  aAdd = (DocumentLine)a;
                 DocumentLine aAdd = new DocumentLine();
                  aAdd = Util.copyDataFromChildToParentModel(a, aAdd);
-               // DocumentLine aAdd = Mapper.Map<Parent>(child);
-                aAdd.DocumentId = docHid;
-                yndEn.DocumentLines.Add(aAdd);
-                yndEn.SaveChanges();
-                a.DocumentLineId = aAdd.DocumentLineId;
+                    // DocumentLine aAdd = Mapper.Map<Parent>(child);
 
+                    if (aAdd.Document != null) { aAdd.Document = null; }
+                aAdd.DocumentId = docHid;
+                    aAdd.DocumentLineId = 0; // aAdd.DocumentLineId;
+                    aAdd.isActive = true;
+                    dbInsert = new ynd();
+                    dbInsert.DocumentLines.Add(aAdd);
+                    dbInsert.SaveChanges();
+                    a.DocumentLineId = aAdd.DocumentLineId;
+
+            }
+
+            }
+            catch (Exception e) {
+                rs.isComplete = false;
+                rs.message = e.Message.ToString();
+                rs.status = "error";
+                return Tuple.Create(rs, myDocline);
             }
             rs.isComplete = true;
             rs.message = "OK";
@@ -235,52 +253,64 @@ namespace WholeSale
         }
 
 
-        public static prodResultSaveDB updateProduct(Product myProdEdit)
+        public static prodResultSaveDB updateProduct(Product myProdEdit )
         {
             prodResultSaveDB rs = new prodResultSaveDB();
             int prdLineId = 0;
-            try { 
+
+            Product myProdUpdate = new Product();
+          //  try { 
             using (var context = new ynd())
             {
 
-                foreach (var myProdUpdate in context.Products.Where(p => p.productId == myProdEdit.productId).ToList())
-                {
-                   myProdUpdate.productCode = myProdEdit.productCode;
-                    myProdUpdate.productName = myProdEdit.productName;
-                    myProdUpdate.price = myProdEdit.price;
-                   myProdUpdate.maxPrice = myProdEdit.maxPrice;
-                    myProdUpdate.minPrice = myProdEdit.minPrice;
-                    myProdUpdate.previousPrice = 0;
-                    myProdUpdate.branchCode = global.BranchCode;
-                    myProdUpdate.compCode = global.compCode;
-                    myProdUpdate.categoryId = myProdEdit.categoryId;
-                    myProdUpdate.createBy = "ADMIN";
-                   myProdUpdate.createTime = DateTime.Now;
-                   myProdUpdate.editTime = DateTime.Now;
-                   myProdUpdate.editBy = "ADMIN";
-                    myProdUpdate.groupId = myProdEdit.groupId;
-                   myProdUpdate.isActive = true;
-                   myProdUpdate.typeId = myProdEdit.typeId;
-                    myProdUpdate.productTypeId = myProdEdit.productTypeId;
-                    myProdUpdate.unitId = myProdEdit.unitId;
+                ////foreach (var myProdUpdate in context.Products.Where(p => p.productId == myProdEdit.productId).ToList())
+                ////{
+                //myProdUpdate = Util.setStadardInfo(myProdUpdate , global.mode.EDIT);
 
+                //myProdUpdate.productId = myProdEdit.productId;
+                //myProdUpdate.productCode = myProdEdit.productCode;
+                //myProdUpdate.productName = myProdEdit.productName;
+                //myProdUpdate.price = myProdEdit.price;
+                //myProdUpdate.maxPrice = myProdEdit.maxPrice;
+                //myProdUpdate.minPrice = myProdEdit.minPrice;
+                //myProdUpdate.previousPrice = myProdEdit.previousPrice;
+                ////myProdUpdate.branchCode = global.BranchCode;
+                ////myProdUpdate.compCode = global.compCode;
+                //myProdUpdate.categoryId = myProdEdit.categoryId;
+                //myProdUpdate.createBy = myProdEdit.createBy;
+                //myProdUpdate.createTime = myProdEdit.createTime;
+                ////myProdUpdate.editTime = DateTime.Now;
+                ////myProdUpdate.editBy = "ADMIN";
+                //myProdUpdate.groupId = myProdEdit.groupId;
+                //myProdUpdate.isActive = myProdEdit.isActive;
+                //myProdUpdate.typeId = myProdEdit.typeId;
+                //myProdUpdate.productTypeId = myProdEdit.productTypeId;
+                //myProdUpdate.unitId = myProdEdit.unitId;
+
+                ////    context.SaveChanges();
+
+                ////}
+
+                ////  myProdEdit
+
+
+                      context.Products.Add(myProdEdit);
+                    context.Entry(myProdEdit).State = System.Data.Entity.EntityState.Modified;
                     context.SaveChanges();
 
-                }
 
 
 
 
-              
             }
 
-            }
-            catch (Exception e) {
+            //}
+            //catch (Exception e) {
 
-                 rs = new prodResultSaveDB() { isComplete = false, message = "Error :" + e.Message, status = "OK" , ProdID = 0 };
-                return rs;
+            //     rs = new prodResultSaveDB() { isComplete = false, message = "Error :" + e.Message, status = "OK" , ProdID = 0 };
+            //    return rs;
 
-            }
+            //}
 
 
              rs = new prodResultSaveDB() { isComplete = true, message = "ทำรายการสำเร็จ", status = "OK" , ProdID = myProdEdit.productId };
@@ -289,10 +319,12 @@ namespace WholeSale
         public static mainResult updateBill(Bill billUpdated)
         {
             mainResult rs = new mainResult();
-            try { 
-            //==============update dochader ==============
-            using (var context = new ynd())
-            {
+            try {
+                //==============update dochader ==============
+                //using (var context = new ynd())
+                //{
+
+                var context = new ynd();
 
                     updateAllFeidlDocument(billUpdated.docHeader);
 
@@ -303,12 +335,17 @@ namespace WholeSale
                     dclDisable.isActive = false;
                 }
                 context.SaveChanges();
+                context = new ynd();
+
 
                      var resultInsert = db.insertDocline(billUpdated.docLine, billUpdated.docHeader.documentId);
 
-                    //  context.SaveChanges();
+                //  context.SaveChanges();
+                //  }
+                if (!resultInsert.Item1.isComplete) {
+                    rs = new mainResult() { isComplete = false, message = resultInsert.Item1.message, status = "OK" };
+                    return rs;
                 }
-
 
                 rs = new mainResult() { isComplete = true, message = "ทำรายการสำเร็จ", status = "OK" };
                     return rs;
@@ -323,43 +360,177 @@ namespace WholeSale
 
 
         public static Document updateAllFeidlDocument(Document newdata) {
-            ynd yndEn = new ynd();
-            foreach (var x in yndEn.Documents.Where(w => w.documentId == newdata.documentId).ToList()) {
-                x.documentId = newdata.documentId;
-                x.documentNo = newdata.documentNo;
-                x.orderId = newdata.orderId;
-                x.customerId = newdata.customerId;
-                x.vendorId = newdata.vendorId;
-                x.isOrder = newdata.isOrder;
-                x.isTax = newdata.isTax;
-                x.paidType = newdata.paidType;
-                x.remark = newdata.remark;
-                x.status = newdata.status;
-                x.isActive = newdata.isActive;
-                x.createBy = newdata.createBy;
-                x.createTime = newdata.createTime;
-                x.editBy = newdata.editBy;
-                x.editTime = newdata.editTime;
-                x.compCode = newdata.compCode;
-                x.branchCode = newdata.branchCode;
-                x.totalVat = newdata.totalVat;
-                x.totalLineDiscount = newdata.totalLineDiscount;
-                x.totalPriceBeforeDiscount = newdata.totalPriceBeforeDiscount;
-                x.endDiscount = newdata.endDiscount;
-                x.totalDiscount = newdata.totalDiscount;
-                x.totalPriceAfterDiscountLine = newdata.totalPriceAfterDiscountLine;
-                x.totalPriceAfterAllDiscount = newdata.totalPriceAfterAllDiscount;
-                x.totalPriceBeforeVat = newdata.totalPriceBeforeVat;
-                x.qty = newdata.qty;
-            }
+         
 
-            yndEn.SaveChanges();
+            using (var db = new ynd())
+            {
+
+                Document docUpdate = (from a in db.Documents where a.documentId == newdata.documentId select a).FirstOrDefault();
+
+                docUpdate.documentId = newdata.documentId;
+                docUpdate.documentNo = newdata.documentNo;
+                docUpdate.orderId = newdata.orderId;
+                docUpdate.customerId = newdata.customerId;
+                docUpdate.vendorId = newdata.vendorId;
+                docUpdate.isOrder = newdata.isOrder;
+                docUpdate.isTax = newdata.isTax;
+                docUpdate.paidType = newdata.paidType;
+                docUpdate.remark = newdata.remark;
+                docUpdate.status = newdata.status;
+                docUpdate.isActive = newdata.isActive;
+                docUpdate.createBy = newdata.createBy;
+                docUpdate.createTime = newdata.createTime;
+                docUpdate.editBy = global.username;
+                docUpdate.editTime = DateTime.Now;
+                docUpdate.compCode = global.compCode;
+                docUpdate.branchCode = global.plantCode;
+                docUpdate.totalVat = newdata.totalVat;
+                docUpdate.totalLineDiscount = newdata.totalLineDiscount;
+                docUpdate.totalPriceBeforeDiscount = newdata.totalPriceBeforeDiscount;
+                docUpdate.endDiscount = newdata.endDiscount;
+                docUpdate.totalDiscount = newdata.totalDiscount;
+                docUpdate.totalPriceAfterDiscountLine = newdata.totalPriceAfterDiscountLine;
+                docUpdate.totalPriceAfterAllDiscount = newdata.totalPriceAfterAllDiscount;
+                docUpdate.totalPriceBeforeVat = newdata.totalPriceBeforeVat;
+                docUpdate.qty = newdata.qty;
+               db.Documents.Attach(docUpdate);
+
+
+                db.Documents.Add(docUpdate);
+                db.Entry(docUpdate).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+
+
+                // db.Documents.Add(docUpdate);
+                //  db.Entry(docDisable).Property(x => x.isActive).IsModified = true;
+               // db.SaveChanges();
+
+            }
+          
+         
+        
 
             return newdata;
         }
 
 
-        public static mainResult disableDocuments(int docId)
+
+
+        public static mainResult  updateStatus<T>(T model ,global.statusList status ) where T : class
+        {
+            mainResult rs = new mainResult();
+            ynd context = new ynd();
+            PropertyDescriptorCollection properties =
+             TypeDescriptor.GetProperties(typeof(T));
+
+            try {
+
+
+
+        
+           
+
+
+            foreach (PropertyDescriptor prop in properties)
+            {
+
+                if (prop.Name.ToString().ToUpper() == "STATUS") {
+                    int x = (int)status;
+
+
+                    prop.SetValue(model,(int)status);
+                }
+          
+
+            }
+
+            context.Entry(model).State = EntityState.Modified;
+            context.SaveChanges();
+
+            }
+            catch (Exception e)
+            {
+                rs = new mainResult() { isComplete = false, message = "update status fail.", status = "fail" };
+
+            }
+            rs = new mainResult() { isComplete = true, message = "update status successfully.", status = "OK" };
+
+            return rs;
+        }
+
+
+
+
+
+        public static mainResult disableDocumentLine(int docLineId)
+        {
+            mainResult rs = new mainResult() { isComplete = false };
+
+
+
+            try
+            {
+                #region db update
+              
+                using (var db = new ynd())
+                {
+
+                    var docDisable = (from a in db.DocumentLines where a.DocumentLineId == docLineId select a).FirstOrDefault();
+
+                    docDisable.isActive = false;
+                    db.DocumentLines.Attach(docDisable);
+                    db.Entry(docDisable).Property(x => x.isActive).IsModified = true;
+                    db.SaveChanges();
+                }
+                rs = new mainResult() { isComplete = true, message = "ทำรายการสำเร็จ", status = "OK" };
+                return rs;
+
+
+                #endregion
+            }
+            catch (Exception e)
+            {
+                rs = new mainResult() { isComplete = true, message = "ทำรายการไม่สำเร็จ :" + e.Message.ToString(), status = "OK" };
+                return rs;
+
+            }
+
+            //return rs;
+        }
+
+
+        public static mainResult disableDocuments(Document doc) {
+
+
+            mainResult rs = new mainResult() { isComplete = false };
+
+
+            try {
+                rs = disableDocumentHeaders(doc.documentId);
+                if (rs.isComplete)
+                {
+                    foreach (var a in doc.DocumentLines)
+                    {
+
+                        rs = disableDocumentLine(a.DocumentId);
+                    }
+
+                }
+
+
+            }
+            catch (Exception e) {
+                rs = new mainResult() { isComplete = true, message = e.Message.ToString() };
+                return rs;
+            }
+        
+
+            rs = new mainResult() { isComplete = true };
+            return rs;
+        }
+
+        public static mainResult disableDocumentHeaders(int docId)
         {
             mainResult rs = new mainResult() { isComplete = false};
 
@@ -367,12 +538,18 @@ namespace WholeSale
 
             try {
                 #region db update
-                ynd context = new ynd();
-                var docDisable = (from a in yndEn.Documents where a.documentId == docId select a).FirstOrDefault();
+               // ynd context = new ynd();
+           
+                using (var db = new ynd())
+                {
 
-                docDisable.isActive = false;
+                    var docDisable = (from a in db.Documents where a.documentId == docId select a).FirstOrDefault();
 
-                context.SaveChanges();
+                    docDisable.isActive = false;
+                    db.Documents.Attach(docDisable);
+                    db.Entry(docDisable).Property(x => x.isActive).IsModified = true;
+                    db.SaveChanges();
+                }
                 rs = new mainResult() { isComplete = true, message = "ทำรายการสำเร็จ", status = "OK" };
                 return rs;
 

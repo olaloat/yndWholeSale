@@ -263,6 +263,7 @@
             // btnActive
             // 
             this.btnActive.BackColor = System.Drawing.Color.Green;
+            this.btnActive.Font = new System.Drawing.Font("Century Gothic", 8F);
             this.btnActive.Location = new System.Drawing.Point(3, 23);
             this.btnActive.Name = "btnActive";
             this.btnActive.Size = new System.Drawing.Size(75, 27);

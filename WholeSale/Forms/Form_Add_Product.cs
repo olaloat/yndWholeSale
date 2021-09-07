@@ -218,28 +218,6 @@ namespace WholeSale.Forms
                 //  insert product to db
                 rsPrd = insertDataToDB();
 
-                // convert picture to byte
-
-
-                //var GetDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-                //FileStream fs = File.Create(GetDirectory +"\\foo.jpg");
-
-
-                //using (var ms = new MemoryStream())
-                //{
-
-                //    tbxPath.Text
-                //    ImageFile.InputStream.CopyTo(ms);
-                //    catalogitemmodel.Image = ms.ToArray();
-                //}
-
-                //if (ModelState.IsValid)
-                //{
-                //    db.CatalogItemModels.Add(catalogitemmodel);
-                //    db.SaveChanges();
-                //    return RedirectToAction("Index");
-                //}
-
 
 
                 pct.productId = rsPrd.ProdID;
@@ -267,12 +245,7 @@ namespace WholeSale.Forms
 
                 rsPrd = editDataToDB();
 
-                //Picture pct = new Picture();
-                //pct = Util.setStadardInfo(pct);
-                //pct.image = btpct;
-                //pct.productId = rsPrd.ProdID;
-
-                // insert picture
+         
                 pct.productId = rsPrd.ProdID;
                 if (pct.image == null)
                 {
@@ -325,48 +298,38 @@ namespace WholeSale.Forms
 
         private prodResultSaveDB editDataToDB() {
             prodResultSaveDB rs = new prodResultSaveDB();
-            try
-            {
+            //try
+            //{
 
-                Product myprod = new Product() {
-                    // Product myEditPrd = db.Products.Where(w => w.productId {== myProduct.productId).FirstOrDefault();
-               productId = productId,
-               productCode = tbProductCode.Text.Trim(),
-               productName = tbProductName.Text.Trim(),
-               price = Convert.ToDecimal(tbPrice.Text.Trim()),
-               maxPrice = Convert.ToDecimal(tbMaxPrice.Text.Trim()),
-               minPrice = Convert.ToDecimal(tbMinPrice.Text.Trim()),
-               previousPrice = 0,
-               branchCode = global.BranchCode,
-               compCode = global.compCode,
-               categoryId = Convert.ToInt16(cbCategory2.SelectedValue),
-             //  createBy = "ADMIN",
-             //  createTime = DateTime.Now,
-               editTime = DateTime.Now,
-               editBy = global.username,
-               groupId = Convert.ToInt16(cbGroup.SelectedValue),
-               isActive = active,
-               typeId = Convert.ToInt16(cbType.SelectedValue),
-               productTypeId = Convert.ToInt16(cbType.SelectedValue),
-               unitId = Convert.ToInt16(cbUnit.SelectedValue),
-               
-            };
-                 rs = db.updateProduct(myprod);
+            ynd myEn = new ynd();
+         
+            Product myEdit = (from a in myEn.Products where a.productId == myProduct.productId select a).FirstOrDefault();
 
-            }
-            catch (Exception e)
-            {
-                string xxx = e.ToString();
-                rs.isComplete = false;
-                rs.message = "ERROR";
-                rs.isComplete = true;
-                rs.message = e.ToString();
-                return rs;
-            }
+            Product myprod = new Product();
 
 
-            rs.isComplete = true;
-            rs.message = "บันทึกสำเร็จ";
+            myprod = Util.setStadardInfo(myprod, global.mode.EDIT);
+            myprod.productId = myEdit.productId;
+          myprod.productCode = tbProductCode.Text.Trim();
+          myprod.productName = tbProductName.Text.Trim();
+          myprod.price = Convert.ToDecimal(tbPrice.Text.Trim());
+          myprod.maxPrice = Convert.ToDecimal(tbMaxPrice.Text.Trim());
+          myprod.minPrice = Convert.ToDecimal(tbMinPrice.Text.Trim());
+          myprod.previousPrice = myEdit.previousPrice;
+          myprod.groupId = Convert.ToInt16(cbGroup.SelectedValue);
+            myprod.categoryId = Convert.ToInt16(cbCategory2.SelectedValue);
+            myprod.isActive = active;
+          myprod.typeId = Convert.ToInt16(cbType.SelectedValue);
+          myprod.productTypeId = Convert.ToInt16(cbType.SelectedValue);
+          myprod.unitId = Convert.ToInt16(cbUnit.SelectedValue);
+            myprod.createBy = myEdit.createBy;
+            myprod.createTime = myEdit.createTime;
+
+
+            rs = db.updateProduct(myprod);
+
+            //rs.isComplete = true;
+            //rs.message = "บันทึกสำเร็จ";
 
             return rs;
 
@@ -500,7 +463,14 @@ namespace WholeSale.Forms
                 pictureBox1.Image = System.Drawing.Image.FromStream(_MemoryStream);
 
             }
-          
+          //if (myProduct.isActive == null) { this.active = false; }
+          //  else{
+                this.active =(bool) myProduct.isActive;
+          //  }
+
+
+            setButtonActive(active);
+
 
 
 
@@ -621,16 +591,37 @@ pictureBox1.Image = null;
         {
             active = !active;
 
-            if (active) {
+            //if (active) {
+            //    btnActive.BackColor = Color.Green;
+
+
+            //    btnActive.Text = "Active";
+            //} else {
+            //    btnActive.Text = "InActive";
+
+            //    btnActive.BackColor = Color.Red;
+            //}
+
+            setButtonActive(active);
+        }
+
+        private void setButtonActive(bool _active) {
+
+
+            if (_active)
+            {
                 btnActive.BackColor = Color.Green;
 
 
                 btnActive.Text = "Active";
-            } else {
+            }
+            else
+            {
                 btnActive.Text = "InActive";
 
                 btnActive.BackColor = Color.Red;
             }
+
         }
 
         private void btAttachPict_Click(object sender, EventArgs e)

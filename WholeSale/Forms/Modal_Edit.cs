@@ -402,7 +402,7 @@ namespace WholeSale.Forms
 
             if (!myResultCheck.isComplete)
             {
-                mMsgBox.show(myResultCheck.message);
+                mMsgBox.show(myResultCheck.message , Modal_MsgBox.icon.error , "ERROR");
                 //using (Modal_MsgBox msg = new Modal_MsgBox(myResultCheck.message))
                 //{
                 //    msg.StartPosition = FormStartPosition.CenterParent;

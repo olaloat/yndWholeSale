@@ -31,7 +31,10 @@ namespace WholeSale.MyClass
 
         public static string username { get; set; }
 
+        public static int defulatCustId { get; set; }
+
         public enum optionType { ok, okCancel, yseNoOk, holding, openHolding }
+        public enum mode { NEW , EDIT , DELETE}
 
         //public enum mode {SELECT , EDIT , NEW  }
         // public static modeList mode;
@@ -72,9 +75,10 @@ namespace WholeSale.MyClass
 
 
             defultQty = 1;
-            compCode = "";
-            plantCode = "";
-            BranchCode = "";
+            compCode = "001";
+            plantCode = "001";
+            BranchCode = "001";
+            defulatCustId= 1;
         }
 
         public static DataTable ToDataTable<T>(this IList<T> data)

@@ -93,51 +93,85 @@ namespace WholeSale.MyClass
             foreach (PropertyDescriptor prop in properties)
             {
 
-                //if (prop.GetType() == null){
+                //if (prop.Name.ToString().ToUpper() == "")
+                //{
 
                 //    var xxx = 0000;
                 //}
-                try { prop.SetValue(dataOutput, prop.GetValue(data) ?? DBNull.Value); } catch { }
+                try {
+
+
+                    prop.SetValue(dataOutput, prop.GetValue(data) ?? DBNull.Value);
+
+
+                } catch { }
 
                 //   data)!=DBNull.Value) {
 
 
             }
-
-
-
-
-
-
-
-
-
-
-
-
             return dataOutput;
         }
 
 
-        public static T setStadardInfo<T>(T model) where T : new()
+        public static mainResult checkKeyIsAvailabel<T>(this T data , string KeyName ) where T : new()
+        {
+            PropertyDescriptorCollection properties =
+                TypeDescriptor.GetProperties(typeof(T));
+
+            mainResult res = new mainResult();
+
+            foreach (PropertyDescriptor prop in properties)
+            {
+                try {
+                    if (prop.Name.ToString().ToUpper() == KeyName.ToString().ToUpper()) {
+
+
+                        if (prop.GetValue(data) != null) {
+
+                            if ((int)prop.GetValue(data) != 0)
+                            {
+
+                                res = new mainResult() { isComplete = true, status = "OK", message = "is available." };
+                            }
+                        }
+                    }
+                }
+                catch(Exception e){
+
+                    res = new mainResult() { isComplete = false, status = "error", message = "not available." };
+                }
+                
+            }
+            return res;
+        }
+
+
+        public static T setStadardInfo<T>(T model  , global.mode mode = global.mode.NEW) where T : new()
         {
 
             foreach (var property in typeof(T).GetProperties())
             {
-                if (property.Name.ToUpper() == "CREATETIME") // setting value for x
-                {
-                    property.SetValue(model, DateTime.Now);
+
+
+                if (global.mode.NEW == mode) {
+                    if (property.Name.ToUpper() == "CREATETIME") // setting value for x
+                    {
+                        property.SetValue(model, DateTime.Now);
+                    }
+                    if (property.Name.ToUpper() == "CREATEBY") // setting value for x
+                    {
+                        property.SetValue(model, global.username);
+                    }
                 }
+              
                 if (property.Name.ToUpper() == "EDITTIME") // setting value for x
                 {
                     property.SetValue(model, DateTime.Now);
                 }
 
 
-                if (property.Name.ToUpper() == "CREATEBY") // setting value for x
-                {
-                    property.SetValue(model, global.username);
-                }
+              
                 if (property.Name.ToUpper() == "EDITBY") // setting value for x
                 {
                     property.SetValue(model, global.username);

@@ -76,7 +76,7 @@ namespace WholeSale.Forms
             Log.print("Open App");
             global.setParamGlobal();//start global load all master
             Log.print("product master count = " + masterProduct.List.Count.ToString());
-            setGlobalInformation();
+         //   setGlobalInformation();
             setDefult();
 
            // testrun.run();
@@ -93,10 +93,12 @@ namespace WholeSale.Forms
             lbIssueDate.Text =DateTime.Now.ToString("dd.MM.yyyy");
             // setUiDocHeader(fb.MyCustSelected);
 
-            Customer myCust = masterCustomer.List.ToList().Where(w => w.customerId == 1).FirstOrDefault();
+            Customer myCust = masterCustomer.getByID(global.defulatCustId);
+
+        
             setUIcustomer(myCust);
-            DocumentDisplay doc = new DocumentDisplay() { createTime = System.DateTime.Now, status = 0, documentNo = "" };
-            setUiDocHeader(doc);
+          //  DocumentDisplay doc = new DocumentDisplay() { createTime = System.DateTime.Now, status = 0, documentNo = "" };
+            setUiDocHeader(myDocHeader);
         }
 
 
@@ -171,7 +173,8 @@ namespace WholeSale.Forms
         private void setGridAndSummary() {
             UI.setGrid(ref dataGridView2, MydocLine);
         
-            myDocHeader = Operation.setSummaryData( myDocHeader,   MydocLine, myCustomer, myDicount);
+         //   myDocHeader = Operation.setSummaryData( myDocHeader,   MydocLine, myCustomer, myDicount);
+            myDocHeader = Operation.setSummaryData(myDocHeader, MydocLine, myDicount);
             setUiSummary(myDocHeader);
         }
 
@@ -302,7 +305,7 @@ namespace WholeSale.Forms
 
                           //  setProductTolist(tbScan.Text, int.Parse(tbxQty.Text));
                         }
-                        var myCust = masterCustomer.List.Where(w => w.customerId == fb.myDocHeader.customerId).FirstOrDefault();
+                        var myCust = masterCustomer.getByID(fb.myDocHeader.customerId);
                         setUIcustomer(myCust);
                         myDocHeader = new DocumentDisplay();
                         MydocLine = new List<DocumentLineDisplay>();
@@ -325,8 +328,8 @@ namespace WholeSale.Forms
         {
 
 
-            Bill xxx = new Bill();
-            xxx.print();
+            //Bill xxx = new Bill();
+            //xxx.print();
 
             if (MydocLine.Count<=0) { return; }
 
@@ -337,7 +340,15 @@ namespace WholeSale.Forms
 
                 if (rsSelected ==DialogResult.Yes) {
                     //====== disable doc ========================================================================
-                    mainResult rs = db.disableDocuments(myDocHeader.documentId);
+                    //    mainResult rs = db.disableDocumentHeaders(myDocHeader.documentId);
+                    mainResult rs = new mainResult();
+                    Document docupdate = new Document();
+                        docupdate = Util.copyDataFromChildToParentModel(myDocHeader, docupdate);
+                    docupdate = Util.setStadardInfo(docupdate, global.mode.EDIT);
+                    docupdate.DocumentLines = null;
+                    rs = db.updateStatus(docupdate, global.statusList.CLOSE);
+                    
+                  //  mainResult rs =db. updateStatus(myDocHeader)
 
                     if (rs.isComplete)
                     {
@@ -434,6 +445,7 @@ namespace WholeSale.Forms
            branchCode = global.BranchCode,
            createBy = global.username,
             editBy = global.username,
+            customerId=global.defulatCustId
         };
         }
         private void defultGrid() {
@@ -531,7 +543,8 @@ namespace WholeSale.Forms
                 bs.DataSource = MydocLine;
                 dataGridView2.DataSource = bs;
                 dataGridView2.Refresh();
-                myDocHeader = Operation.setSummaryData(myDocHeader ,MydocLine, myCustomer, myDicount);
+                //myDocHeader = Operation.setSummaryData(myDocHeader ,MydocLine, myCustomer, myDicount);
+                myDocHeader = Operation.setSummaryData(myDocHeader, MydocLine, myDicount);
                 setUiSummary(myDocHeader);
             }
         }

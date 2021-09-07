@@ -36,6 +36,12 @@ namespace WholeSale
 
         }
 
+        public static Customer getByID(int id) {
+            return  List.ToList().Where(w => w.customerId == id).FirstOrDefault();
+        }
+
+  
+
     }
 
 }

@@ -189,7 +189,9 @@ namespace WholeSale.Forms
                     string strIndx = dtgCustomer.Rows[e.RowIndex].Cells["customerId"].Value.ToString();
                     int indx =int.Parse(strIndx);
                     //  int indx = (int)strIndx;
-                    MyCustSelected = masterCustomer.List.ToList().Where(w => w.customerId == indx).FirstOrDefault();
+                    MyCustSelected = masterCustomer.getByID(indx);
+
+                    
 
                     isSelected = true;
                     this.Dispose();
