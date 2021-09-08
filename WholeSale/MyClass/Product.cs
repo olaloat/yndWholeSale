@@ -18,6 +18,7 @@ namespace WholeSale
         public string unitName { get; set; }
         public string typeName { get; set; }
         public string categoryName { get; set; }
+        //fadsfasdfsdaf
 
        
 

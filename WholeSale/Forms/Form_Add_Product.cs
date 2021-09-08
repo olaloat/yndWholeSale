@@ -198,11 +198,21 @@ namespace WholeSale.Forms
         {
             prodResultSaveDB rsPrd = new prodResultSaveDB();
             mainResult rsPct = new mainResult();
-            Byte[] btpct = Util.convertImageToByte(pictureBox1);
-            // set instance picture model 
+            Byte[] btpct;
             Picture pct = new Picture();
-            pct = Util.setStadardInfo(pct);
-            pct.image = btpct;
+            if (pictureBox1.Image!=null) {
+
+                btpct = Util.convertImageToByte(pictureBox1);
+                // set instance picture model 
+              
+                pct = Util.setStadardInfo(pct);
+                pct.image = btpct;
+            }
+
+
+
+
+           
          
 
 
