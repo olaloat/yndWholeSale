@@ -81,7 +81,7 @@ namespace WholeSale.Forms
         private mainResult validateSaveProduct(mode modeValidate) {
             mainResult rs = new mainResult();
 
-            if (modeValidate == mode.NEW) { 
+           // if (modeValidate == mode.NEW) { 
             rs = validateDuplicateProductCode();
                  if (!rs.isComplete)
             {
@@ -91,7 +91,7 @@ namespace WholeSale.Forms
                 return rs;
             }
 
-            }
+            //}
 
             if (tbProductCode.Text .ToString().Trim().Length==0)
             {
