@@ -16,6 +16,9 @@ namespace WholeSale.Forms
 {
     public partial class Form_Add_Product : Form
     {
+        /// <summary>
+        ///  hello world
+        /// </summary>
 
         bool isUpPict = false;
         string pathPict = "";

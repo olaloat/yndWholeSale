@@ -503,7 +503,7 @@ namespace WholeSale.Forms
                 fb.StartPosition = FormStartPosition.CenterParent;
                 fb.ShowDialog();
                 rs.isComplete = fb.payComplete;
-                setDefult();
+                if (rs.isComplete) { setDefult(); }
             }
         }
 
