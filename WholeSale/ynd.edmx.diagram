@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="33c63e7d85744df7b1520d563f267659" Name="Diagram1">
+        <EntityTypeShape EntityType="ynddevModel.AccountReceive" Width="1.5" PointX="10.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Branch" Width="1.5" PointX="5.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Brand" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Category" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Company" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Customer" Width="1.5" PointX="8.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Device" Width="1.5" PointX="0.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Document" Width="1.5" PointX="3.75" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.DocumentLine" Width="1.5" PointX="6" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Employee" Width="1.5" PointX="13.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Group" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Invoice" Width="1.5" PointX="13.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.InvoiceLine" Width="1.5" PointX="15.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.MovementType" Width="1.5" PointX="6" PointY="22.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Order" Width="1.5" PointX="11" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.OrderLine" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.OrderType" Width="1.5" PointX="8.75" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Product" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.ProductType" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Route" Width="1.5" PointX="8.75" PointY="23.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.sysdiagram" Width="1.5" PointX="15.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Transaction" Width="1.5" PointX="8.25" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Type" Width="1.5" PointX="15.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Unit" Width="1.5" PointX="10.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ynddevModel.Vendor" Width="1.5" PointX="8.75" PointY="27.125" IsExpanded="true" />
+        <AssociationConnector Association="ynddevModel.FK_Product_categorey" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_Order_customer" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_DocumentLine_Document" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_transaction_DocumentLine" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_Product_group" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_transaction_movement" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_Order_Line" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_Order_route" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_Order_type" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_Order_vendor" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_Product_productType" ManuallyRouted="false" />
+        <AssociationConnector Association="ynddevModel.FK_transaction_product" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ynddevModel.Picture" Width="1.5" PointX="16.375" PointY="16.75" />
+        <EntityTypeShape EntityType="ynddevModel.Balance" Width="1.5" PointX="5.25" PointY="27.75" />
+        <AssociationConnector Association="ynddevModel.FK_balance_product" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

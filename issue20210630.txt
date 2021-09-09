@@ -1,0 +1,2 @@
+validate select form combobox
+จ่ายเงินไม่สำเร็จไม่ต้อง clear ทิ้ง
