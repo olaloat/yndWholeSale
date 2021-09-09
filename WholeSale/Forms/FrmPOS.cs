@@ -147,7 +147,8 @@ namespace WholeSale.Forms
         }
 
 
-        private void setProductTolist(string prdCode , int qty) {
+        private void setProductTolist(string prdCode, int qty)
+        {
             Product myProd = scan(prdCode, qty);
             if (!myProd.myResult.isComplete)
             {
@@ -163,12 +164,13 @@ namespace WholeSale.Forms
                 else
                 {
                     MydocLine = Operation.updateDocline(MydocLine, myProd);
-                }
-                setGridAndSummary();
-            }
-            setDefultScan();
-        }
 
+                }
+                    setGridAndSummary();
+            
+                setDefultScan();
+            }
+        }
 
         private void setGridAndSummary() {
             UI.setGrid(ref dataGridView2, MydocLine);
@@ -503,7 +505,7 @@ namespace WholeSale.Forms
                 fb.StartPosition = FormStartPosition.CenterParent;
                 fb.ShowDialog();
                 rs.isComplete = fb.payComplete;
-                setDefult();
+              if (rs.isComplete)  setDefult();
             }
         }
 

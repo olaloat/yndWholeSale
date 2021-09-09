@@ -413,8 +413,10 @@ namespace WholeSale.Forms
             }
             else
             {
-                foreach (DocumentLineDisplay a in listEdited) {
-                    if (a.productId == productIDSelect) {
+                foreach (DocumentLineDisplay a in listEdited)
+                {
+                    if (a.productId == productIDSelect)
+                    {
                         decimal discountUnit = a.unitPrice - decimal.Parse(tbxPrice.Text.ToString());
                         a.qty = int.Parse(tbxQty.Text.ToString());
                         a.discountUnit = discountUnit;
@@ -424,6 +426,9 @@ namespace WholeSale.Forms
                     }
 
                 }
+                //20210909
+              //  listEdited = Operation.calDocLine(listEdited, productIDSelect, int.Parse(tbxQty.Text.ToString()), decimal.Parse(tbxPrice.Text.ToString()));
+
                 this.Dispose();
             }
 

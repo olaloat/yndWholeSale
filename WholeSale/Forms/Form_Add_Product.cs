@@ -212,14 +212,14 @@ namespace WholeSale.Forms
 
 
 
-           
-         
 
 
 
+
+     
 
             if (activeMode == mode.NEW) {
-                tbProductCode.ReadOnly = false;
+              
               mainResult   rsVld  = validateSaveProduct(activeMode);
                 if (!rsVld.isComplete)
                 {
@@ -251,7 +251,7 @@ namespace WholeSale.Forms
 
             }
             else if (activeMode == mode.EDIT) {
-                tbProductCode.ReadOnly = true;
+              
                 mainResult rsVld = validateSaveProduct(activeMode);
                 if (!rsVld.isComplete)
                 {
@@ -278,9 +278,11 @@ namespace WholeSale.Forms
 
                
             }
-                mMsgBox.show(rsPct.message);
+              
             if (rsPct.isComplete)
             {
+
+                mMsgBox.show("successfully.");
                 isActionComplete = true;
                 Operation.loadProduct();
                 this.Dispose();
@@ -511,7 +513,8 @@ namespace WholeSale.Forms
             clearControl();
             if (activeMode == mode.NEW) {
                 myProduct = new Product();
-             //   clearControl();
+                //   clearControl();
+                tbProductCode.ReadOnly = false;
             }
 
             if (activeMode == mode.EDIT) {
@@ -519,6 +522,7 @@ namespace WholeSale.Forms
                 myProduct =  loadProduct(productId);
                 myPicture = loadPicture(productId);
                 setProdToControl();
+                tbProductCode.ReadOnly = true;
             }
         }
         private Product loadProduct(int id) {

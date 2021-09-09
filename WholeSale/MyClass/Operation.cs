@@ -27,6 +27,52 @@ namespace WholeSale
 
         }// load master product
 
+        public static List<DocumentLineDisplay> calDocLineList(List<DocumentLineDisplay> docList   ,int prodId , int qty , decimal newPrice) {
+
+            foreach (DocumentLineDisplay a in docList)
+            {
+                if (a.productId == prodId)
+                {
+                    //decimal discountUnit = a.unitPrice - newPrice;
+                    //a.qty = qty;
+                    //a.discountUnit = discountUnit;
+                    //a.totalPriceBeforeDiscount = a.qty * a.unitPrice;
+                    //a.totalDiscount = a.qty * discountUnit;
+                    //a.totalPriceAfterDiscount = a.totalPriceBeforeDiscount - a.totalDiscount;
+
+                    DocumentLineDisplay newDocLine = calDocLine(a, newPrice, qty);
+                   int  index = docList.IndexOf(a);
+                    docList[index] = newDocLine;
+                
+
+                }
+
+            }
+
+
+                return docList;
+        }
+
+
+        public static  DocumentLineDisplay calDocLine( DocumentLineDisplay docLine, Decimal newPice=0  , int qty =0)
+        {
+
+         
+                    decimal discountUnit = docLine.unitPrice - newPice;
+                  docLine.qty = qty;
+                  docLine.discountUnit = discountUnit;
+                  docLine.totalPriceBeforeDiscount = docLine.qty * docLine.unitPrice;
+                  docLine.totalDiscount = docLine.qty * discountUnit;
+            docLine.totalPriceAfterDiscount = docLine.totalPriceBeforeDiscount - docLine.totalDiscount;
+             
+
+
+            return docLine;
+        }
+
+
+
+
         public static mainResult holdNewBill(  Bill myBill )//Document docHeader, List<DocumentLine> docuemntLineList)
         {
             //===== status defualt  = hodl ==============
@@ -243,11 +289,18 @@ namespace WholeSale
             var myFilterDocList = list.Where(w => w.productId == prd.productId).Count();
             if (myFilterDocList > 0) {
 
-                foreach (DocumentLineDisplay us in list.Where(u => u.productId == prd.productId))
-                {
-                    us.qty += prd.qty;
-                    us.totalPriceBeforeVat = (us.qty) * prd.price;
-                };
+                //foreach (DocumentLineDisplay us in list.Where(u => u.productId == prd.productId))
+                //{
+                //    us.qty += prd.qty;
+                //    // us.totalPriceBeforeVat = (us.qty) * prd.price;
+
+                //    calDocLine(MydocLine, myProd.productId, qty, decimal.Parse(0.ToString()));
+                //}
+                DocumentLineDisplay edit = list.Where(u => u.productId == prd.productId).FirstOrDefault();
+              int idxEdit =  list.IndexOf(edit);
+                DocumentLineDisplay edited = Operation.calDocLine(edit, prd.price, edit.qty + prd.qty);
+                list[idxEdit] = edited;
+          
 
 
             }
