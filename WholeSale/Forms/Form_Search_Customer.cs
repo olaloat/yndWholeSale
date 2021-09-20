@@ -179,7 +179,9 @@ namespace WholeSale.Forms
 
         private void dtgCustomer_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+
+            try {
+            if (e.RowIndex >= 0 && e.ColumnIndex >=0)
             {
 
                 string columnButonName = dtgCustomer.Columns[e.ColumnIndex].HeaderText.ToString().ToUpper();
@@ -233,7 +235,14 @@ namespace WholeSale.Forms
 
 
 
+            }
+            catch (Exception err)
+            {
 
+
+
+                mMsgBox.show(err.Message.ToString(), Modal_MsgBox.icon.error, "ERROR");
+            }
 
 
         }

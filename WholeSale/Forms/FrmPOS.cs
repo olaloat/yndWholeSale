@@ -29,6 +29,7 @@ namespace WholeSale.Forms
 
 
             InitializeComponent();
+        
         }
 
         protected override CreateParams CreateParams
@@ -62,6 +63,7 @@ namespace WholeSale.Forms
         private void button10_Click(object sender, EventArgs e)
         {
             this.Dispose();
+            focusDefaultTextBox();
         }
 
         private void FrmPOS_LOAD(object sender, EventArgs e)
@@ -79,6 +81,7 @@ namespace WholeSale.Forms
          //   setGlobalInformation();
             setDefult();
 
+
            // testrun.run();
         }
 
@@ -94,11 +97,12 @@ namespace WholeSale.Forms
             // setUiDocHeader(fb.MyCustSelected);
 
             Customer myCust = masterCustomer.getByID(global.defulatCustId);
+            myDocHeader.createTime = DateTime.Now;
 
-        
             setUIcustomer(myCust);
           //  DocumentDisplay doc = new DocumentDisplay() { createTime = System.DateTime.Now, status = 0, documentNo = "" };
             setUiDocHeader(myDocHeader);
+            focusDefaultTextBox();
         }
 
 
@@ -138,6 +142,7 @@ namespace WholeSale.Forms
             {
                 mMsgBox.show("ไม่มีรายการสินค้า", Modal_MsgBox.icon.error);
             }
+            focusDefaultTextBox();
         }
 
 
@@ -152,7 +157,9 @@ namespace WholeSale.Forms
             Product myProd = scan(prdCode, qty);
             if (!myProd.myResult.isComplete)
             {
-                mMsgBox.show(myProd.myResult.message);
+                mMsgBox.show(myProd.myResult.message,Modal_MsgBox.icon.error);
+
+              
             }
             else
             {
@@ -168,8 +175,10 @@ namespace WholeSale.Forms
                 }
                     setGridAndSummary();
             
-                setDefultScan();
+             
             }
+
+            setDefultScan();
         }
 
         private void setGridAndSummary() {
@@ -186,6 +195,7 @@ namespace WholeSale.Forms
             {
                 setProductTolist(tbScan.Text, int.Parse(tbxQty.Text));
             }
+            focusDefaultTextBox();
         }
 
         private void btSearchProduct_Click(object sender, EventArgs e)
@@ -201,23 +211,28 @@ namespace WholeSale.Forms
                     {
                         tbScan.Text = code;
                         setProductTolist(code , int.Parse(tbxQty.Text));
+                  
 
-                     
                     }
                 }
+              
             }
 
 
 
             //===========================
-          //  List<document xxx =Util. copyDataFromChildToParentModel(MydocLine);
+            //  List<document xxx =Util. copyDataFromChildToParentModel(MydocLine);
 
 
-
+            focusDefaultTextBox();
             //===========================
         }
 
+        private void focusDefaultTextBox() {
+            tbScan.Focus();
 
+
+        }
         private void setUIcustomer(Customer selectedCustomer) {
             if (selectedCustomer == null) return;
             lbCustomer.Text = selectedCustomer.customerName.ToString();
@@ -237,7 +252,7 @@ namespace WholeSale.Forms
                 {
                     //myDocHeader = fb.MyCustSelected;
                     myCustomer = fb.MyCustSelected;
-                    myDocHeader = Operation.setCustIdToDocument(myDocHeader, fb.MyCustSelected.customerId);
+                    myDocHeader = Operation.setCustIdToDocument(myDocHeader, fb.MyCustSelected);
                     setUIcustomer(fb.MyCustSelected);
 
 
@@ -246,6 +261,8 @@ namespace WholeSale.Forms
 
 
             }
+
+            focusDefaultTextBox();
         }
 
 
@@ -320,13 +337,11 @@ namespace WholeSale.Forms
                     }
                 }
             }
+
+            focusDefaultTextBox();
         }
 
         private void btCancel_Click(object sender, EventArgs e)
-
-
-
-
         {
 
 
@@ -382,13 +397,13 @@ namespace WholeSale.Forms
 
 
             }
-       
-
-         
 
 
 
 
+
+
+            focusDefaultTextBox();
 
         }
 
@@ -402,6 +417,7 @@ namespace WholeSale.Forms
                     fb.ShowDialog();
                     if (fb.isOkClick) {
                         myDocHeader = fb.DocumentHeader;
+                        setUiSummary(myDocHeader);
                         OpenPayment();
                     }
                 }
@@ -410,6 +426,7 @@ namespace WholeSale.Forms
             {
                 mMsgBox.show("ไม่มีรายการสินค้า", Modal_MsgBox.icon.error);
             }
+            focusDefaultTextBox();
         }
         #endregion
 
@@ -418,8 +435,8 @@ namespace WholeSale.Forms
 
         private Product scan(string prdCode, int qty) {
             Product myPrd = new Product();
-            if (masterProduct.List.Where(w => w.productCode == prdCode).ToList().Count > 0) {
-                myPrd = masterProduct.List.Where(w => w.productCode == prdCode).FirstOrDefault();
+            if (masterProduct.List.Where(w => w.productCode == prdCode && w.isActive ==true).ToList().Count > 0) {
+                myPrd = masterProduct.List.Where(w => w.productCode == prdCode && w.isActive == true).FirstOrDefault();
                 myPrd.qty = qty;
                 myPrd.myResult = new mainResult();
                 myPrd.myResult.isComplete = true;
@@ -428,6 +445,7 @@ namespace WholeSale.Forms
                 myPrd.myResult = new mainResult();
                 myPrd.myResult.isComplete = false;
                 myPrd.myResult.message = "ไม่พบรายการสินค้าที่ท่านสแกน";
+           
             }
             return myPrd;
         }
@@ -549,6 +567,7 @@ namespace WholeSale.Forms
                 myDocHeader = Operation.setSummaryData(myDocHeader, MydocLine, myDicount);
                 setUiSummary(myDocHeader);
             }
+            focusDefaultTextBox();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -570,7 +589,9 @@ namespace WholeSale.Forms
                 fb.StartPosition = FormStartPosition.CenterParent;
                 fb.ShowDialog();
 
+
             }
+            focusDefaultTextBox();
         }
     }
 

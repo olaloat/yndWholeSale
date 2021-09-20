@@ -110,7 +110,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!customerName.Value, "dsHeader")</Value>
+                <Value></Value>
                 <Style />
               </TextRun>
             </TextRuns>

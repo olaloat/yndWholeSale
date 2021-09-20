@@ -37,12 +37,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.cbType = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.tbProdCode = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.cbCatagory = new System.Windows.Forms.ComboBox();
+            this.cbType = new System.Windows.Forms.ComboBox();
+            this.cbCate = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btNew = new System.Windows.Forms.Button();
@@ -96,9 +95,9 @@
             // 
             // tbProdName
             // 
-            this.tbProdName.Location = new System.Drawing.Point(203, 23);
+            this.tbProdName.Location = new System.Drawing.Point(3, 23);
             this.tbProdName.Name = "tbProdName";
-            this.tbProdName.Size = new System.Drawing.Size(294, 27);
+            this.tbProdName.Size = new System.Drawing.Size(194, 27);
             this.tbProdName.TabIndex = 6;
             this.tbProdName.TextChanged += new System.EventHandler(this.tbProdName_TextChanged);
             // 
@@ -129,25 +128,6 @@
             this.label7.TabIndex = 7;
             this.label7.Text = "Catagory";
             // 
-            // cbType
-            // 
-            this.cbType.FormattingEnabled = true;
-            this.cbType.Location = new System.Drawing.Point(703, 23);
-            this.cbType.Name = "cbType";
-            this.cbType.Size = new System.Drawing.Size(194, 29);
-            this.cbType.TabIndex = 18;
-            this.cbType.SelectedIndexChanged += new System.EventHandler(this.cbType_SelectedIndexChanged);
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(903, 23);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(194, 29);
-            this.comboBox2.TabIndex = 20;
-            this.comboBox2.Visible = false;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -160,7 +140,7 @@
             // 
             // tbProdCode
             // 
-            this.tbProdCode.Location = new System.Drawing.Point(3, 23);
+            this.tbProdCode.Location = new System.Drawing.Point(203, 23);
             this.tbProdCode.Name = "tbProdCode";
             this.tbProdCode.Size = new System.Drawing.Size(194, 27);
             this.tbProdCode.TabIndex = 4;
@@ -175,15 +155,14 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel1.Controls.Add(this.cbType, 3, 1);
+            this.tableLayoutPanel1.Controls.Add(this.cbCate, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.label8, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.tbProdName, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label6, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label7, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cbType, 2, 1);
-            this.tableLayoutPanel1.Controls.Add(this.comboBox2, 3, 1);
             this.tableLayoutPanel1.Controls.Add(this.label9, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cbCatagory, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.tbProdCode, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(7, 42);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -193,14 +172,25 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1124, 63);
             this.tableLayoutPanel1.TabIndex = 29;
             // 
-            // cbCatagory
+            // cbType
             // 
-            this.cbCatagory.FormattingEnabled = true;
-            this.cbCatagory.Location = new System.Drawing.Point(503, 23);
-            this.cbCatagory.Name = "cbCatagory";
-            this.cbCatagory.Size = new System.Drawing.Size(194, 29);
-            this.cbCatagory.TabIndex = 12;
-            this.cbCatagory.SelectedIndexChanged += new System.EventHandler(this.cbCatagory_SelectedIndexChanged);
+            this.cbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbType.FormattingEnabled = true;
+            this.cbType.Location = new System.Drawing.Point(703, 23);
+            this.cbType.Name = "cbType";
+            this.cbType.Size = new System.Drawing.Size(189, 29);
+            this.cbType.TabIndex = 1;
+            this.cbType.SelectedIndexChanged += new System.EventHandler(this.cbType_SelectedIndexChanged_1);
+            // 
+            // cbCate
+            // 
+            this.cbCate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbCate.FormattingEnabled = true;
+            this.cbCate.Location = new System.Drawing.Point(503, 23);
+            this.cbCate.Name = "cbCate";
+            this.cbCate.Size = new System.Drawing.Size(194, 29);
+            this.cbCate.TabIndex = 1;
+            this.cbCate.SelectedIndexChanged += new System.EventHandler(this.cbCate_SelectedIndexChanged);
             // 
             // panel3
             // 
@@ -369,12 +359,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cbType;
-        private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox tbProdCode;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.ComboBox cbCatagory;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btNew;
@@ -387,5 +374,7 @@
         private System.Windows.Forms.BindingSource productBindingSource;
         private System.Windows.Forms.Panel pnGrid;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ComboBox cbType;
+        private System.Windows.Forms.ComboBox cbCate;
     }
 }

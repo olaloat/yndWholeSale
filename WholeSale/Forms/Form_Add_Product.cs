@@ -36,10 +36,62 @@ namespace WholeSale.Forms
         public Form_Add_Product(mode activeMode = mode.NEW)
 
         {
+          
             this.activeMode = activeMode;
             this.pathPict = "";
        
             InitializeComponent();
+            setTabIndex();
+        }
+
+
+        private void setTabIndex()
+        {
+            int idx = 0;
+            tbProductCode.TabIndex = idx;
+            idx += 1;
+            tbProductName.TabIndex = idx;
+            idx += 1;
+            cbCategory2.TabIndex = idx;
+            idx += 1;
+            cbType.TabIndex = idx;
+            idx += 1;
+            cbGroup.TabIndex = idx;
+            idx += 1;
+            tbPrice.TabIndex = idx;
+            idx += 1;
+            tbMaxPrice.TabIndex = idx;
+            idx += 1;
+            tbMinPrice.TabIndex = idx;
+            idx += 1;
+            cbUnit.TabIndex = idx;
+            idx += 1;
+            tbStandardPack.TabIndex = idx;
+         
+            idx += 1;
+            tbMFG.TabIndex = idx;
+            idx += 1;
+            tbSupplier.TabIndex = idx;
+            idx += 1;
+            tbxPath.TabIndex = idx;
+            idx += 1;
+            btnActive.TabIndex = idx;
+            idx += 1;
+            btnExp .TabIndex = idx;
+            idx += 1;
+            BtnReqSN.TabIndex = idx;
+            idx += 1;
+
+            btnCancel.TabIndex = idx;
+            idx += 1;
+            btClear.TabIndex = idx;
+            idx += 1;
+
+            btSave.TabIndex = idx;
+            idx += 1;
+
+
+
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -81,7 +133,7 @@ namespace WholeSale.Forms
         private mainResult validateSaveProduct(mode modeValidate) {
             mainResult rs = new mainResult();
 
-           // if (modeValidate == mode.NEW) { 
+            if (modeValidate == mode.NEW) { 
             rs = validateDuplicateProductCode();
                  if (!rs.isComplete)
             {
@@ -91,7 +143,7 @@ namespace WholeSale.Forms
                 return rs;
             }
 
-            //}
+            }
 
             if (tbProductCode.Text .ToString().Trim().Length==0)
             {
@@ -198,6 +250,7 @@ namespace WholeSale.Forms
         {
             prodResultSaveDB rsPrd = new prodResultSaveDB();
             mainResult rsPct = new mainResult();
+            mainResult rsVld = new mainResult();
             Byte[] btpct;
             Picture pct = new Picture();
             if (pictureBox1.Image!=null) {
@@ -220,7 +273,7 @@ namespace WholeSale.Forms
 
             if (activeMode == mode.NEW) {
               
-              mainResult   rsVld  = validateSaveProduct(activeMode);
+                 rsVld  = validateSaveProduct(activeMode);
                 if (!rsVld.isComplete)
                 {
                     mMsgBox.show(rsVld.message,Modal_MsgBox.icon.error,"Error");
@@ -252,7 +305,7 @@ namespace WholeSale.Forms
             }
             else if (activeMode == mode.EDIT) {
               
-                mainResult rsVld = validateSaveProduct(activeMode);
+                 rsVld = validateSaveProduct(activeMode);
                 if (!rsVld.isComplete)
                 {
                     mMsgBox.show(rsVld.message, Modal_MsgBox.icon.error, "Error");
@@ -279,10 +332,10 @@ namespace WholeSale.Forms
                
             }
               
-            if (rsPct.isComplete)
+            if (rsVld.isComplete)
             {
 
-                mMsgBox.show("successfully.");
+                mMsgBox.show(rsVld.message);
                 isActionComplete = true;
                 Operation.loadProduct();
                 this.Dispose();
@@ -511,6 +564,7 @@ namespace WholeSale.Forms
         {
             setMaster();
             clearControl();
+          
             if (activeMode == mode.NEW) {
                 myProduct = new Product();
                 //   clearControl();
@@ -524,6 +578,7 @@ namespace WholeSale.Forms
                 setProdToControl();
                 tbProductCode.ReadOnly = true;
             }
+            setTabIndex();
         }
         private Product loadProduct(int id) {
             ynd myEn = new ynd();
@@ -563,7 +618,7 @@ namespace WholeSale.Forms
             cbUnit.SelectedValue = myProduct.unitId;
             tbMFG.Text = "";
             tbSupplier.Text = "";
-            pictureBox1.Image = null;
+           // pictureBox1.Image = null;
             tbxPath.Text = "";
 
 
@@ -663,7 +718,7 @@ namespace WholeSale.Forms
 
 
         private void clearControl() {
-            tbProductCode.Text = "";
+            if (activeMode == mode.NEW) tbProductCode.Text = "";
 tbProductName.Text = "";
             cbCategory2.SelectedIndex = -1;
             cbType.SelectedIndex = -1;
@@ -675,7 +730,7 @@ cbGroup.SelectedIndex = -1;
 cbUnit.SelectedIndex = -1;
             tbMFG.Text = "";
             tbSupplier.Text = "";
-pictureBox1.Image = null;
+//pictureBox1.Image = null;
             tbxPath.Text = "";
 
 

@@ -77,6 +77,12 @@ namespace WholeSale
         {
             //===== status defualt  = hodl ==============
             myBill. docHeader.status = (int)global.statusList.HOLD;
+
+
+         
+
+
+
             var docResult = db.insertDocHeader(myBill.docHeader);
             var docLineResult = db.insertDocline(myBill.docLine, myBill. docHeader.documentId);
 
@@ -149,13 +155,13 @@ namespace WholeSale
              documentHeader. totalPriceAfterDiscountLine = totalPriceAfterDiscount;
              documentHeader. totalPriceAfterAllDiscount = totalPriceAfterDiscountLine;
              documentHeader. totalPriceBeforeVat = totalPriceBeforeVat;
-             documentHeader. createTime = DateTime.UtcNow;
+             documentHeader. createTime = DateTime.Now;
             // documentHeader. customerId = customerId;
              //documentHeader. documentId = 0;
              documentHeader. DocumentLines = null;
-             documentHeader. documentNo = "";
+            // documentHeader. documentNo = "";
              documentHeader. editBy = "";
-             documentHeader. editTime = DateTime.UtcNow;
+             documentHeader. editTime = DateTime.Now;
              documentHeader. isActive = true;
              documentHeader. isOrder = true;
              documentHeader. isTax = true;
@@ -425,8 +431,10 @@ namespace WholeSale
 
         }
 
-        public static DocumentDisplay setCustIdToDocument(DocumentDisplay myDocHeader , int custId) {
-            myDocHeader.customerId = custId;
+        public static DocumentDisplay setCustIdToDocument(DocumentDisplay myDocHeader , Customer myCust) {
+            myDocHeader.customerId = myCust.customerId;
+            myDocHeader.customerName = myCust.customerName;
+            myDocHeader.address1 = myCust.address1;
 
             return myDocHeader;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,28 +41,72 @@ namespace WholeSale
             mydoc.myResult = null;
             mydoc.documentId = 0;
             string docNum = "";
-            var lastDoc = (yndEn.Documents.Max(m => m.documentNo));
-            if (lastDoc == null) { lastDoc = ""; } else { }
-            int docHID = 0;
-            if (lastDoc == "")
+
+            try
             {
-                docNum = DateTime.Now.ToString("yyyyMMddHHmmss") + "0001";
+                var lastDoc = (yndEn.Documents.Max(m => m.documentNo));
+                if (lastDoc == null) { lastDoc = ""; } else { }
+                int docHID = 0;
+                if (lastDoc == "")
+                {
+                    docNum = DateTime.Now.ToString("yyyyMMddHHmmss") + "0001";
+                }
+                else
+                {
+                    int lasteRunning = Convert.ToInt16(lastDoc.Substring(lastDoc.Length - 4, 4));
+                    docNum = DateTime.Now.ToString("yyyyMMddHHmmss") + (lasteRunning + 1).ToString("000#");
+                }
+
+                if (mydoc.documentNo != null)
+                {
+
+                    if (mydoc.documentNo.ToString().Trim().Length != 0)
+                    {
+
+                        mydoc.documentNo = mydoc.documentNo;
+                    }
+                    else
+                    {
+                        mydoc.documentNo = docNum;
+                    }
+                }
+                else {
+
+                    mydoc.documentNo = docNum;
+
+                }
+
+
+                // mydoc.documentNo = docNum;
+                Document docAdd = new Document();
+                docAdd = Util.copyDataFromChildToParentModel(mydoc, docAdd);
+                docAdd.documentId = 0;
+                if (docAdd.DocumentLines != null) { docAdd.DocumentLines = null; }
+                docAdd = Util.setStadardInfo(docAdd, global.mode.NEW);
+              
+                yndEn.Documents.Add(docAdd);
+                yndEn.SaveChanges();
+                mydoc.documentId = docAdd.documentId;
+                mydoc.myResult = new mainResult() { isComplete = true, message = "OK", status = "OK" };
+                return mydoc;
+
+
             }
-            else
+            catch (DbEntityValidationException e)
             {
-                int lasteRunning = Convert.ToInt16(lastDoc.Substring(lastDoc.Length - 4, 4));
-                docNum = DateTime.Now.ToString("yyyyMMddHHmmss") + (lasteRunning + 1).ToString("000#");
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+            //   mydoc = new mainResult() { isComplete = false, message = "Error :" + e.Message, status = "ERROR" };
+                return mydoc;
             }
-            mydoc.documentNo = docNum;
-            Document docAdd = new Document();
-            docAdd = Util.copyDataFromChildToParentModel(mydoc, docAdd);
-            docAdd.documentId = 0;
-            if (docAdd.DocumentLines != null) { docAdd.DocumentLines = null; }
-            yndEn.Documents.Add(docAdd);
-            yndEn.SaveChanges();
-            mydoc.documentId = docAdd.documentId;
-            mydoc.myResult = new mainResult() { isComplete =true , message ="OK" , status ="OK"};
-            return mydoc;
         }
 
         public static mainResult insertPaymentAr(Bill myBill , int docId)
@@ -207,45 +252,68 @@ namespace WholeSale
 
             try
             {
-                using (var context = new ynd())
-                {
 
-                    foreach (var myCustUpdate in context.Customers.Where(p => p.customerId == myCutEdit.customerId).ToList())
-                    {
-                        myCustUpdate.customerName = myCutEdit.customerName;
-                              myCustUpdate.    customerLevel = myCutEdit              .customerLevel  ;
-                              myCustUpdate.    contactName = myCutEdit                .contactName    ;
-                              myCustUpdate.    address1 = myCutEdit                   .address1       ;
-                              myCustUpdate.    address2 = myCutEdit                   .address2       ;
-                              myCustUpdate.    city = myCutEdit                       .city           ;
-                              myCustUpdate.    tel = myCutEdit                        .tel            ;
-                              myCustUpdate.    fax = myCutEdit                        .fax            ;
-                              myCustUpdate.    customerCurPnt  = myCutEdit            .customerCurPnt ;
-                              myCustUpdate.    postal = myCutEdit                     .postal         ;
-                        myCustUpdate.    mobile = myCutEdit                     .mobile         ;
-                        myCustUpdate.    email = myCutEdit                      .email          ;
-                        myCutEdit.customerTolPnt = myCutEdit.customerTolPnt;
+                ynd context = new ynd();
+                context.Customers.Add(myCutEdit);
+                context.Entry(myCutEdit).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
 
+                //using (var context = new ynd())
+                //{
+                   
 
-
-                        context.SaveChanges();
-
-                    }
-
-
-
+                //    //foreach (var myCustUpdate in context.Customers.Where(p => p.customerId == myCutEdit.customerId).ToList())
+                //    //{
+                //    //    myCustUpdate.customerName = myCutEdit.customerName;
+                //    //          myCustUpdate.    customerLevel = myCutEdit              .customerLevel  ;
+                //    //          myCustUpdate.    contactName = myCutEdit                .contactName    ;
+                //    //          myCustUpdate.    address1 = myCutEdit                   .address1       ;
+                //    //          myCustUpdate.    address2 = myCutEdit                   .address2       ;
+                //    //          myCustUpdate.    city = myCutEdit                       .city           ;
+                //    //          myCustUpdate.    tel = myCutEdit                        .tel            ;
+                //    //          myCustUpdate.    fax = myCutEdit                        .fax            ;
+                //    //          myCustUpdate.    customerCurPnt  = myCutEdit            .customerCurPnt ;
+                //    //          myCustUpdate.    postal = myCutEdit                     .postal         ;
+                //    //    myCustUpdate.    mobile = myCutEdit                     .mobile         ;
+                //    //    myCustUpdate.    email = myCutEdit                      .email          ;
+                //    //    myCutEdit.customerTolPnt = myCutEdit.customerTolPnt;
 
 
-                }
+
+                //      //  context.SaveChanges();
+
+                //  //  }
+
+
+
+
+
+                //}
 
             }
-            catch (Exception e)
+
+            catch (DbEntityValidationException e)
             {
-
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
                 rs = new mainResult() { isComplete = false, message = "Error :" + e.Message, status = "ERROR" };
-                return rs;
-
+                    return rs;
             }
+            //catch (Exception e)
+            //{
+
+            //    rs = new mainResult() { isComplete = false, message = "Error :" + e.Message, status = "ERROR" };
+            //    return rs;
+
+            //}
 
 
             rs = new mainResult() { isComplete = true, message = "ทำรายการสำเร็จ", status = "OK" };

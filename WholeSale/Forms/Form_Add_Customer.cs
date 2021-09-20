@@ -22,10 +22,41 @@ namespace WholeSale.Forms
 
         public bool IsUpdateComplete { get; set; }
 
+        private void setTabIndex() {
+            //int idx = 0;
+            //tbCustName.TabIndex = idx;
+            //idx += 1;
+            //tbCustLevel.TabIndex = idx;
+            //idx += 1;
+            //tbContactName.TabIndex = idx;
+            //idx += 1;
+            //tbAddress1.TabIndex = idx;
+            //idx += 1;
+            //tbAddress2.TabIndex = idx;
+            //idx += 1;
+            //tbCity.TabIndex = idx;
+            //idx += 1;
+            //tbPostal.TabIndex = idx;
+            //idx += 1;
+            //tbTel.TabIndex = idx;
+            //idx += 1;
+            //tbMobile.TabIndex = idx;
+            //idx += 1;
+            //tbFax.TabIndex = idx;
+            //idx += 1;
+            //tbEmail.TabIndex = idx;
+            //idx += 1;
+            //tbCurPnt.TabIndex = idx;
+            //idx += 1;
+            //tbTolPnt.TabIndex = idx;
+            //idx += 1;
 
+
+
+        }
         public Form_Add_Customer(option.mode mode = option.mode.NEW )
         {
-
+            setTabIndex();
             this.activeMode = mode;
             InitializeComponent();
         }
@@ -74,20 +105,20 @@ namespace WholeSale.Forms
             }
 
 
-            mMsgBox.show(rs.message);
+         
             if (rs.isComplete) {
 
 
 
                 IsUpdateComplete = true;
-             //   Operation.loadCustomer();
+                //   Operation.loadCustomer();
 
-
+                mMsgBox.show(rs.message);
 
                 this.Dispose();
 
             } else {
-
+                mMsgBox.show(rs.message , Modal_MsgBox.icon.error);
                 IsUpdateComplete = false;
             }
          
@@ -101,31 +132,53 @@ namespace WholeSale.Forms
             try
             {
 
-                //Customer cust = new Customer()
+                Customer cust = new Customer()
+                {
+                    customerId = myCustomer.customerId,
+                    customerName = tbCustName.Text.Trim(),
+                    customerLevel = int.Parse(tbCustLevel.Text.ToString().Trim()),
+                    contactName = tbContactName.Text.Trim(),
+                    address1 = tbAddress1.Text.Trim(),
+                    address2 = tbAddress2.Text.Trim(),
+                    city = tbCity.Text.Trim(),
+                    tel = tbTel.Text.Trim(),
+                    fax = tbFax.Text.Trim(),
+                    customerCurPnt = int.Parse(tbCurPnt.Text.ToString().Trim()),
+                    postal = tbPostal.Text.Trim(),
+                    mobile = tbMobile.Text.Trim(),
+                    email = tbEmail.Text.Trim(),
+                    customerTolPnt = int.Parse(tbTolPnt.Text.ToString().Trim()),
+                      createBy = myCustomer.createBy,
+                    createTime = myCustomer.createTime,
+                };
+
+
+
                 //{
-                myCustomer. customerName = tbCustName.Text.Trim();
-                 myCustomer.  customerLevel = Convert.ToInt16(tbCustLevel.Text.ToString().Trim());
-                 myCustomer.  contactName = tbContactName.Text.Trim();
-                 myCustomer.  address1 = tbAddress1.Text.Trim();
-                 myCustomer.  address2 = tbAddress2.Text.Trim();
-                 myCustomer.  city = tbCity.Text.Trim();
-                 myCustomer.  tel = tbTel.Text.Trim();
-                 myCustomer.  fax = tbFax.Text.Trim();
-                 myCustomer.  customerCurPnt = Convert.ToInt16(tbCurPnt.Text.ToString().Trim());
-                 myCustomer.  postal = tbPostal.Text.Trim();
-                 myCustomer.  mobile = tbMobile.Text.Trim();
-                 myCustomer.  email = tbEmail.Text.Trim();
-                 myCustomer.  customerTolPnt = Convert.ToInt16(tbTolPnt.Text.ToString().Trim());
+                cust = Util.setStadardInfo(cust, global.mode.EDIT);
+
+                //myCustomer. customerName = tbCustName.Text.Trim();
+                // myCustomer.  customerLevel = int.Parse(tbCustLevel.Text.ToString().Trim());
+                // myCustomer.  contactName = tbContactName.Text.Trim();
+                // myCustomer.  address1 = tbAddress1.Text.Trim();
+                // myCustomer.  address2 = tbAddress2.Text.Trim();
+                // myCustomer.  city = tbCity.Text.Trim();
+                // myCustomer.  tel = tbTel.Text.Trim();
+                // myCustomer.  fax = tbFax.Text.Trim();
+                // myCustomer.  customerCurPnt = int.Parse(tbCurPnt.Text.ToString().Trim());
+                // myCustomer.  postal = tbPostal.Text.Trim();
+                // myCustomer.  mobile = tbMobile.Text.Trim();
+                // myCustomer.  email = tbEmail.Text.Trim();
+                // myCustomer.  customerTolPnt = int.Parse(tbTolPnt.Text.ToString().Trim());
 
                 
-              myCustomer. editTime = DateTime.Now;
-             myCustomer. editBy = "ADMIN";
+           
            // };
 
           
 
 
-                rs = db.updateCustomer(myCustomer);
+                rs = db.updateCustomer(cust);
 
             }
             catch (Exception e)
@@ -139,8 +192,8 @@ namespace WholeSale.Forms
             }
 
 
-            rs.isComplete = true;
-            rs.message = "บันทึกสำเร็จ";
+            //rs.isComplete = true;
+            //rs.message = "บันทึกสำเร็จ";
 
             return rs;
 

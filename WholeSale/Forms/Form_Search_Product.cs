@@ -70,8 +70,8 @@ namespace WholeSale.Forms
                 if (fb.isActionComplete)
                 {
 
-                    activeMode = mode.select;
-                    loadProduct();
+                 //   activeMode = mode.select;
+                    loadProduct(activeMode);
                     // setDefualtGrid();
                     //load product again
                    // activeMode = mode.select;
@@ -93,15 +93,29 @@ namespace WholeSale.Forms
 
       
 
-        private void loadProduct()
+        private void loadProduct( mode activeMode)
         {
 
             masterProduct.getdataMaster();
-            var productSearchList = (from a in masterProduct.List
+            List<Product> productListActivate = new  List<Product>();
+
+            if (activeMode == mode.select) {
+
+                productListActivate = masterProduct.List.Where(w => w.isActive == true).ToList();
+
+            }
+            else {
+                productListActivate = masterProduct.List.ToList();
+
+            }
+
+
+
+            var productSearchList = (from a in productListActivate
                                      join b in yndInven.Categories on a.categoryId equals b.categoryId
                                      join c in yndInven.ProductTypes on a.productTypeId equals c.productTypeId
                                      join d in yndInven.Units
-on a.unitId equals d.unitId
+on a.unitId equals d.unitId  
                                      select new
                                      {
                                          productId= a.productId,
@@ -113,6 +127,9 @@ on a.unitId equals d.unitId
                                          category = b.categoryName,
                                          active = a.isActive
                                      }).ToList();
+
+
+          
 
 
             productBindingSource = new BindingSource();
@@ -155,6 +172,14 @@ on a.unitId equals d.unitId
             dataGridView1.Columns["price"].HeaderText = "ราคา/หน่วย";
             dataGridView1.Columns["type"].HeaderText = "ประเภท";
             dataGridView1.Columns["category"].HeaderText = "หมวดหมู่";
+
+            int Indx = 0;
+            dataGridView1.Columns["productCode"].DisplayIndex = Indx; Indx += 1;
+            dataGridView1.Columns["productName"].DisplayIndex = Indx; Indx += 1;
+            dataGridView1.Columns["unit"].DisplayIndex = Indx; Indx += 1;
+            dataGridView1.Columns["price"].DisplayIndex = Indx; Indx += 1;
+            dataGridView1.Columns["category"].DisplayIndex = Indx; Indx += 1;
+            dataGridView1.Columns["type"].DisplayIndex = Indx; Indx += 1;
 
 
             DataGridViewButtonColumn btn = new DataGridViewButtonColumn();
@@ -206,7 +231,7 @@ on a.unitId equals d.unitId
 
         private void loadDefualValue() {
 
-            loadProduct();
+            loadProduct(activeMode);
             loadMasterFilter();
             setMasterDataToUI();
 
@@ -214,29 +239,30 @@ on a.unitId equals d.unitId
 
         private void setMasterDataToUI() {
 
-
+            
             var ctg = masterCategory.List.ToList();
+
+            Category defualt = new Category() { categoryId = 0, categoryName = "" };
+            ctg.Insert(0, defualt);
+            cbCate.DataSource = null;
+            cbCate.DataSource = ctg;
+            cbCate.ValueMember = "categoryId";
+            cbCate.DisplayMember = "categoryName";
+            cbCate.SelectedIndex = 0;
+
+
+
+
+
             var pdtype = masterType.List.ToList();
+            ProductType defualtType = new ProductType() { productTypeId = 0, productTypeName = "" };
+            pdtype.Insert(0, defualtType);
+            cbType.DataSource = pdtype;
+            cbType.ValueMember = "productTypeId";
+            cbType.DisplayMember = "productTypeName";
+            cbType.SelectedIndex = 0;
 
 
-            cbType.DataSource = ctg;
-            cbType.ValueMember = "categoryId";
-            cbType.DisplayMember = "categoryName";
-            cbType.SelectedIndex = -1;
-
-            //cbCatagory.DataSource = ctg;
-            //cbCatagory.ValueMember = "categoryId";
-            //cbCatagory.DisplayMember = "categoryName";
-
-            //cbType.DataSource = pdtype;
-            //cbType.ValueMember = "productTypeId";
-            //cbType.DisplayMember = "productTypeName";
-
-
-            cbCatagory.DataSource = pdtype;
-            cbCatagory.ValueMember = "productTypeId";
-            cbCatagory.DisplayMember = "productTypeName";
-            cbCatagory.SelectedIndex = -1;
 
         }
 
@@ -256,7 +282,7 @@ on a.unitId equals d.unitId
 
         private void filterData()
         {
-
+            dvProd.RowFilter = null;
             string filter = "";
 
             if (tbProdCode.Text.ToString().Trim() != "")
@@ -267,15 +293,28 @@ on a.unitId equals d.unitId
             {
                 filter += " productName like '%" + tbProdName.Text + "%' and";
             }
-            if (cbCatagory.Text.ToString().Trim() != "")
+            if (cbCate.Text.ToString().Trim() != "")
             {
-                filter += " category like '%" + cbCatagory.Text + "%' and";
+                filter += " category like '%" + cbCate.Text  + "%' and";
             }
             if (cbType.Text.ToString().Trim() != "")
             {
-                filter += " type like '%" + cbType.Text + "%' and";
+                filter += " type  like '%" + cbType.Text   + "%' and";
             }
-            if (filter.Length > 0) { filter = filter.Substring(0, filter.Length - 3); }
+            if (filter.Length > 0) {
+
+
+                filter = filter.Substring(0, filter.Length - 3);
+
+
+
+            }
+
+            if (filter.ToString().Length == 0) {
+                dvProd.RowFilter = null;
+            } else {
+                dvProd.RowFilter = filter;
+            }
             dvProd.RowFilter = filter;// " productCode like '%" + tbProdCode.Text + "%' or productName like '%" + tbProdName.Text +"%'" +" or category like '%" + cbCatagory.Text + "%'" +" or type like '%" + cbType.Text + "%'";
         }
 
@@ -354,7 +393,14 @@ on a.unitId equals d.unitId
             }
         }
 
+        private void cbType_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            filterData();
+        }
 
-
+        private void cbCate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filterData();
+        }
     }
 }

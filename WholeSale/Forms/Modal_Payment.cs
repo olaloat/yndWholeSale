@@ -67,11 +67,17 @@ namespace WholeSale.Forms
 
             if (validatePayment().isComplete)
             {
+
+                if (tbxPayIn.Text.ToString().Length == 0) { payIn = 0; } else { payIn = Convert.ToDecimal(tbxPayIn.Text.ToString()); }
+                if (tbReturn.Text.ToString().Length == 0) { change = 0; } else { change = Convert.ToDecimal(tbReturn.Text.ToString()); }
+                if (tbOverdue.Text.ToString().Length == 0) { pending = 0; } else { pending  = Convert.ToDecimal(tbOverdue.Text.ToString()); }
+
+
                 calCulatePayment();
                 payment.isComplete = true;
-                payIn = decimal.Parse(tbxPayIn.Text.ToString());
-                change = decimal.Parse(tbReturn.Text.ToString());
-                pending = decimal.Parse(tbOverdue.Text.ToString());
+                payIn = payIn;
+                change = change;
+                pending = pending;
                 myBill.payIn = payIn;
                 myBill.change = change;
                 myBill.pending = pending;
@@ -80,7 +86,8 @@ namespace WholeSale.Forms
                 if (rs.isComplete) {
 
                     if (chkboxPrintBill.Checked) {
-
+                        Printer prnt = new Printer(myBill.docHeader , myBill.docLine);
+                        prnt.print();
 
 
                     }
@@ -158,11 +165,13 @@ namespace WholeSale.Forms
 
                 if (result .Equals(DialogResult.Yes)) {
 
-                    //Pay
+                    //Pay    
+                    rs.isComplete = true;
 
-                } else {
+                }
+                else {
 
-
+                    rs.isComplete = false;
                 }
             }
             else {
@@ -417,9 +426,10 @@ namespace WholeSale.Forms
 
                 tbOverdue.Text = payment.overdue.ToString();
             }
-         
+            tbPay.Text = decimal.Parse(tbPay.Text.ToString()).ToString("#,##0.#0");
+            tbReturn.Text = decimal.Parse(tbReturn.Text.ToString()).ToString("#,##0.#0");
+            tbOverdue.Text = decimal.Parse(tbOverdue.Text.ToString()).ToString("#,##0.#0");
 
-          
         }
 
         private void btnClose_Click(object sender, EventArgs e)

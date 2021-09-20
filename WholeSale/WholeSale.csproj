@@ -482,6 +482,9 @@
     <None Include="Resources\error.png" />
     <None Include="Resources\Information.png" />
     <None Include="Resources\warning.png" />
+    <None Include="Resources\pictureNotAvaliable.bmp" />
+    <None Include="Resources\phothoNoavailiable.bmp" />
+    <None Include="Resources\pictureNotAvailable.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

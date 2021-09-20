@@ -64,6 +64,44 @@ namespace WholeSale.Forms
             }
         }
 
+        public mainResult print() {
+            mainResult rs = new mainResult();
+
+            DataTable dt = new DataTable();
+            DataTable dtDocline = new DataTable();
+            List<DocumentDisplay> lisDocH = new List<DocumentDisplay>();
+            lisDocH.Add(docHeader);
+
+            dt = Util.ToDataTable(lisDocH);
+            dtDocline = Util.ToDataTable(listDocLine);
+
+            ReportDataSource rpDsHeader = new ReportDataSource("dsHeader", dt);
+            ReportDataSource rpDsLine = new ReportDataSource("dsLine", dtDocline);
+
+            this.reportViewer1.LocalReport.DataSources.Clear();
+            this.reportViewer1.LocalReport.DataSources.Add(rpDsHeader);
+            this.reportViewer1.LocalReport.DataSources.Add(rpDsLine);
+            this.reportViewer1.RefreshReport();
+
+            LocalReport report = new LocalReport();
+            string path = Path.GetDirectoryName(Application.ExecutablePath);
+            string fullPath = Path.GetDirectoryName(Application.ExecutablePath).Remove(path.Length - 10) + @"\Report\Report1.rdlc";
+            report.ReportPath = fullPath;
+            report.DataSources.Clear();
+            report.DataSources.Add(rpDsHeader);
+            report.DataSources.Add(rpDsLine);
+
+            //  report.DataSources.Add(new ReportDataSource("dsSetBill", dt));
+            int printQty = Convert.ToInt32(1);
+            for (int i = 0; i < printQty; i++)
+            {
+                PrintToPrinter(report);
+            }
+
+
+            return rs;
+        }
+
         public static void PrintToPrinter(LocalReport report)
         {
             Export(report);
