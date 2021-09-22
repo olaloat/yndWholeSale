@@ -28,14 +28,12 @@ namespace WholeSale
         }
     
         public virtual DbSet<AccountReceive> AccountReceives { get; set; }
-        public virtual DbSet<Balance> Balances { get; set; }
         public virtual DbSet<Branch> Branches { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Company> Companies { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Device> Devices { get; set; }
-        public virtual DbSet<Document> Documents { get; set; }
         public virtual DbSet<DocumentLine> DocumentLines { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Group> Groups { get; set; }
@@ -54,6 +52,8 @@ namespace WholeSale
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<Vendor> Vendors { get; set; }
         public virtual DbSet<Picture> Pictures { get; set; }
+        public virtual DbSet<Balance> Balances { get; set; }
+        public virtual DbSet<Document> Documents { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

@@ -64,6 +64,7 @@ namespace WholeSale
                     {
 
                         mydoc.documentNo = mydoc.documentNo;
+                       // mydoc.rev += 1;
                     }
                     else
                     {
@@ -394,48 +395,100 @@ namespace WholeSale
 
                 var context = new ynd();
 
-                    updateAllFeidlDocument(billUpdated.docHeader);
+
+
 
                 //==============  disable docline ============
 
-                    foreach (var dclDisable in context.DocumentLines.Where(p => p.DocumentId == billUpdated.docHeader.documentId).ToList())
-                {
-                    dclDisable.isActive = false;
-                }
-                context.SaveChanges();
-                context = new ynd();
+                // foreach (var dclDisable in context.DocumentLines.Where(p => p.DocumentId == billUpdated.docHeader.documentId).ToList())
+                // {
+                //     dclDisable.isActive = false;
+                // }
+                // context.SaveChanges();
+                // context = new ynd();
 
 
-                     var resultInsert = db.insertDocline(billUpdated.docLine, billUpdated.docHeader.documentId);
+
+
+                //Document newDataDoc = updateAllFeidlDocument(billUpdated.docHeader , context);
+                // newDataDoc.rev += 1;
+
+                // context.Documents.Attach(newDataDoc);
+                // context.Documents.Add(newDataDoc);
+                // context.Entry(newDataDoc).State = System.Data.Entity.EntityState.Modified;
+                // context.SaveChanges();
+
+                var rsDis = disableDocuments(billUpdated);
+
+                if (rsDis.isComplete) {
+
+                    billUpdated.docHeader.rev += 1;
+                    var docResult = db.insertDocHeader(billUpdated.docHeader);//insert new doc h
+
+                    if (docResult.myResult.isComplete) {
+
+                        var docLineResult = db.insertDocline(billUpdated.docLine, docResult.documentId); //insert new doc L
+
+                        if (!docLineResult.Item1.isComplete) {
+                            rs = new mainResult() { isComplete = false, message = docLineResult.Item1.message, status = "error" };
+                            return rs;
+
+                        }
+
+                    } else {
+                        rs = new mainResult() { isComplete = false, message = docResult.myResult.message, status = "error" };
+                        return rs;
+                    }
+
+
+                } // end disable doc
+                //    if (docResult.myResult.isComplete)
+                //    {
+
+                //        var docLineResult = db.insertDocline(billUpdated.docLine, docResult.documentId);
+                //        rs = new mainResult() { isComplete = false, message = docResult.myResult.message, status = "OK" };
+                     
+                //    {
+                //        rs = new mainResult() { isComplete = false, message = docLineResult.Item1.message, status = "OK" };
+                //        return rs;
+                //    }
+                //}
+
+
+
+             
+
+
+
+
+
+
+                //  var resultInsert = db.insertDocline(billUpdated.docLine, billUpdated.docHeader.documentId);
 
                 //  context.SaveChanges();
                 //  }
-                if (!resultInsert.Item1.isComplete) {
-                    rs = new mainResult() { isComplete = false, message = resultInsert.Item1.message, status = "OK" };
-                    return rs;
-                }
+              
 
                 rs = new mainResult() { isComplete = true, message = "ทำรายการสำเร็จ", status = "OK" };
                     return rs;
 
             }
             catch(Exception e) {
-                rs = new mainResult() { isComplete = false, message = "ทำรายการไม่สำเร็จ", status = "ERROR" };
+                rs = new mainResult() { isComplete = false, message = "ทำรายการไม่สำเร็จ" + e.Message.ToString(), status = "ERROR" };
                 return rs;
             }
         }
 
 
 
-        public static Document updateAllFeidlDocument(Document newdata) {
+        public static Document updateAllFeidlDocument(Document newdata , ynd db) {
          
 
-            using (var db = new ynd())
-            {
+         
 
                 Document docUpdate = (from a in db.Documents where a.documentId == newdata.documentId select a).FirstOrDefault();
 
-                docUpdate.documentId = newdata.documentId;
+            docUpdate.documentId = 0;
                 docUpdate.documentNo = newdata.documentNo;
                 docUpdate.orderId = newdata.orderId;
                 docUpdate.customerId = newdata.customerId;
@@ -461,12 +514,8 @@ namespace WholeSale
                 docUpdate.totalPriceAfterAllDiscount = newdata.totalPriceAfterAllDiscount;
                 docUpdate.totalPriceBeforeVat = newdata.totalPriceBeforeVat;
                 docUpdate.qty = newdata.qty;
-               db.Documents.Attach(docUpdate);
-
-
-                db.Documents.Add(docUpdate);
-                db.Entry(docUpdate).State = System.Data.Entity.EntityState.Modified;
-                db.SaveChanges();
+                 docUpdate.DocumentLines = null;
+         
 
 
 
@@ -474,8 +523,7 @@ namespace WholeSale
                 //  db.Entry(docDisable).Property(x => x.isActive).IsModified = true;
                // db.SaveChanges();
 
-            }
-          
+           
          
         
 

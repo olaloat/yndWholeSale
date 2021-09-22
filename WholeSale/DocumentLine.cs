@@ -46,8 +46,8 @@ namespace WholeSale
         public string unit { get; set; }
         public decimal totalPriceBeforeVat { get; set; }
     
-        public virtual Document Document { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transaction> Transactions { get; set; }
+        public virtual Document Document { get; set; }
     }
 }

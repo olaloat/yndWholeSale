@@ -46,6 +46,7 @@ namespace WholeSale
         public decimal totalPriceAfterAllDiscount { get; set; }
         public decimal totalPriceBeforeVat { get; set; }
         public decimal qty { get; set; }
+        public int rev { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DocumentLine> DocumentLines { get; set; }

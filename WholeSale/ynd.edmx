@@ -184,6 +184,7 @@
           <Property Name="totalPriceAfterAllDiscount" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="totalPriceBeforeVat" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="qty" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="rev" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DocumentLine">
           <Key>
@@ -955,38 +956,6 @@
           <Property Name="compCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="branchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="Document">
-          <Key>
-            <PropertyRef Name="documentId" />
-          </Key>
-          <Property Name="documentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="documentNo" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="orderId" Type="Int32" Nullable="false" />
-          <Property Name="customerId" Type="Int32" Nullable="false" />
-          <Property Name="vendorId" Type="Int32" Nullable="false" />
-          <Property Name="isOrder" Type="Boolean" Nullable="false" />
-          <Property Name="isTax" Type="Boolean" Nullable="false" />
-          <Property Name="paidType" Type="Int32" Nullable="false" />
-          <Property Name="remark" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="status" Type="Int32" Nullable="false" />
-          <Property Name="isActive" Type="Boolean" Nullable="false" />
-          <Property Name="createBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="editBy" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="compCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="branchCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="totalVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="totalLineDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="totalPriceBeforeDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="endDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="totalDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="totalPriceAfterDiscountLine" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="totalPriceAfterAllDiscount" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="totalPriceBeforeVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="qty" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <NavigationProperty Name="DocumentLines" Relationship="Self.FK_DocumentLine_Document" FromRole="Document" ToRole="DocumentLine" />
-        </EntityType>
         <EntityType Name="DocumentLine">
           <Key>
             <PropertyRef Name="DocumentLineId" />
@@ -1016,8 +985,8 @@
           <Property Name="totalVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="unit" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="totalPriceBeforeVat" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Document" Relationship="Self.FK_DocumentLine_Document" FromRole="DocumentLine" ToRole="Document" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_transaction_DocumentLine" FromRole="DocumentLine" ToRole="Transaction" />
+          <NavigationProperty Name="Document" Relationship="ynddevModel.FK_DocumentLine_Document" FromRole="DocumentLine" ToRole="Document" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -1383,18 +1352,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DocumentLine_Document">
-          <End Role="Document" Type="Self.Document" Multiplicity="1" />
-          <End Role="DocumentLine" Type="Self.DocumentLine" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Document">
-              <PropertyRef Name="documentId" />
-            </Principal>
-            <Dependent Role="DocumentLine">
-              <PropertyRef Name="DocumentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_transaction_DocumentLine">
           <End Role="DocumentLine" Type="Self.DocumentLine" Multiplicity="1" />
           <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
@@ -1511,7 +1468,6 @@
           <EntitySet Name="Companies" EntityType="Self.Company" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Devices" EntityType="Self.Device" />
-          <EntitySet Name="Documents" EntityType="Self.Document" />
           <EntitySet Name="DocumentLines" EntityType="Self.DocumentLine" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Groups" EntityType="Self.Group" />
@@ -1536,10 +1492,6 @@
           <AssociationSet Name="FK_Order_customer" Association="Self.FK_Order_customer">
             <End Role="Customer" EntitySet="Customers" />
             <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DocumentLine_Document" Association="Self.FK_DocumentLine_Document">
-            <End Role="Document" EntitySet="Documents" />
-            <End Role="DocumentLine" EntitySet="DocumentLines" />
           </AssociationSet>
           <AssociationSet Name="FK_transaction_DocumentLine" Association="Self.FK_transaction_DocumentLine">
             <End Role="DocumentLine" EntitySet="DocumentLines" />
@@ -1616,6 +1568,11 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="Balance" EntitySet="Balances" />
           </AssociationSet>
+          <EntitySet Name="Documents" EntityType="ynddevModel.Document" />
+          <AssociationSet Name="FK_DocumentLine_Document" Association="ynddevModel.FK_DocumentLine_Document">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="DocumentLine" EntitySet="DocumentLines" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -1674,6 +1631,51 @@
             </Principal>
             <Dependent Role="Balance">
               <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="documentId" />
+          </Key>
+          <Property Name="documentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="documentNo" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="orderId" Type="Int32" Nullable="false" />
+          <Property Name="customerId" Type="Int32" Nullable="false" />
+          <Property Name="vendorId" Type="Int32" Nullable="false" />
+          <Property Name="isOrder" Type="Boolean" Nullable="false" />
+          <Property Name="isTax" Type="Boolean" Nullable="false" />
+          <Property Name="paidType" Type="Int32" Nullable="false" />
+          <Property Name="remark" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="createBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="createTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="editBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="editTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="compCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="branchCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="totalVat" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="totalLineDiscount" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="totalPriceBeforeDiscount" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="endDiscount" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="totalDiscount" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="totalPriceAfterDiscountLine" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="totalPriceAfterAllDiscount" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="totalPriceBeforeVat" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="qty" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="rev" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DocumentLines" Relationship="ynddevModel.FK_DocumentLine_Document" FromRole="Document" ToRole="DocumentLine" />
+        </EntityType>
+        <Association Name="FK_DocumentLine_Document">
+          <End Type="ynddevModel.Document" Role="Document" Multiplicity="1" />
+          <End Type="ynddevModel.DocumentLine" Role="DocumentLine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Document">
+              <PropertyRef Name="documentId" />
+            </Principal>
+            <Dependent Role="DocumentLine">
+              <PropertyRef Name="DocumentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1815,38 +1817,6 @@
                 <ScalarProperty Name="editDate" ColumnName="editDate" />
                 <ScalarProperty Name="compCode" ColumnName="compCode" />
                 <ScalarProperty Name="branchCode" ColumnName="branchCode" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Documents">
-            <EntityTypeMapping TypeName="ynddevModel.Document">
-              <MappingFragment StoreEntitySet="Document">
-                <ScalarProperty Name="documentId" ColumnName="documentId" />
-                <ScalarProperty Name="documentNo" ColumnName="documentNo" />
-                <ScalarProperty Name="orderId" ColumnName="orderId" />
-                <ScalarProperty Name="customerId" ColumnName="customerId" />
-                <ScalarProperty Name="vendorId" ColumnName="vendorId" />
-                <ScalarProperty Name="isOrder" ColumnName="isOrder" />
-                <ScalarProperty Name="isTax" ColumnName="isTax" />
-                <ScalarProperty Name="paidType" ColumnName="paidType" />
-                <ScalarProperty Name="remark" ColumnName="remark" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="isActive" ColumnName="isActive" />
-                <ScalarProperty Name="createBy" ColumnName="createBy" />
-                <ScalarProperty Name="createTime" ColumnName="createTime" />
-                <ScalarProperty Name="editBy" ColumnName="editBy" />
-                <ScalarProperty Name="editTime" ColumnName="editTime" />
-                <ScalarProperty Name="compCode" ColumnName="compCode" />
-                <ScalarProperty Name="branchCode" ColumnName="branchCode" />
-                <ScalarProperty Name="totalVat" ColumnName="totalVat" />
-                <ScalarProperty Name="totalLineDiscount" ColumnName="totalLineDiscount" />
-                <ScalarProperty Name="totalPriceBeforeDiscount" ColumnName="totalPriceBeforeDiscount" />
-                <ScalarProperty Name="endDiscount" ColumnName="endDiscount" />
-                <ScalarProperty Name="totalDiscount" ColumnName="totalDiscount" />
-                <ScalarProperty Name="totalPriceAfterDiscountLine" ColumnName="totalPriceAfterDiscountLine" />
-                <ScalarProperty Name="totalPriceAfterAllDiscount" ColumnName="totalPriceAfterAllDiscount" />
-                <ScalarProperty Name="totalPriceBeforeVat" ColumnName="totalPriceBeforeVat" />
-                <ScalarProperty Name="qty" ColumnName="qty" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2277,6 +2247,39 @@
                 <ScalarProperty Name="qty" ColumnName="qty" />
                 <ScalarProperty Name="productName" ColumnName="productName" />
                 <ScalarProperty Name="productId" ColumnName="productId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Documents">
+            <EntityTypeMapping TypeName="ynddevModel.Document">
+              <MappingFragment StoreEntitySet="Document">
+                <ScalarProperty Name="rev" ColumnName="rev" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="totalPriceBeforeVat" ColumnName="totalPriceBeforeVat" />
+                <ScalarProperty Name="totalPriceAfterAllDiscount" ColumnName="totalPriceAfterAllDiscount" />
+                <ScalarProperty Name="totalPriceAfterDiscountLine" ColumnName="totalPriceAfterDiscountLine" />
+                <ScalarProperty Name="totalDiscount" ColumnName="totalDiscount" />
+                <ScalarProperty Name="endDiscount" ColumnName="endDiscount" />
+                <ScalarProperty Name="totalPriceBeforeDiscount" ColumnName="totalPriceBeforeDiscount" />
+                <ScalarProperty Name="totalLineDiscount" ColumnName="totalLineDiscount" />
+                <ScalarProperty Name="totalVat" ColumnName="totalVat" />
+                <ScalarProperty Name="branchCode" ColumnName="branchCode" />
+                <ScalarProperty Name="compCode" ColumnName="compCode" />
+                <ScalarProperty Name="editTime" ColumnName="editTime" />
+                <ScalarProperty Name="editBy" ColumnName="editBy" />
+                <ScalarProperty Name="createTime" ColumnName="createTime" />
+                <ScalarProperty Name="createBy" ColumnName="createBy" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="remark" ColumnName="remark" />
+                <ScalarProperty Name="paidType" ColumnName="paidType" />
+                <ScalarProperty Name="isTax" ColumnName="isTax" />
+                <ScalarProperty Name="isOrder" ColumnName="isOrder" />
+                <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+                <ScalarProperty Name="customerId" ColumnName="customerId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="documentNo" ColumnName="documentNo" />
+                <ScalarProperty Name="documentId" ColumnName="documentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
